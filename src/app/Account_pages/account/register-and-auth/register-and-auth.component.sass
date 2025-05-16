@@ -1,0 +1,122 @@
+.dontHaveAnAccount
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+  .interactive
+    display: flex
+    flex-direction: column
+    gap: 20px
+
+    .enter,
+      // header
+    .register
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+
+      .enterForm,
+      .registerForm
+        background: #616161
+        padding: 20px
+        border-radius: 15px
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        width: 200px
+        overflow: hidden
+
+        .namePart,
+        .passPart,
+        .emailPart,
+        .avatarPart,
+        .headerPart
+          display: flex
+          flex-direction: column
+          align-items: center
+          justify-content: center
+
+          input
+            width: 100%
+
+          .haveAvatar
+            .avatar
+              width: 100px
+              height: 100px
+
+              img
+                width: 100px
+                height: 100px
+                object-fit: contain
+
+.submitButton,
+.enterSubmit
+  width: 100%
+
+label
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  width: 100%
+
+  span
+    display: flex
+    justify-content: center
+    padding: 4px 0
+    border-radius: 15px
+    width: 200px
+    background: black
+
+.errorMessage
+  width: 100%
+  position: relative
+
+  h1
+    font-size: 17px
+
+
+
+input
+  padding: 10px
+  background: #333333
+  border-radius: 75px
+  color: white
+  border: none
+  outline: none
+
+
+button
+  margin-top: 10px
+  padding: 10px
+  background: #272727
+  border-radius: 75px
+  color: white
+  border: none
+  outline: none
+
+.popup
+  color: black
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  text-align: center
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  padding: 20px
+  background-color: white
+  border: 1px solid #ccc
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+  z-index: 9999
+
+
+
+@media (max-width: 768px)
+  .dontHaveAnAccount
+    .interactive
+      margin-left: 120px

@@ -1,0 +1,26 @@
+<div class="HaveAnAccount">
+  <div class="userInfo">
+    <span class="avatar_and_username">
+        <div class="avatar">
+          <img src="{{ userAvatar }}" loading="eager">
+        </div>
+        <div class="userName">
+          <h1 class="userName">{{ userName }}</h1>
+          <p class="userSubscribers">{{ userSubscribers }} подписчика</p>
+        </div>
+      </span>
+  </div>
+  <div class="services_container">
+    <div class="services_navigation">
+      <button [ngClass]="{ 'active': currentSubStudioNumber == 0}" (click)="set_sub_studio_number(0)">Главная</button>
+      <button [ngClass]="{ 'active': currentSubStudioNumber == 1}" (click)="set_sub_studio_number(1)">Популярность</button>
+      <button [ngClass]="{ 'active': currentSubStudioNumber == 2}" (click)="set_sub_studio_number(2)">Настройки</button>
+    </div>
+    <div class="services_content">
+
+    </div>
+  </div>
+</div>
+
+
+

@@ -12,7 +12,7 @@ import {VideosFetchService} from "../../Services/videos-fetch.service"
   ],
   templateUrl: './kp-rating.component.html',
   styleUrl: './kp-rating.component.scss',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpRatingComponent {
   VideosFetchService = inject(VideosFetchService)
@@ -25,9 +25,6 @@ export class KpRatingComponent {
     this.current_star = item
     this.post_stars_data()
   }
-
-  // TODO
-  //  add switchmap
 
   post_stars_data() {
     let userId = String(localStorage.getItem('UserID'))

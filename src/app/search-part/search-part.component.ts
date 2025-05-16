@@ -4,6 +4,7 @@ import {VideosFetchService} from "../Services/videos-fetch.service";
 import {FormsModule} from "@angular/forms";
 import {NgIf, NgStyle} from "@angular/common";
 import {SystemIconsStylesDirective} from '../Directives/system-icons-styles.directive'
+import * as timers from "node:timers";
 
 @Component({
   selector: 'app-search-part',
@@ -27,6 +28,8 @@ export class SearchPartComponent implements OnInit {
   isMobile: boolean = false
   isServerOnline: boolean = true
   isUserHaveAccount: boolean = false
+  isHoverAccount: boolean = false
+  timeOut: any
 
   constructor(private router: Router) {
   }
@@ -59,6 +62,17 @@ export class SearchPartComponent implements OnInit {
       }
     )
     this.isLogin()
+  }
+
+  setHoverStatus(status: boolean) {
+    if (!status) {
+      this.timeOut = setTimeout(() => {
+        this.isHoverAccount = status
+      }, 200)
+    } else {
+      clearTimeout(this.timeOut)
+      this.isHoverAccount = status
+    }
   }
 
   isLogin() {
