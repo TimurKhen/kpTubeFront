@@ -28,6 +28,6 @@ export class KpRatingComponent {
 
   post_stars_data() {
     let userId = String(localStorage.getItem('UserID'))
-    this.VideosFetchService.PostStars(userId, this.video_id, this.current_star).subscribe()
+    this.VideosFetchService.postStars(userId, this.video_id, this.current_star).subscribe()
   }
 }

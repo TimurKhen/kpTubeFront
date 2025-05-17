@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {FormsModule} from "@angular/forms"
 import {VideosFetchService} from "../../Services/videos-fetch.service"
-import {NgIf} from "@angular/common"
+import {NgClass, NgIf, NgStyle} from "@angular/common"
 import {RouterLink} from "@angular/router"
 import {HttpClient} from "@angular/common/http"
 import {RegisterAndAuthComponent} from "./register-and-auth/register-and-auth.component";
@@ -15,16 +15,25 @@ import {AccountStudioComponent} from "./account-studio/account-studio.component"
     NgIf,
     RouterLink,
     RegisterAndAuthComponent,
-    AccountStudioComponent
+    AccountStudioComponent,
+    NgStyle,
+    NgClass
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.sass'
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
-  http = inject(HttpClient)
+  isAuth: boolean = false
+  isRendered: boolean = false
 
-  getUserID() {
+  ngOnInit() {
+    this.getUserID().then(() => {
+      this.isRendered = true
+    })
+  }
+
+  async getUserID() {
     let usID = null
     let usNa = null
 
@@ -33,7 +42,8 @@ export class AccountComponent {
       usNa = localStorage.getItem('username')
     }
 
-    console.log(usNa)
+    this.isAuth = usID !== null && usNa !== null
     return usID !== null && usNa !== null
   }
+
 }

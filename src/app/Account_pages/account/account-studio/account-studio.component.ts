@@ -3,6 +3,7 @@ import {NgClass, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {VideosFetchService} from '../../../Services/videos-fetch.service';
+import {MainSubStudioComponent} from "./main-sub-studio/main-sub-studio.component";
 
 @Component({
   selector: 'app-account-studio',
@@ -10,7 +11,8 @@ import {VideosFetchService} from '../../../Services/videos-fetch.service';
   imports: [
     NgIf,
     RouterLink,
-    NgClass
+    NgClass,
+    MainSubStudioComponent
   ],
   templateUrl: './account-studio.component.html',
   styleUrl: './account-studio.component.sass'
@@ -64,11 +66,5 @@ export class AccountStudioComponent implements OnInit {
         this.userSubscribers = response[0].subscribers
       }
     )
-  }
-
-  exitAccount() {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.clear()
-    }
   }
 }

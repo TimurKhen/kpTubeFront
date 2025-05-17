@@ -28,4 +28,11 @@ export class AppComponent {
       this.isHoverAccount = status
     }
   }
+
+  exitAccount() {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear()
+      document.location.reload()
+    }
+  }
 }

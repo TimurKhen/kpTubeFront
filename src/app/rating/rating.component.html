@@ -1,0 +1,12 @@
+<div class="stars">
+  @for (item of stars_array; let i = $index; track item) {
+    <span (click)="set_number(i)">
+      @if (i <= star_value) {
+        <img src="1.jpg" width="50" height="50">
+      } @else {
+        <img src="d.jpg" width="50" height="50">
+      }
+    </span>
+  }
+
+</div>

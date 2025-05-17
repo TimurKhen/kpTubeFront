@@ -17,7 +17,17 @@
       <button [ngClass]="{ 'active': currentSubStudioNumber == 2}" (click)="set_sub_studio_number(2)">Настройки</button>
     </div>
     <div class="services_content">
+      @switch (currentSubStudioNumber) {
+        @case (0) {
+          <app-main-sub-studio></app-main-sub-studio>
+        }
+        @case (1) {
 
+        }
+        @case (2) {
+
+        }
+      }
     </div>
   </div>
 </div>

@@ -7,7 +7,6 @@
 </div>
 
 
-
 <span class="navigation_menu"
       (mouseenter)="setHoverStatus(true)"
       (mouseleave)="setHoverStatus(false)"
@@ -16,5 +15,5 @@
               <button>Аккаунт</button>
               <button>Студия</button>
             </span>
-            <button class="exit_button">Выйти</button>
+            <button class="exit_button" (click)="exitAccount()">Выйти</button>
           </span>

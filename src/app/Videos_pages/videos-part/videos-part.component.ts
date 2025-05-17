@@ -29,9 +29,7 @@ export class VideosPartComponent implements AfterViewInit {
 
   postService = inject(VideosFetchService)
 
-  videos: any = []
-
-  items: VideoInterface[] = []
+  videos: VideoInterface[] = []
 
   constructor() {
   }

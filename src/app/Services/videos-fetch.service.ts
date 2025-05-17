@@ -78,12 +78,11 @@ export class VideosFetchService {
   }
 
   enterUser(name: string) {
-    const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
     let headers = new HttpHeaders()
 
-    if (username != null && password != null) {
-      headers = headers.set('X-USERNAME', String(username))
+    if (name != null && password != null) {
+      headers = headers.set('X-USERNAME', String(name))
       headers = headers.set('X-PASSWORD', String(password))
     }
 
@@ -92,7 +91,6 @@ export class VideosFetchService {
 
 
   getUserByID(UserID: string) {
-
     const username = localStorage.getItem('username')
     const password = localStorage.getItem('password')
 
@@ -130,7 +128,7 @@ export class VideosFetchService {
     return this.http.post(this.watch_video, post_data, {headers: headers})
   }
 
-  PostStars(USID: any, VIDEOID: any, likes: any) {
+  postStars(USID: any, VIDEOID: any, likes: any) {
     let returnedOBJ = {
       "User_ID": USID,
       "Video_ID": VIDEOID,
