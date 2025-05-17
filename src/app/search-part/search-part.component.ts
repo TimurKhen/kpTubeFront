@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {VideosFetchService} from "../Services/videos-fetch.service";
 import {FormsModule} from "@angular/forms";
@@ -28,8 +28,7 @@ export class SearchPartComponent implements OnInit {
   isMobile: boolean = false
   isServerOnline: boolean = true
   isUserHaveAccount: boolean = false
-  isHoverAccount: boolean = false
-  timeOut: any
+  @Output() hoverOnAccount = new EventEmitter<boolean>()
 
   constructor(private router: Router) {
   }
@@ -42,6 +41,10 @@ export class SearchPartComponent implements OnInit {
       this.gettedID = String(localStorage.getItem('UserID'))
     }
     this.getUserAvatar()
+  }
+
+  setHoverStatus(status: boolean) {
+    this.hoverOnAccount.emit(status)
   }
 
   getUserAvatar() {
@@ -62,17 +65,6 @@ export class SearchPartComponent implements OnInit {
       }
     )
     this.isLogin()
-  }
-
-  setHoverStatus(status: boolean) {
-    if (!status) {
-      this.timeOut = setTimeout(() => {
-        this.isHoverAccount = status
-      }, 200)
-    } else {
-      clearTimeout(this.timeOut)
-      this.isHoverAccount = status
-    }
   }
 
   isLogin() {

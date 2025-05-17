@@ -15,4 +15,17 @@ import {SearchPartComponent} from "./search-part/search-part.component";
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
+  isHoverAccount = false
+  timeOut: any
+
+  setHoverStatus(status: boolean) {
+    if (!status) {
+      this.timeOut = setTimeout(() => {
+        this.isHoverAccount = status
+      }, 200)
+    } else {
+      clearTimeout(this.timeOut)
+      this.isHoverAccount = status
+    }
+  }
 }

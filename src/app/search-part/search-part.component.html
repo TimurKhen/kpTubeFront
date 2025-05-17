@@ -27,17 +27,6 @@
                   appSystemIconsStyles class="userAvaterButton" routerLink="/account"><a><img
             [src]="userAvatar"></a></button>
 
-          <span class="navigation_menu"
-                (mouseenter)="setHoverStatus(true)"
-                (mouseleave)="setHoverStatus(false)"
-                *ngIf="isHoverAccount">
-            <span class="account_pages">
-              <button>Аккаунт</button>
-              <button>Студия</button>
-            </span>
-            <button class="exit_button">Выйти</button>
-          </span>
-
         } @else {
           <button appSystemIconsStyles class="userAvatarWithoutAccount systemIcons" routerLink="/account"><a><img
             src="UserIcon.svg"></a></button>

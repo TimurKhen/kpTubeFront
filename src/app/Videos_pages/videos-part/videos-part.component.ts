@@ -38,7 +38,6 @@ export class VideosPartComponent implements AfterViewInit {
 
   getVideos() {
     this.postService.getVideos().subscribe((data: any) => {
-      this.shuffle(data)
       let rxjsArr = from(data)
       rxjsArr.pipe(
         filter((video: any) => video.isGlobal),
@@ -53,15 +52,6 @@ export class VideosPartComponent implements AfterViewInit {
   renderVideo(video: any) {
     this.linksChanger(video)
     this.videos.push(video)
-  }
-
-  shuffle(videos: VideoInterface[]) {
-    for (let i = videos.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = videos[i]
-      videos[i] = videos[j]
-      videos[j] = temp
-    }
   }
 
   linksChanger(video: any) {

@@ -1,4 +1,4 @@
-<app-search-part class="search"></app-search-part>
+<app-search-part (hoverOnAccount)="setHoverStatus($event)" class="search"></app-search-part>
 
 <div class="container">
   <app-desktop-nav-part class="nav"></app-desktop-nav-part>
@@ -6,3 +6,15 @@
   <router-outlet class="router"></router-outlet>
 </div>
 
+
+
+<span class="navigation_menu"
+      (mouseenter)="setHoverStatus(true)"
+      (mouseleave)="setHoverStatus(false)"
+      *ngIf="isHoverAccount">
+            <span class="account_pages">
+              <button>Аккаунт</button>
+              <button>Студия</button>
+            </span>
+            <button class="exit_button">Выйти</button>
+          </span>
