@@ -19,13 +19,13 @@
     <div class="services_content">
       @switch (currentSubStudioNumber) {
         @case (0) {
-          <app-main-sub-studio></app-main-sub-studio>
+          <app-main-sub-studio (userClickEvent)="set_sub_studio_number(1)" [userSubscribers]="userSubscribers"></app-main-sub-studio>
         }
         @case (1) {
-
+          <app-statistic-sub-studio [userSubscribers]="userSubscribers"></app-statistic-sub-studio>
         }
         @case (2) {
-
+          <app-settings-sub-studio [currAvatarImage]="userAvatar" [currHeaderImage]="userHeader"></app-settings-sub-studio>
         }
       }
     </div>

@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="popularity_container">
+    <h2>Ваша популярность:</h2>
+    <div class="popularity_info">
+      <span class="subscribers">
+        <img src="User.svg">
+        <p>{{userSubscribers}} подписчика</p>
+      </span>
+      <span class="likes">
+        <img src="Liked_starred.svg">
+        <p>{{userTotalLikes}} звёзд</p>
+      </span>
+      <span class="views">
+        <img src="icon_improve.svg">
+        <p>{{userTotalViews}} просмотров</p>
+      </span>
+    </div>
+  </div>
+
+  <div class="videos">
+    @if (userVideos.length == 0) {
+      <h1>{{status_of_last_video}}</h1>
+    } @else {
+      @for (video of userVideos; track video) {
+        <a href="./video/{{video.Video_ID}}">
+          <div class="video">
+            <img src="{{video.preview}}" class="preview" loading="eager" alt="{{video.preview}}">
+            <div class="info">
+              <h5 class="video_name">{{video.name}}</h5>
+              <span class="author_and_views">
+                <p>{{video.views}} просмотров</p>
+                <p>{{video.total_likes}} звёзд</p>
+                <p>{{getCreatedDate(video)}}</p>
+              </span>
+            </div>
+          </div>
+        </a>
+      }
+    }
+  </div>
+</div>

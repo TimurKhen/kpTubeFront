@@ -8,5 +8,6 @@ export interface VideoInterface {
   "video": String,
   "preview": String,
   "category": String,
-  "owner": String
+  "owner": String,
+  "total_likes": Number
 }

@@ -12,8 +12,8 @@
       (mouseleave)="setHoverStatus(false)"
       *ngIf="isHoverAccount">
             <span class="account_pages">
-              <button>Аккаунт</button>
-              <button>Студия</button>
+              <button [routerLink]="['/account', userID]">Аккаунт</button>
+              <button routerLink="/account">Студия</button>
             </span>
             <button class="exit_button" (click)="exitAccount()">Выйти</button>
           </span>

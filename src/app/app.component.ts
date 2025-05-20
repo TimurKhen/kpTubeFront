@@ -17,8 +17,13 @@ import {SearchPartComponent} from "./search-part/search-part.component";
 export class AppComponent {
   isHoverAccount = false
   timeOut: any
+  userID: any
 
   setHoverStatus(status: boolean) {
+    if (localStorage) {
+      this.userID = localStorage.getItem('UserID')
+    }
+
     if (!status) {
       this.timeOut = setTimeout(() => {
         this.isHoverAccount = status
@@ -27,6 +32,7 @@ export class AppComponent {
       clearTimeout(this.timeOut)
       this.isHoverAccount = status
     }
+
   }
 
   exitAccount() {

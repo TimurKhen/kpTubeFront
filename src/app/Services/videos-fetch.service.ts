@@ -79,10 +79,11 @@ export class VideosFetchService {
 
   enterUser(name: string) {
     const password = localStorage.getItem('password')
+    const username = localStorage.getItem('username')
     let headers = new HttpHeaders()
 
-    if (name != null && password != null) {
-      headers = headers.set('X-USERNAME', String(name))
+    if (username != null && password != null) {
+      headers = headers.set('X-USERNAME', String(username))
       headers = headers.set('X-PASSWORD', String(password))
     }
 

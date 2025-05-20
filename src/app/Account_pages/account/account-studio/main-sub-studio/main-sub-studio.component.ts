@@ -1,24 +1,32 @@
-import {Component, inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {VideosFetchService} from '../../../../Services/videos-fetch.service';
 import {VideoInterface} from "../../../../Interfaces/video-interface";
 import {AsyncPipe} from "@angular/common";
+import {DateService} from "../../../../Services/date.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-main-sub-studio',
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
+    RouterLink
   ],
   templateUrl: './main-sub-studio.component.html',
   styleUrl: './main-sub-studio.component.sass'
 })
 export class MainSubStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
+  DateFetchService = inject(DateService)
+
   last_video: any
-  user_data: any
   status_of_last_video: string = 'Загрузка'
   stars_count: number = 0
+  created_date: Date = new Date()
+
+  @Input() userSubscribers: string = ''
+  @Output() userClickEvent = new EventEmitter()
 
   ngOnInit() {
     let user: string = ''
@@ -28,7 +36,6 @@ export class MainSubStudioComponent implements OnInit {
     }
 
     this.getLastVideo(user)
-    this.getAccountData(user)
   }
 
   getLastVideo(user: string) {
@@ -38,25 +45,25 @@ export class MainSubStudioComponent implements OnInit {
         return
       }
       data.sort((a: any, b: any) => Number(a.id) - Number(b.id))
-      this.url_setter(data.at(-1))
+      this.urlSetter(data.at(-1))
     })
   }
 
-  getAccountData(user: string) {
-    this.VideosFetchService.enterUser(user).subscribe((data: any) => {
-      this.user_data = data[0]
-    })
-  }
-
-  url_setter(response: VideoInterface) {
+  urlSetter(response: VideoInterface) {
     if (response.preview.startsWith('http://127.0.0.1:8000/')) {
       response.preview = response.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
     }
     this.last_video = response
-    let values = Object.values(response.likes)
-    let sum = values.reduce((acc, current) => acc + current, 0);
+    this.stars_count = Number(response.total_likes)
+    this.created_date = new Date(Number(response.Video_ID))
+  }
 
-    this.stars_count = sum
-    console.log(sum)
+  getCreatedDate() {
+    let current_date = new Date()
+    return this.DateFetchService.getDateDifference(this.created_date, current_date)
+  }
+
+  clickToStatisticButton() {
+    this.userClickEvent.emit()
   }
 }

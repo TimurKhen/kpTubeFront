@@ -1,0 +1,104 @@
+.container
+  width: 100%
+  height: 100vh
+  display: flex
+  flex-direction: column
+  gap: 50px
+
+  .avatar_of_user, .header_of_user
+    width: 90%
+    padding: 50px
+    border: 3px solid #222222
+    border-radius: 15px
+
+    display: flex
+    justify-content: flex-start
+
+    gap: 20px
+
+    .header_image
+      width: 40%
+      aspect-ratio: 16/9
+      padding: 10px
+      background: white
+      border-radius: 15px
+
+      img
+        border-radius: 15px
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+    .avatar_image
+      height: 90px
+      aspect-ratio: 1/1
+      padding: 10px
+      background: white
+      border-radius: 90%
+
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+    h3
+      font-family: "Yandex Sans Display Bold", sans-serif
+
+
+  .user_data
+    width: 90%
+    padding: 50px
+    border: 3px solid #222222
+    border-radius: 15px
+
+    display: flex
+    flex-direction: column
+
+    gap: 20px
+
+    .name_field, .password_field
+      display: flex
+      align-items: center
+      gap: 20px
+
+      input
+        padding: 0 20px
+        width: 300px
+        height: 50px
+        border: 3px solid #222222
+        border-radius: 15px
+        background: none
+
+        &:focus
+          border: none
+          background: none
+
+      button
+        height: 50px
+        width: 50px
+        background: #2278a4
+        border-radius: 15px
+        border: none
+        display: flex
+        justify-content: center
+        align-items: center
+
+        img
+          width: 90%
+          height: 90%
+
+    .edit_button
+      height: 50px
+      width: 50px
+      background: #2278a4
+      border-radius: 15px
+      border: none
+      display: flex
+      justify-self: flex-end
+      align-self: flex-end
+      justify-content: center
+      align-items: center
+
+      img
+        width: 90%
+        height: 90%

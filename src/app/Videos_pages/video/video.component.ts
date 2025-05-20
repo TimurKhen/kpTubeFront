@@ -86,9 +86,6 @@ export class VideoComponent implements OnInit {
           (data: any) => {
             this.userLikes = data[0].liked
             this.usersSubscribes = data[0].subscribes
-
-            console.log(data[0])
-
             this.loadStars()
             this.loadSubscribes()
             this.addToUserHistory()
@@ -181,7 +178,6 @@ export class VideoComponent implements OnInit {
 
   get_created_date() {
     let current_date = new Date()
-
     return this.DateFetchService.getDateDifference(this.created_date, current_date)
   }
 

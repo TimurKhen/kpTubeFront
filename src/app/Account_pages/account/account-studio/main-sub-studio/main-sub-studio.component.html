@@ -1,11 +1,19 @@
 <div class="content">
   <div class="last_video">
-    <h1>Последнее видео:</h1>
+    <p class="last_name">Последнее видео:</p>
     @if (last_video) {
-      <span class="video">
-        <img class="preview" src="{{last_video.preview}}">
-        <h2>{{ last_video.name }}</h2>
-        <p>{{ last_video.views }} просмотров | {{ stars_count }} звёзд</p>
+      <span class="video_container">
+          <span class="video">
+            <a href="./video/{{last_video.Video_ID}}">
+              <img class="preview" src="{{last_video.preview}}">
+            </a>
+          </span>
+        <span class="text">
+          <h2><a href="./video/{{last_video.Video_ID}}">{{ last_video.name }}</a></h2>
+          <p>{{ last_video.views }} просмотров</p>
+          <p>{{ stars_count }} звёзд</p>
+          <p>{{ getCreatedDate() }}</p>
+        </span>
       </span>
     } @else {
       <h2>{{ status_of_last_video }}</h2>
@@ -16,10 +24,9 @@
     <h2>Аналитика:</h2>
 
     <h3>Подписчиков: </h3>
-    <h3>{{ user_data.subscribers }}</h3>
+    <h3>{{ userSubscribers }}</h3>
 
       <h3>Лучшие видео: </h3>
-    <button>Посмотреть статистику</button>
-
+    <button (click)="clickToStatisticButton()">Посмотреть статистику</button>
   </div>
 </div>
