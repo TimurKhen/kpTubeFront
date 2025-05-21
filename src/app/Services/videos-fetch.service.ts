@@ -209,9 +209,26 @@ export class VideosFetchService {
     headers = headers.set('X-USERNAME', username)
     headers = headers.set('X-PASSWORD', password)
 
-
   }
 
+  changeUserData(user: any, avatar: File | string, header: File | string) {
+    const username = String(localStorage.getItem('username'))
+    const password = String(localStorage.getItem('password'))
+
+    let headers = new HttpHeaders()
+    headers = headers.set('X-USERNAME', username)
+    headers = headers.set('X-PASSWORD', password)
+
+    const formData = new FormData()
+    formData.append('User_ID', user.User_ID)
+    formData.append('name', user.name)
+    formData.append('email', user.email)
+    formData.append('password', password)
+    formData.append('avatar', avatar)
+    formData.append('header', header)
+
+    return this.http.put(this.account + user.id + '/', formData, {headers: headers})
+  }
 
   deleteVideo(id: number) {
     return this.http.delete(this.apiUrl + '/' + id)

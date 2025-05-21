@@ -40,13 +40,6 @@ export class VideoCreatingComponent implements OnInit {
   categories: any[] = []
   categoryIsOpen: boolean = false
 
-  HTML_error: string = `
-    <p>Необходимо верефицировать аккаунт!</p>
-    <i>Сейчас это доступно только бета тестерам <br>(т.е вы знаете куда жаловаться!!!)</i>
-  `
-  HTML_error_button: string = 'closePage'
-
-
   constructor(private videoUploadService: VideosFetchService, private router: Router) {
   }
 

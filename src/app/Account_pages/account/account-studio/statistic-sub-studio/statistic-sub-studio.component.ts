@@ -43,7 +43,6 @@ export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
 
   getSortedVideos(user: string) {
     this.VideosFetchService.getVideosByUser(user).subscribe((data: any) => {
-      console.log(data)
       if (data.length == 0) {
         this.status_of_last_video = 'У вас нет видео!'
         return
@@ -53,8 +52,6 @@ export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
         this.userTotalLikes += Number(d.total_likes)
         this.userTotalViews += Number(d.views)
       })
-
-      console.log(this.userTotalLikes)
 
       data.sort((a: any, b: any) => Number(b.total_likes) - Number(a.total_likes))
       data.forEach((video: VideoInterface) => {

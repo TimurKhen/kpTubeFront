@@ -1,12 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {VideosFetchService} from "../../Services/videos-fetch.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {Component, inject, OnInit} from '@angular/core'
+import {VideosFetchService} from "../../Services/videos-fetch.service"
+import {ActivatedRoute, RouterLink} from "@angular/router"
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-other-account',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './other-account.component.html',
   styleUrl: './other-account.component.sass'
@@ -15,12 +17,13 @@ export class OtherAccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
 
   userData: any[] = []
-  userHeader: string | ArrayBuffer | null = null;
-  userAvatar: string | ArrayBuffer | null = null;
-  userName: string | null = null;
+  userHeader: string | ArrayBuffer | null = null
+  userAvatar: string | ArrayBuffer | null = null
+  userName: string | null = null
   videos: any[] = []
 
-  UserID: number | null = null;
+  UserID: number | null = null
+  isCurrentUser: boolean = false
 
   constructor(
     private route: ActivatedRoute,
@@ -29,23 +32,28 @@ export class OtherAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.UserID = +params.get('User_ID')!;
-      this.loadVideoDetails();
-    });
+      this.UserID = +params.get('User_ID')!
+      this.loadVideoDetails()
+      if (localStorage) {
+        if (String(localStorage.getItem('UserID')) === String(this.UserID)) {
+          this.isCurrentUser = true
+        }
+      }
+    })
   }
 
   loadVideoDetails(): void {
     this.VideosFetchService.getUserByID(String(this.UserID)).subscribe(
       response => {
-        this.userData = response[0];
+        this.userData = response[0]
         if (response[0].header && response[0].header.startsWith('http://127.0.0.1:8000/')) {
-          response[0].header = response[0].header.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+          response[0].header = response[0].header.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
         }
-        this.userHeader = response[0].header;
+        this.userHeader = response[0].header
         if (response[0].avatar && response[0].avatar.startsWith('http://127.0.0.1:8000/')) {
-          response[0].avatar = response[0].avatar.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+          response[0].avatar = response[0].avatar.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
         }
-        this.userAvatar = response[0].avatar;
+        this.userAvatar = response[0].avatar
         this.userName = response[0].name
 
         this.loadOtherUserVideos()
@@ -55,6 +63,7 @@ export class OtherAccountComponent implements OnInit {
 
   loadOtherUserVideos(): void {
     this.VideosFetchService.getVideosByUser(String(this.userName)).subscribe((data: any) => {
+      data.sort((a: any, b: any) => Number(a.id) - Number(b.id))
       data.forEach((video: any) => {
         this.linksChanger(video)
         if (video.isGlobal) {
@@ -62,15 +71,15 @@ export class OtherAccountComponent implements OnInit {
         }
       })
       this.videos.reverse()
-    });
+    })
   }
 
   linksChanger(video: any) {
     if (video.video && video.video.startsWith('http://127.0.0.1:8000/')) {
-      video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+      video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
     }
     if (video.preview && video.preview.startsWith('http://127.0.0.1:8000/')) {
-      video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+      video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
     }
   }
 }

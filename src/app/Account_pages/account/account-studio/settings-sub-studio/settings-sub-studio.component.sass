@@ -14,6 +14,7 @@
     display: flex
     justify-content: flex-start
 
+    position: relative
     gap: 20px
 
     .header_image
@@ -31,15 +32,17 @@
 
     .avatar_image
       height: 90px
-      aspect-ratio: 1/1
+      width: 90px
       padding: 10px
       background: white
       border-radius: 90%
 
       img
+        border-radius: 90%
         width: 100%
         height: 100%
         object-fit: cover
+
 
     h3
       font-family: "Yandex Sans Display Bold", sans-serif
@@ -50,55 +53,83 @@
     padding: 50px
     border: 3px solid #222222
     border-radius: 15px
-
-    display: flex
-    flex-direction: column
-
+    display: block
     gap: 20px
+    position: relative
 
-    .name_field, .password_field
+    .editable
       display: flex
-      align-items: center
+      flex-direction: column
       gap: 20px
 
-      input
-        padding: 0 20px
-        width: 300px
-        height: 50px
-        border: 3px solid #222222
-        border-radius: 15px
-        background: none
+      .name_field, .password_field
+        display: flex
+        align-items: center
+        gap: 20px
 
-        &:focus
-          border: none
+        input
+          padding: 0 20px
+          width: 300px
+          height: 50px
+          border: 3px solid #222222
+          border-radius: 15px
           background: none
 
-      button
-        height: 50px
-        width: 50px
-        background: #2278a4
-        border-radius: 15px
-        border: none
-        display: flex
-        justify-content: center
-        align-items: center
+          &:focus
+            border: none
+            background: none
 
-        img
-          width: 90%
-          height: 90%
+        button
+          height: 50px
+          width: 50px
+          background: #2278a4
+          border-radius: 15px
+          border: none
+          display: flex
+          justify-content: center
+          align-items: center
 
-    .edit_button
-      height: 50px
-      width: 50px
-      background: #2278a4
-      border-radius: 15px
-      border: none
-      display: flex
-      justify-self: flex-end
-      align-self: flex-end
-      justify-content: center
-      align-items: center
+          img
+            width: 90%
+            height: 90%
 
-      img
-        width: 90%
-        height: 90%
+.edit_button
+  height: 50px
+  width: 50px
+  background: #2278a4
+  border-radius: 15px
+  border: none
+  float: right
+  display: flex
+  justify-self: flex-end
+  align-self: flex-end
+  justify-content: center
+  align-items: center
+
+  position: absolute
+  bottom: 20px
+  right: 20px
+
+  img
+    width: 90%
+    height: 90%
+
+
+.popup
+  color: black
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  text-align: center
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  padding: 20px
+  background-color: white
+  border: 1px solid #ccc
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+  z-index: 9999
+
+

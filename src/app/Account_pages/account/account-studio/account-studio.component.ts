@@ -38,6 +38,7 @@ export class AccountStudioComponent implements OnInit {
   userSubscribers: string = '0'
 
   currentSubStudioNumber: number = 0
+  user: any
 
   set_sub_studio_number(value: number) {
     this.currentSubStudioNumber = value
@@ -53,6 +54,8 @@ export class AccountStudioComponent implements OnInit {
     }
     this.VideosFetchService.enterUser(String(this.usName)).subscribe(
       response => {
+        this.user = response[0]
+
         if (response[0].header.startsWith('http://127.0.0.1:8000/')) {
           response[0].header = response[0].header.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
           this.userHeader = response[0].header

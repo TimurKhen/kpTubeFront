@@ -4,14 +4,19 @@
       <div class="header">
         <img src="{{ userHeader }}" loading="eager">
       </div>
-      <span class="avatar_and_username">
+      <div class="avatar_and_username">
         <div class="avatar">
           <img src="{{ userAvatar }}" loading="eager">
         </div>
         <div class="userName">
           <h1 class="userName">{{ userName }}</h1>
         </div>
-      </span>
+        <div class="goToStudio" *ngIf="isCurrentUser">
+          <button>
+            Студия канала
+          </button>
+        </div>
+      </div>
     </div>
     <div class="videos">
       @for (video of videos; track video) {

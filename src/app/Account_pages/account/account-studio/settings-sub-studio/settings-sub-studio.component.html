@@ -7,7 +7,20 @@
       </span>
     </span>
     <h3>Аватар пользователя</h3>
+    <button (click)="applyAvatarSet()" class="edit_button">
+      @if (is_avatar_changed) {
+        <img src="check_mark_button.svg">
+      } @else {
+        <label for="avatar">
+          <img src="pencil.svg">
+        </label>
+      }
+    </button>
+
+    <input type="file" id="avatar" name="avatar" hidden="hidden" (change)="avatarGet($event)"
+           [(ngModel)]="avatar">
   </span>
+
   <span class="header_of_user">
     <span class="header_image">
       <img src="{{currHeaderImage}}">
@@ -16,26 +29,19 @@
       </span>
     </span>
     <h3>Шапка профиля</h3>
-  </span>
-  <span class="user_data">
-    <h3>Данные пользователя</h3>
-
-    <span class="name_field">
-      <input placeholder="текущее имя">
-      <button>
-        <img src="pencil.svg">
-      </button>
-    </span>
-
-    <span class="password_field">
-      <input placeholder="текущий пароль">
-      <button>
-        <img src="pencil.svg">
-      </button>
-    </span>
-
     <button class="edit_button">
-      <img src="pencil.svg">
+      <label for="header">
+        <img src="pencil.svg">
+      </label>
     </button>
+
+    <input type="file" id="header" name="header" hidden="hidden" (change)="headerGet($event)"
+           [(ngModel)]="header">
   </span>
+<!--  check_mark_button.svg-->
+</div>
+
+<div *ngIf="popup_open" class="popup">
+  <p *ngIf="is_error">{{this.errorMessage}}</p>
+  <button (click)="close_pop_up()">Закрыть</button>
 </div>
