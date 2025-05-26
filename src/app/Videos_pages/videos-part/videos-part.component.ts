@@ -3,7 +3,7 @@ import {VideosFetchService} from "../../Services/videos-fetch.service";
 import {NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
-import {filter, from} from "rxjs";
+import {filter, from, of, startWith, Subject} from "rxjs";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {AsyncPipe} from "@angular/common"
 
@@ -36,28 +36,15 @@ export class VideosPartComponent implements AfterViewInit {
 
   getVideos() {
     this.postService.getVideos().subscribe((data: any) => {
-      let rxjsArr = from(data)
-      rxjsArr.pipe(
-        filter((video: any) => video.isGlobal),
-      ).subscribe(
-        (d: any) => {
-          this.renderVideo(d)
-        }
-      )
+      data.filter((video: any) => video.isGlobal)
+      this.videos = data
     })
   }
 
-  renderVideo(video: any) {
-    this.linksChanger(video)
-    this.videos.push(video)
-  }
-
-  linksChanger(video: any) {
-    if (video.video && video.video.startsWith('http://127.0.0.1:8000/')) {
-      video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+  linksChanger(link: any) {
+    if (link.startsWith('http://127.0.0.1:8000/')) {
+      link = link.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
     }
-    if (video.preview && video.preview.startsWith('http://127.0.0.1:8000/')) {
-      video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
-    }
+    return link
   }
 }

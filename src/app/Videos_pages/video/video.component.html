@@ -10,16 +10,18 @@
       <div class="videoContent">
         <div class="first_info_and_share_raiting">
           <span class="author">
-            <span class="non_interactive_author_data" [routerLink]="['/account', VideoOwnerId]">
-              <span class="avatar_of_author">
-                <img src="{{author_photo_link}}" alt="">
+            <a href="/account/{{VideoOwnerId}}" appSystemIconsStyles>
+              <span class="non_interactive_author_data">
+                <span class="avatar_of_author">
+                  <img src="{{author_photo_link}}" alt="">
+                </span>
+                <span class="data_of_author">
+                  <h3 class="video_author_name">{{ video_owner }}</h3>
+                  <h6 class="author_subscribers">{{ author_subscribers }} Подписчиков</h6>
+                </span>
               </span>
-              <span class="data_of_author">
-                <h3 class="video_author_name">{{ video_owner }}</h3>
-                <h6 class="author_subscribers">{{ author_subscribers }} Подписчиков</h6>
-              </span>
-            </span>
-            <span class="subscribe">
+            </a>
+            <span class="subscribe" appSystemIconsStyles>
               <button (click)="subscribe_to_blogger_handler()"
                       [ngClass]="{'subscribed': !isSubscribe, 'not_subscribed': isSubscribe}">
                 @if (!isSubscribe) {
@@ -33,7 +35,7 @@
           <app-kp-rating *ngIf="userName != 'null'" class="video_stars" [current_star]="videoStars"
                          [video_id]="videoId"></app-kp-rating>
 
-          <button (click)="shareInfo()" class="shareButt">Поделиться</button>
+          <button appSystemIconsStyles (click)="shareInfo()" class="shareButt">Поделиться</button>
         </div>
 
         <div class="aboutVideo">
@@ -44,6 +46,7 @@
             <span class="when_created">
               <p>{{ get_created_date() }}</p>
             </span>
+            <p>Категория: <b>{{ video_category }}</b></p>
           </span>
           <details class="aboutVideoDetails">
             <summary (click)="change_description_status()">
@@ -55,10 +58,6 @@
             </summary>
             <p>{{ video_description }}</p>
           </details>
-        </div>
-
-        <div class="category">
-          <p>Категория: <b>{{ video_category }}</b></p>
         </div>
       </div>
     </div>
@@ -72,7 +71,7 @@
                  placeholder="Введите комментарий">
 
           <div *ngIf="userComment" class="buttons">
-            <button (click)="cleaner()">Отмена</button>
+            <button (click)="cleaner()">Очистить</button>
             <button class="submitCommentButton" (click)="commentOnVideo()">Оставить комментарий</button>
           </div>
         </span>
@@ -92,6 +91,22 @@
         }
       </div>
     </div>
+  </div>
+  <div class="recommendations">
+    @for (video of recommendations; track video) {
+      <a href="./video/{{video.Video_ID}}">
+        <div class="video" appSystemIconsStyles>
+          <span class="preview">
+            <img src="{{video.preview}}">
+          </span>
+          <span class="video_info">
+            <h3>{{shorterStr(video.name)}}</h3>
+            <p>{{video.owner}}</p>
+            <p>{{video.views}} просмотров</p>
+          </span>
+        </div>
+      </a>
+    }
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 <div class="rating_container">
   @for (item of stars; track item) {
-    <span class="star" (click)="change_current_star(item)">
+    <span appSystemIconsStyles class="star" (click)="change_current_star(item)">
       @if (item <= current_star) {
         <img src="Star_checked.svg" width="40" height="40">
       } @else {

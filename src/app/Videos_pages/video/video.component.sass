@@ -1,16 +1,17 @@
 .main
+  display: grid
+  grid-template-columns: 4fr 1fr
+  grid-gap: 50px
   margin-bottom: 60px
-
 
   .videoPart
     margin-left: 200px
-    width: 70vw
     height: auto
 
     .video_container
       display: flex
       justify-content: center
-      width: 100%
+      width: 90%
       max-height: 1300px
       background: #070707
       border-radius: 15px
@@ -23,9 +24,9 @@
         object-fit: contain
 
 
-
   .videoInfo
     margin-top: 30px
+
     .videoName
       font-size: 20px
       word-wrap: anywhere
@@ -97,29 +98,16 @@
 
       .aboutVideo
         padding: 10px
-        width: 90%
         background: rgba(51, 51, 51, 0.3)
-        border-radius: 30px
+        border-radius: 15px
+        font-size: 16px
 
         .video_info
-          justify-content: space-around
           width: 100%
           display: flex
+          line-height: 0
           gap: 20px
-
-          .views
-            display: flex
-            flex-direction: row
-            align-items: center
-            gap: 20px
-            width: 50%
-
-            img
-              width: 50px
-              height: 50px
-
-          .when_created
-            width: 50%
+          font-size: 17px
 
         .aboutVideoDetails
           user-select: none
@@ -128,19 +116,16 @@
             color: #bbbbbb
             list-style: none
 
-      .category
-        position: relative
-        float: right
-
 
   .comments
-    border-top: 2px solid black
-
     .commenter
       width: 90%
       display: flex
       flex-direction: row
       align-items: baseline
+
+      span
+        width: 100%
 
       input
         width: 100%
@@ -152,16 +137,17 @@
         transition: padding 0.3s ease-out, border-bottom 0.4s ease-out
         color: white
 
+        span
+          width: 90%
+
         &:focus
           padding-bottom: 20px
           border-bottom: 1px solid #2278a4
 
       .buttons
         display: flex
-        position: absolute
-        float: right
-        gap: 10px
-        margin-top: 10px
+        gap: 20px
+        margin-top: 30px
 
         .dontHaveAccount_button
           width: 40vw
@@ -180,17 +166,50 @@
         .submitCommentButton
           width: 220px
 
-    p
-      color: white
-      border-left: 3px solid white
-      padding-left: 30px
 
-  .allComments
-    width: 90%
-    margin-top: 50px
+    .allComments
+      width: 90%
+      margin-top: 20px
 
-    .comment
-      word-wrap: anywhere
+      .comment
+        p
+          color: white
+          border-left: 3px solid white
+          padding-left: 30px
+
+        font-size: 14px
+        word-wrap: anywhere
+
+  .recommendations
+    display: flex
+    flex-direction: column
+    width: 100%
+    height: 100%
+    gap: 20px
+
+    .video
+      width: 90%
+      display: grid
+      grid-template-columns: 1fr 2fr
+      gap: 20px
+
+      .preview
+        width: 200px
+        height: auto
+        aspect-ratio: 16/9
+        border-radius: 15px
+
+        img
+          object-fit: cover
+          width: 100%
+          height: 100%
+          border-radius: 15px
+
+      .video_info
+        display: flex
+        flex-direction: column
+        line-height: 0
+        height: 100%
 
 .shareButt
   background: #272727
@@ -207,6 +226,10 @@
   color: rgb(255, 255, 255)
   line-height: 36px
   padding: 10px
+
+a
+  color: white
+  text-decoration: none
 
 
 @media (max-width: 800px)

@@ -2,7 +2,7 @@
   @for (video of videos; track video) {
     <a href="./video/{{video.Video_ID}}">
       <div class="video" appSystemIconsStyles>
-          <img src="{{video.preview}}" loading="eager" alt="{{video.preview}}">
+          <img src="{{linksChanger(video.preview)}}" loading="eager" alt="video preview">
           <div class="info">
             <h5 class="video_name">{{ video.name }}</h5>
             <span class="author_and_views">

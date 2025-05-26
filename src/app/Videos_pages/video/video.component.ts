@@ -7,6 +7,9 @@ import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {KpRatingComponent} from "../../KP-UI/kp-rating/kp-rating.component";
 import {DateService} from "../../Services/date.service";
+import {VideoInterface} from "../../Interfaces/video-interface";
+import {StrShorterService} from '../../Services/str-shorter.service'
+import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 
 @Component({
   selector: 'app-video',
@@ -24,12 +27,15 @@ import {DateService} from "../../Services/date.service";
     NgIf,
     NgForOf,
     KpRatingComponent,
+    SystemIconsStylesDirective
   ],
   styleUrls: ['./video.component.sass']
 })
 export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
+  StrShorterService = inject(StrShorterService)
+
 
   videoId: string = ''
   videoData: any = {}
@@ -62,6 +68,8 @@ export class VideoComponent implements OnInit {
   isSubscribe: boolean = false
   author_subscribers: number = 0
 
+  recommendations: VideoInterface[] = []
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient
@@ -74,6 +82,7 @@ export class VideoComponent implements OnInit {
     })
     this.loadUserDetails()
     this.loadVideoDetails()
+    this.loadRecommendations()
   }
 
   loadUserDetails(): void {
@@ -131,8 +140,9 @@ export class VideoComponent implements OnInit {
   getComments() {
     this.http.get<any>(`https://kptube.kringeproduction.ru/comments/?Video_ID=${this.videoId}`).subscribe(commentsData => {
       this.comments = commentsData
+      this.howMuchComments = 0
       commentsData.forEach((comment: any) => {
-        this.howMuchComments = Number(this.howMuchComments) + 1
+        this.howMuchComments += 1
       })
     })
   }
@@ -200,6 +210,40 @@ export class VideoComponent implements OnInit {
     }
   }
 
+  loadRecommendations() {
+    this.VideosFetchService.getVideos().subscribe((data: VideoInterface[]) => {
+      let calcedVideos = []
+
+      for (let i = 0; i < 12; i++) {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        if (data[i].Video_ID === this.videoId) {
+          calcedVideos.push(data[(randomIndex + 1) % data.length])
+        } else {
+          calcedVideos.push(data[randomIndex])
+        }
+      }
+
+      calcedVideos.forEach((video: VideoInterface) => {
+        video = this.linksChanger(video)
+        this.recommendations.push(video)
+      })
+    })
+  }
+
+  linksChanger(video: any) {
+    if (video.video && video.video.startsWith('http://127.0.0.1:8000/')) {
+      video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+    }
+    if (video.preview && video.preview.startsWith('http://127.0.0.1:8000/')) {
+      video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+    }
+    return video
+  }
+
+  shorterStr(str: any) {
+    return this.StrShorterService.shorterString(String(str), 15)
+  }
+
   shareData = {
     title: "KPtube Video",
     text: this.videoData.name,
@@ -212,7 +256,7 @@ export class VideoComponent implements OnInit {
         title: String(this.video_name),
         text: this.video_description,
         url: `https://kptube.netlify.app/video/${this.videoId}`,
-      };
+      }
 
       await navigator.share(this.shareData)
     } catch (err) {
