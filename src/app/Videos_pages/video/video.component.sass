@@ -1,17 +1,16 @@
 .main
   display: grid
-  grid-template-columns: 4fr 1fr
-  grid-gap: 50px
-  margin-bottom: 60px
+  grid-template-columns: 5fr 2fr
+  margin-left: 200px
 
   .videoPart
-    margin-left: 200px
+    width: 100%
     height: auto
 
     .video_container
       display: flex
       justify-content: center
-      width: 90%
+      width: 95%
       max-height: 1300px
       background: #070707
       border-radius: 15px
@@ -106,8 +105,7 @@
           width: 100%
           display: flex
           line-height: 0
-          gap: 20px
-          font-size: 17px
+          font-size: 14px
 
         .aboutVideoDetails
           user-select: none
@@ -183,7 +181,7 @@
   .recommendations
     display: flex
     flex-direction: column
-    width: 100%
+    align-items: flex-end
     height: 100%
     gap: 20px
 
@@ -206,6 +204,7 @@
           border-radius: 15px
 
       .video_info
+        line-break: anywhere
         display: flex
         flex-direction: column
         line-height: 0

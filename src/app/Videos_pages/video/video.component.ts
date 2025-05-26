@@ -241,7 +241,7 @@ export class VideoComponent implements OnInit {
   }
 
   shorterStr(str: any) {
-    return this.StrShorterService.shorterString(String(str), 15)
+    return this.StrShorterService.shorterString(String(str), 25)
   }
 
   shareData = {
