@@ -2,14 +2,16 @@
   @for (video of videos; track video) {
     <a href="./video/{{video.Video_ID}}">
       <div class="video" appSystemIconsStyles>
+        <span class="preview">
           <img src="{{linksChanger(video.preview)}}" loading="eager" alt="video preview">
-          <div class="info">
-            <h5 class="video_name">{{ video.name }}</h5>
-            <span class="author_and_views">
-              <p>{{ video.owner }}</p>
-              <p>{{ video.views }} просмотров</p>
-            </span>
-          </div>
+        </span>
+        <div class="info">
+          <h5 class="video_name">{{ video.name }}</h5>
+          <span class="author_and_views">
+            <p>{{ video.owner }}</p>
+            <p>{{ video.views }} просмотров</p>
+          </span>
+        </div>
       </div>
     </a>
   } @empty {

@@ -20,6 +20,8 @@ export class OtherAccountComponent implements OnInit {
   userHeader: string | ArrayBuffer | null = null
   userAvatar: string | ArrayBuffer | null = null
   userName: string | null = null
+  userSubscribers: number = 0
+
   videos: any[] = []
 
   UserID: number | null = null
@@ -55,6 +57,7 @@ export class OtherAccountComponent implements OnInit {
         }
         this.userAvatar = response[0].avatar
         this.userName = response[0].name
+        this.userSubscribers = response[0].subscribers
 
         this.loadOtherUserVideos()
       }

@@ -29,10 +29,14 @@
       </span>
     </span>
     <h3>Шапка профиля</h3>
-    <button class="edit_button">
-      <label for="header">
-        <img src="pencil.svg">
-      </label>
+    <button (click)="applyHeaderSet()" class="edit_button">
+      @if (is_header_changed) {
+        <img src="check_mark_button.svg">
+      } @else {
+        <label for="header">
+          <img src="pencil.svg">
+        </label>
+      }
     </button>
 
     <input type="file" id="header" name="header" hidden="hidden" (change)="headerGet($event)"
@@ -42,6 +46,6 @@
 </div>
 
 <div *ngIf="popup_open" class="popup">
-  <p *ngIf="is_error">{{this.errorMessage}}</p>
+  <p>{{this.errorMessage}}</p>
   <button (click)="close_pop_up()">Закрыть</button>
 </div>

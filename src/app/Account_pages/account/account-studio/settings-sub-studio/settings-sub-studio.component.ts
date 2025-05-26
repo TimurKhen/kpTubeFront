@@ -63,7 +63,6 @@ export class SettingsSubStudioComponent {
       } else {
         this.errorMessage = 'Выберите изображение.'
         this.popup_open = true
-        this.is_error = true
       }
     }
   }
@@ -73,8 +72,9 @@ export class SettingsSubStudioComponent {
       let changedUser = this.user
       this.VideosFetchService.changeUserData(changedUser,
         this.avatar, changedUser.header).subscribe((data) => {
-        console.log(data)
-      })
+          this.errorMessage = 'успешно изменён ваш автар. Перезагрузите страницу для изменений'
+          this.popup_open = true
+        })
       this.is_avatar_changed = false
     }
   }
@@ -85,8 +85,9 @@ export class SettingsSubStudioComponent {
       changedUser.header = this.header
       this.VideosFetchService.changeUserData(changedUser,
         changedUser.avatar, this.header).subscribe((data) => {
-        console.log(data)
-      })
+          this.errorMessage = 'успешно изменена шапка канала. Перезагрузите страницу для изменений'
+          this.popup_open = true
+        })
       this.is_header_changed = false
     }
   }

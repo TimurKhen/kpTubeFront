@@ -224,8 +224,12 @@ export class VideosFetchService {
     formData.append('name', user.name)
     formData.append('email', user.email)
     formData.append('password', password)
-    formData.append('avatar', avatar)
-    formData.append('header', header)
+    if (typeof avatar !== "string") {
+      formData.append('avatar', avatar)
+    }
+    if (typeof header !== "string") {
+      formData.append('header', header)
+    }
 
     return this.http.put(this.account + user.id + '/', formData, {headers: headers})
   }
