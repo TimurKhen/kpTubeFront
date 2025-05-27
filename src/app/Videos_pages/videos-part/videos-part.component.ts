@@ -6,6 +6,7 @@ import {VideoInterface} from "../../Interfaces/video-interface";
 import {filter, from, of, startWith, Subject} from "rxjs";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {AsyncPipe} from "@angular/common"
+import {LinkChangerService} from "../../Services/link-changer.service";
 
 export let videos = []
 
@@ -23,11 +24,13 @@ export let videos = []
   styleUrl: './videos-part.component.sass',
 })
 export class VideosPartComponent implements AfterViewInit {
+  postService = inject(VideosFetchService)
+  LinksChangerService = inject(LinkChangerService)
+
+
   ngAfterViewInit() {
     this.getVideos()
   }
-
-  postService = inject(VideosFetchService)
 
   videos: VideoInterface[] = []
 
@@ -37,14 +40,29 @@ export class VideosPartComponent implements AfterViewInit {
   getVideos() {
     this.postService.getVideos().subscribe((data: any) => {
       data.filter((video: any) => video.isGlobal)
+      data = this.shuffleArray(data)
       this.videos = data
     })
   }
 
-  linksChanger(link: any) {
-    if (link.startsWith('http://127.0.0.1:8000/')) {
-      link = link.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
+  shuffleArray(array: any[]): any[] {
+    let currentIndex = array.length
+    let randomIndex
+
+    while (currentIndex != 0) {
+
+      randomIndex = Math.floor(Math.random() * currentIndex)
+      currentIndex--
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]]
     }
-    return link
+
+    return array
+  }
+
+
+  linksChanger(link: any) {
+    return this.LinksChangerService.linkChanger(link)
   }
 }

@@ -6,6 +6,8 @@ import {HttpClient} from "@angular/common/http";
 import {NgClass, NgForOf, NgOptimizedImage, NgStyle} from "@angular/common";
 import {filter, forkJoin} from "rxjs";
 import {VideosFetchService} from "../../Services/videos-fetch.service";
+import {VideoInterface} from "../../Interfaces/video-interface";
+import {LinkChangerService} from "../../Services/link-changer.service";
 
 @Component({
   selector: 'app-search-results',
@@ -22,25 +24,26 @@ import {VideosFetchService} from "../../Services/videos-fetch.service";
   styleUrls: ['./search-results.component.sass']
 })
 export class SearchResultsComponent implements OnInit {
-  search: string = '';
-  results: any[] = [];
+  VideoFetchService = inject(VideosFetchService)
+  LinkChangerService = inject(LinkChangerService)
+
+  results: any[] = []
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.search = params.get('userSearch') || '';
-      this.http.get(`https://kptube.kringeproduction.ru/videos/?search=${this.search}`).subscribe((data: any) => {
-        data.forEach((video: any) => {
-          if (video.video && video.video.startsWith('http://127.0.0.1:8000/')) {
-            video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
-          }
-          if (video.preview && video.preview.startsWith('http://127.0.0.1:8000/')) {
-            video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
-          }
-        })
-        this.results = data
+      let search = params.get('userSearch') || ''
+      this.searchResults(search)
+    })
+  }
+
+  searchResults(search: string) {
+    this.VideoFetchService.searchVideos(search).subscribe((videos: VideoInterface[]) => {
+      videos.map((video) => {
+        video = this.LinkChangerService.videoLinksChanger(video)
       })
-    });
+      this.results = videos
+    })
   }
 }

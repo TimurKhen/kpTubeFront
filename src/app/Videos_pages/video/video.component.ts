@@ -1,6 +1,5 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core'
-import {ActivatedRoute} from '@angular/router'
-import {RouterLink, RouterLinkActive} from "@angular/router"
+import {Component, inject, OnInit} from '@angular/core'
+import {ActivatedRoute, RouterLink, RouterLinkActive} from '@angular/router'
 import {HttpClient} from "@angular/common/http"
 import {NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common"
 import {VideosFetchService} from "../../Services/videos-fetch.service"
@@ -10,6 +9,7 @@ import {DateService} from "../../Services/date.service";
 import {VideoInterface} from "../../Interfaces/video-interface";
 import {StrShorterService} from '../../Services/str-shorter.service'
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
+import {LinkChangerService} from "../../Services/link-changer.service";
 
 @Component({
   selector: 'app-video',
@@ -35,6 +35,7 @@ export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
   StrShorterService = inject(StrShorterService)
+  LinkChangerService = inject(LinkChangerService)
 
 
   videoId: string = ''
@@ -137,6 +138,7 @@ export class VideoComponent implements OnInit {
       }
     )
   }
+
   getComments() {
     this.http.get<any>(`https://kptube.kringeproduction.ru/comments/?Video_ID=${this.videoId}`).subscribe(commentsData => {
       this.comments = commentsData
@@ -224,20 +226,10 @@ export class VideoComponent implements OnInit {
       }
 
       calcedVideos.forEach((video: VideoInterface) => {
-        video = this.linksChanger(video)
+        video = this.LinkChangerService.videoLinksChanger(video)
         this.recommendations.push(video)
       })
     })
-  }
-
-  linksChanger(video: any) {
-    if (video.video && video.video.startsWith('http://127.0.0.1:8000/')) {
-      video.video = video.video.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
-    }
-    if (video.preview && video.preview.startsWith('http://127.0.0.1:8000/')) {
-      video.preview = video.preview.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/');
-    }
-    return video
   }
 
   shorterStr(str: any) {

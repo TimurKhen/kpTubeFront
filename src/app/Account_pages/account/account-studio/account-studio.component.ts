@@ -6,6 +6,7 @@ import {VideosFetchService} from '../../../Services/videos-fetch.service';
 import {MainSubStudioComponent} from "./main-sub-studio/main-sub-studio.component";
 import {StatisticSubStudioComponent} from "./statistic-sub-studio/statistic-sub-studio.component";
 import {SettingsSubStudioComponent} from "./settings-sub-studio/settings-sub-studio.component";
+import { LinkChangerService } from '../../../Services/link-changer.service';
 
 @Component({
   selector: 'app-account-studio',
@@ -23,7 +24,7 @@ import {SettingsSubStudioComponent} from "./settings-sub-studio/settings-sub-stu
 })
 export class AccountStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
-  http = inject(HttpClient)
+  LinkChangerService = inject(LinkChangerService)
 
   name: string = ''
   email: string = ''
@@ -54,21 +55,15 @@ export class AccountStudioComponent implements OnInit {
     }
     this.VideosFetchService.enterUser(String(this.usName)).subscribe(
       response => {
-        this.user = response[0]
+        let account = response[0]
+        this.user = account
 
-        if (response[0].header.startsWith('http://127.0.0.1:8000/')) {
-          response[0].header = response[0].header.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
-          this.userHeader = response[0].header
-        }
+        account = this.LinkChangerService.accountLinksChanger(account)
 
-
-        if (response[0].avatar.startsWith('http://127.0.0.1:8000/')) {
-          response[0].avatar = response[0].avatar.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')
-          this.userAvatar = response[0].avatar
-        }
-
-        this.userName = response[0].name
-        this.userSubscribers = response[0].subscribers
+        this.userAvatar = account.avatar
+        this.userHeader = account.header
+        this.userName = account.name
+        this.userSubscribers = account.subscribers
       }
     )
   }

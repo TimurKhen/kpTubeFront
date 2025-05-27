@@ -7,6 +7,7 @@ import {Observable} from "rxjs"
 })
 export class VideosFetchService {
 
+  mainLink = 'https://kptube.kringeproduction.ru/'
   apiUrl = 'https://kptube.kringeproduction.ru/videos/'
   account = 'https://kptube.kringeproduction.ru/users/'
   category = 'https://kptube.kringeproduction.ru/categories/'
@@ -22,8 +23,16 @@ export class VideosFetchService {
   constructor() {
   }
 
+  checkIsServerOnline(): any {
+    return this.http.get<any>('https://kringeproduction.ru')
+  }
+
   getVideos(): any {
     return this.http.get<any>(this.apiUrl)
+  }
+
+  searchVideos(search: string): any {
+    return this.http.get<any>(this.apiUrl + '?search=' + search)
   }
 
   getVideosByUser(userName: string): any {

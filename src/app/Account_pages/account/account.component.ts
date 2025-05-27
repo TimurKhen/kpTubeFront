@@ -6,6 +6,7 @@ import {RouterLink} from "@angular/router"
 import {HttpClient} from "@angular/common/http"
 import {RegisterAndAuthComponent} from "./register-and-auth/register-and-auth.component";
 import {AccountStudioComponent} from "./account-studio/account-studio.component";
+import {retry} from "rxjs";
 
 @Component({
   selector: 'app-account',
@@ -26,8 +27,13 @@ export class AccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   isAuth: boolean = false
   isRendered: boolean = false
+  isServerOnline: boolean = false
 
   ngOnInit() {
+    this.VideosFetchService.checkIsServerOnline().subscribe((data: any) => {
+      this.isServerOnline = data.ok()
+    })
+
     this.getUserID().then(() => {
       this.isRendered = true
     })
