@@ -24,7 +24,7 @@
         @if (isUserHaveAccount && isServerOnline) {
           <button (mouseenter)="setHoverStatus(true)"
                   (mouseleave)="setHoverStatus(false)"
-                  appSystemIconsStyles class="userAvatarButton"><a href="/account/"><img
+                  appSystemIconsStyles class="userAvatarButton"><a href="/account/{{userID}}"><img
             [src]="userAvatar"></a></button>
         } @else {
           <button appSystemIconsStyles class="userAvatarWithoutAccount systemIcons"><a href="/account/"><img

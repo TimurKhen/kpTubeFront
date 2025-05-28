@@ -23,7 +23,7 @@ import * as timers from "node:timers";
 export class SearchPartComponent implements OnInit {
   userAvatar: string | null = null
   userInput: string = ''
-  gettedID: any
+  userID: any
   isInputDisabled: boolean = false
   isMobile: boolean = false
 
@@ -39,7 +39,7 @@ export class SearchPartComponent implements OnInit {
 
   ngOnInit() {
     if (typeof localStorage !== undefined) {
-      this.gettedID = String(localStorage.getItem('UserID'))
+      this.userID = String(localStorage.getItem('UserID'))
     }
     this.getUserAvatar()
   }
@@ -49,16 +49,14 @@ export class SearchPartComponent implements OnInit {
   }
 
   getUserAvatar() {
-    setTimeout(() => {
-      getUser.unsubscribe()
-      this.isServerOnline = false
-    }, 1000)
-    let getUser = this.VideosFetchService.getUserByID(this.gettedID).subscribe(
+    this.VideosFetchService.getUserByID(this.userID).subscribe(
       (response): any => {
-        if (!response.ok()) {
+        if (response == null) {
           this.isServerOnline = false
           return
         }
+
+        this.isServerOnline = true
 
         if (response[0].avatar.startsWith('http://127.0.0.1:8000/')) {
           response[0].avatar = response[0].avatar.replace('http://127.0.0.1:8000/', 'https://kptube.kringeproduction.ru/files/')

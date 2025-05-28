@@ -1,5 +1,7 @@
 <div class="burger-menu">
-  <img appSystemIconsStyles (click)="set_client_web_pos()" routerLink="/" src="KptubeLogo.svg" class="logo_of_kp_tube">
+  <a href="/">
+    <img appSystemIconsStyles (click)="set_client_web_pos()" src="KptubeLogo.svg" class="logo_of_kp_tube">
+  </a>
   <button class="bars_icon" (click)="toggleMenu()" [ngClass]="{ 'open': isOpen }">
     <span class="bar"></span>
     <span class="bar"></span>
