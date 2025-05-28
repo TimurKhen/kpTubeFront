@@ -1,4 +1,4 @@
-<nav (window:resize)="onResize($event)">
+<nav>
   <div class="search">
     <div class="searchInput">
       <label *ngIf="!isMobile" for="inputToSearch" class="form">
@@ -24,14 +24,13 @@
         @if (isUserHaveAccount && isServerOnline) {
           <button (mouseenter)="setHoverStatus(true)"
                   (mouseleave)="setHoverStatus(false)"
-                  appSystemIconsStyles class="userAvatarButton" routerLink="/account"><a><img
+                  appSystemIconsStyles class="userAvatarButton"><a href="/account/"><img
             [src]="userAvatar"></a></button>
         } @else {
-          <button appSystemIconsStyles class="userAvatarWithoutAccount systemIcons" routerLink="/account"><a><img
+          <button appSystemIconsStyles class="userAvatarWithoutAccount systemIcons"><a href="/account/"><img
             src="UserIcon.svg"></a></button>
         }
       </span>
-
     </div>
   </div>
 </nav>

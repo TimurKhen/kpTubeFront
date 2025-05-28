@@ -26,7 +26,8 @@ export class SearchPartComponent implements OnInit {
   gettedID: any
   isInputDisabled: boolean = false
   isMobile: boolean = false
-  isServerOnline: boolean = true
+
+  isServerOnline: boolean = false
   isUserHaveAccount: boolean = false
   @Output() hoverOnAccount = new EventEmitter<boolean>()
 
@@ -48,9 +49,13 @@ export class SearchPartComponent implements OnInit {
   }
 
   getUserAvatar() {
-    this.VideosFetchService.getUserByID(this.gettedID).subscribe(
+    setTimeout(() => {
+      getUser.unsubscribe()
+      this.isServerOnline = false
+    }, 1000)
+    let getUser = this.VideosFetchService.getUserByID(this.gettedID).subscribe(
       (response): any => {
-        if (response == null) {
+        if (!response.ok()) {
           this.isServerOnline = false
           return
         }
