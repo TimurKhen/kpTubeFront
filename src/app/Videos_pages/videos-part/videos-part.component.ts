@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, inject} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, signal, Signal} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 import {NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
-import {filter, from, of, startWith, Subject} from "rxjs";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {AsyncPipe} from "@angular/common"
 import {LinkChangerService} from "../../Services/link-changer.service";
@@ -27,15 +26,11 @@ export class VideosPartComponent implements AfterViewInit {
   postService = inject(VideosFetchService)
   LinksChangerService = inject(LinkChangerService)
 
-
   ngAfterViewInit() {
     this.getVideos()
   }
 
   videos: VideoInterface[] = []
-
-  constructor() {
-  }
 
   getVideos() {
     this.postService.getVideos().subscribe((data: any) => {

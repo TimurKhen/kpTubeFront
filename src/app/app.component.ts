@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterModule, RouterOutlet} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {VideosPartComponent} from "./Videos_pages/videos-part/videos-part.component";
@@ -15,9 +15,11 @@ import {SearchPartComponent} from "./search-part/search-part.component";
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
+
   isHoverAccount = false
   timeOut: any
   userID: any
+  constructor() {}
 
   setHoverStatus(status: boolean) {
     if (localStorage) {

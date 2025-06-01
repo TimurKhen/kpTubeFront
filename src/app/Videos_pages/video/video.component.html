@@ -78,7 +78,7 @@
 
         <span *ngIf="userName === 'null'">
           <div class="buttons">
-            <button class="dontHaveAccount_button" [routerLink]="'/account'">Войдите или создайте аккаунт для коментариев!</button>
+            <button class="dontHaveAccountButton" [routerLink]="'/account'">Войдите или создайте аккаунт для коментариев!</button>
           </div>
         </span>
       </div>
@@ -92,23 +92,23 @@
       </div>
     </div>
   </div>
-  <div class="recommendations">
-    @for (video of recommendations; track video) {
-      <a href="./video/{{video.Video_ID}}">
-        <div class="video" appSystemIconsStyles>
-          <span class="preview">
-            <img src="{{video.preview}}">
-          </span>
-          <span class="video_info">
-            <h4>{{shorterStr(video.name)}}</h4>
-            <p>{{video.owner}}</p>
-            <p>{{video.views}} просмотров</p>
-          </span>
-        </div>
-      </a>
-    }
-  </div>
+  @if (adsInformation !== {}) {
+    <div class="secondBlockContainer">
+      <span class="adsContainer">
+        <span class="absImage">
+          <img src="ads/{{adsInformation.name}}">
+        </span>
+        <span class="adsInfo">
+          <h2>{{ adsInformation.text }}</h2>
+          <p>{{ adsInformation.author }}</p>
+          <a href="{{adsInformation.link}}" target="_blank">Ссылка</a>
+        </span>
+          <p class="ads-message">Является рекламой, KP229 не
+            несёт ответственности за содержимое и контент рекламы</p>
+      </span>
+    </div>
+  }
 </div>
+<footer>
 
-<!-- TODO-->
-<!--  Размер коментариев адаптивным + сами комменты крутые сделать (Это можно и к beta 2 думаю)-->
+</footer>

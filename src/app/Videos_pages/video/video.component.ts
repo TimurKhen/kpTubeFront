@@ -10,6 +10,7 @@ import {VideoInterface} from "../../Interfaces/video-interface";
 import {StrShorterService} from '../../Services/str-shorter.service'
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {LinkChangerService} from "../../Services/link-changer.service";
+import {AdsServiceService} from "../../Services/ads-service.service";
 
 @Component({
   selector: 'app-video',
@@ -34,8 +35,7 @@ import {LinkChangerService} from "../../Services/link-changer.service";
 export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
-  StrShorterService = inject(StrShorterService)
-  LinkChangerService = inject(LinkChangerService)
+  AdsServiceService = inject(AdsServiceService)
 
 
   videoId: string = ''
@@ -69,7 +69,7 @@ export class VideoComponent implements OnInit {
   isSubscribe: boolean = false
   author_subscribers: number = 0
 
-  recommendations: VideoInterface[] = []
+  adsInformation: any = {}
 
   constructor(
     private route: ActivatedRoute,
@@ -83,7 +83,7 @@ export class VideoComponent implements OnInit {
     })
     this.loadUserDetails()
     this.loadVideoDetails()
-    this.loadRecommendations()
+    this.loadAds()
   }
 
   loadUserDetails(): void {
@@ -212,28 +212,9 @@ export class VideoComponent implements OnInit {
     }
   }
 
-  loadRecommendations() {
-    this.VideosFetchService.getVideos().subscribe((data: VideoInterface[]) => {
-      let calcedVideos = []
-
-      for (let i = 0; i < 12; i++) {
-        const randomIndex = Math.floor(Math.random() * data.length);
-        if (data[i].Video_ID === this.videoId) {
-          calcedVideos.push(data[(randomIndex + 1) % data.length])
-        } else {
-          calcedVideos.push(data[randomIndex])
-        }
-      }
-
-      calcedVideos.forEach((video: VideoInterface) => {
-        video = this.LinkChangerService.videoLinksChanger(video)
-        this.recommendations.push(video)
-      })
-    })
-  }
-
-  shorterStr(str: any) {
-    return this.StrShorterService.shorterString(String(str), 25)
+  loadAds() {
+    this.adsInformation = this.AdsServiceService.generator()
+    console.log(this.adsInformation)
   }
 
   shareData = {
