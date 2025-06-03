@@ -69,7 +69,7 @@
         .author
           height: 100px
           display: flex
-          //align-items: center
+          align-items: center
           gap: 20px
 
           .non_interactive_author_data
@@ -102,18 +102,38 @@
                 position: relative
                 margin-top: -30px
 
-          .subscribe
-            button
-              border: none
-              padding: 10px
-              border-radius: 25px
-              color: white
+        .likesAndShare
+          display: flex
+          align-items: center
+          gap: 20px
 
-            .subscribed
-              background: crimson
+          .rating, .shareButt
+            background: #272727
+            display: flex
+            justify-content: center
+            align-items: center
 
-            .not_subscribed
-              background: #616161
+            line-height: 30px
+            height: 100%
+            min-width: 150px
+            border: none
+            outline: none
+            border-radius: 15px
+            color: rgb(255, 255, 255)
+            padding: 10px
+
+        .subscribe
+          button
+            border: none
+            padding: 10px
+            border-radius: 25px
+            color: white
+
+          .subscribed
+            background: crimson
+
+          .not_subscribed
+            background: #616161
 
       .aboutVideo
         padding: 10px
@@ -252,21 +272,7 @@
       text-decoration: underline
       color: #8585f6
 
-.shareButt
-  background: #272727
-  display: flex
-  justify-content: center
-  align-items: center
 
-  width: calc(112.8px / 1.1)
-  height: 36px
-
-  outline: none
-  border: 1px solid white
-  border-radius: 15px
-  color: rgb(255, 255, 255)
-  line-height: 36px
-  padding: 10px
 
 a
   color: white

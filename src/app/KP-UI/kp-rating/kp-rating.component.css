@@ -1,0 +1,16 @@
+.rating_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 30px;
+  gap: 10px;
+}
+.rating_container .star {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-self: center;
+}
+
+/*# sourceMappingURL=kp-rating.component.css.map */

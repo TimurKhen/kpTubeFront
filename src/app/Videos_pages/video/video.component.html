@@ -32,10 +32,14 @@
               </button>
             </span>
           </span>
-          <app-kp-rating *ngIf="userName != 'null'" class="video_stars" [current_star]="videoStars"
-                         [video_id]="videoId"></app-kp-rating>
+          <span class="likesAndShare">
+            <div class="rating">
+              <app-kp-rating *ngIf="userName != 'null'" class="video_stars" [current_star]="videoStars"
+                             [video_id]="videoId"></app-kp-rating>
+            </div>
 
-          <button appSystemIconsStyles (click)="shareInfo()" class="shareButt">Поделиться</button>
+            <button appSystemIconsStyles (click)="shareInfo()" class="shareButt">Поделиться</button>
+          </span>
         </div>
 
         <div class="aboutVideo">
