@@ -1,52 +1,42 @@
-import {Routes} from '@angular/router';
-import {AccountComponent} from "./Account_pages/account/account.component";
-import {VideoCreatingComponent} from "./Videos_pages/video-creating/video-creating.component";
-import {VideoComponent} from "./Videos_pages/video/video.component";
-import {OtherAccountComponent} from "./Account_pages/other-account/other-account.component";
-import {MusicPartComponent} from "./Music_pages/music-part/music-part.component";
-import {MusicCreatingComponent} from "./Music_pages/music-creating/music-creating.component";
-import {SearchResultsComponent} from "./Videos_pages/search-results/search-results.component";
-import {HistoryComponent} from "./Videos_pages/history/history.component";
-import {LikedVideosComponent} from "./Videos_pages/liked-videos/liked-videos.component";
-import {VideosPartComponent} from "./Videos_pages/videos-part/videos-part.component";
+import {RouterModule, Routes} from '@angular/router'
 
 export const routes: Routes = [
   {
-    path: '', component: VideosPartComponent
+    path: '', loadComponent: () => import('./Videos_pages/videos-part/videos-part.component').then(m => m.VideosPartComponent)
   },
   {
     path: 'account',
-    component: AccountComponent
+    loadComponent: () => import('./Account_pages/account/account.component').then(m => m.AccountComponent)
   }, {
     path: 'creating',
-    component: VideoCreatingComponent
+    loadComponent: () => import('./Videos_pages/video-creating/video-creating.component').then(m => m.VideoCreatingComponent)
   },
   {
     path: 'video/:Video_ID',
-    component: VideoComponent
+    loadComponent: () => import('./Videos_pages/video/video.component').then(m => m.VideoComponent)
   },
   {
     path: 'account/:User_ID',
-    component: OtherAccountComponent
+    loadComponent: () => import('./Account_pages/other-account/other-account.component').then(m => m.OtherAccountComponent)
   },
   {
     path: 'KPmusic',
-    component: MusicPartComponent
+    loadComponent: () => import('./Music_pages/music-part/music-part.component').then(m => m.MusicPartComponent)
   },
   {
     path: 'KPmusic/Creating',
-    component: MusicCreatingComponent
+    loadComponent: () => import('./Music_pages/music-creating/music-creating.component').then(m => m.MusicCreatingComponent)
   },
   {
     path: 'search/:userSearch',
-    component: SearchResultsComponent
+    loadComponent: () => import('./Videos_pages/search-results/search-results.component').then(m => m.SearchResultsComponent)
   },
   {
     path: 'history',
-    component: HistoryComponent
+    loadComponent: () => import('./Videos_pages/history/history.component').then(m => m.HistoryComponent)
   },
   {
     path: 'liked',
-    component: LikedVideosComponent
+    loadComponent: () => import('./Videos_pages/liked-videos/liked-videos.component').then(m => m.LikedVideosComponent)
   },
-];
+]
