@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, inject, Input, signal, Signal} from '@angular/core';
+import {AfterViewInit, Component, inject} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
-import {NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
-import {AsyncPipe} from "@angular/common"
 import {LinkChangerService} from "../../Services/link-changer.service";
 
 export let videos = []
@@ -23,17 +22,23 @@ export let videos = []
   styleUrl: './videos-part.component.sass',
 })
 export class VideosPartComponent implements AfterViewInit {
-  postService = inject(VideosFetchService)
+  VideosFetchService = inject(VideosFetchService)
   LinksChangerService = inject(LinkChangerService)
+  isServerOnline: boolean = true
 
   ngAfterViewInit() {
-    this.getVideos()
+    this.VideosFetchService.checkIsServerOnline().subscribe((data: any) => {
+      this.isServerOnline = data.ok()
+      if (data.ok()) {
+        this.getVideos()
+      }
+    })
   }
 
   videos: VideoInterface[] = []
 
   getVideos() {
-    this.postService.getVideos().subscribe((data: any) => {
+    this.VideosFetchService.getVideos().subscribe((data: any) => {
       data.filter((video: any) => video.isGlobal)
       data = this.shuffleArray(data)
       this.videos = data
@@ -45,7 +50,6 @@ export class VideosPartComponent implements AfterViewInit {
     let randomIndex
 
     while (currentIndex != 0) {
-
       randomIndex = Math.floor(Math.random() * currentIndex)
       currentIndex--
 

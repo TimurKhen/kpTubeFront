@@ -15,7 +15,6 @@ import {SearchPartComponent} from "./search-part/search-part.component";
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-
   isHoverAccount = false
   timeOut: any
   userID: any

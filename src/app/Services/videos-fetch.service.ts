@@ -24,7 +24,10 @@ export class VideosFetchService {
   }
 
   checkIsServerOnline(): any {
-    return this.http.get<any>('https://kringeproduction.ru')
+    let headers = new HttpHeaders()
+
+    headers = headers.set('timeout', "2000")
+    return this.http.get<any>('https://kringeproduction.ru', {"headers": headers})
   }
 
   getVideos(): any {

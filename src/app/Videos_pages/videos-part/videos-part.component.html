@@ -16,7 +16,11 @@
     </a>
   } @empty {
     <div class="loading">
-      <h1>Loading....</h1>
+      @if (isServerOnline) {
+        <h1>Loading....</h1>
+      } @else {
+        <h1>Server offline</h1>
+      }
     </div>
   }
 </div>
