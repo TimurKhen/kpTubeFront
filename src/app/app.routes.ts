@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from '@angular/router'
 import { VideosPartComponent } from './Videos_pages/videos-part/videos-part.component'
 import { SearchResultsComponent } from './Videos_pages/search-results/search-results.component'
+import { VideoComponent } from './Videos_pages/video/video.component'
 
 export const routes: Routes = [
   {
@@ -15,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'video/:Video_ID',
-    loadComponent: () => import('./Videos_pages/video/video.component').then(m => m.VideoComponent)
+    component: VideoComponent
   },
   {
     path: 'account/:User_ID',
