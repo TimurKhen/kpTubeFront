@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
@@ -22,14 +22,14 @@ export let videos = []
   templateUrl: './videos-part.component.html',
   styleUrl: './videos-part.component.sass',
 })
-export class VideosPartComponent implements AfterViewInit {
+export class VideosPartComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   LinksChangerService = inject(LinkChangerService)
   NumbersFormaterService = inject(NumbersFormaterService)
 
   isServerOnline: boolean = true
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.getVideos()
   }
 
