@@ -8,6 +8,7 @@ import {filter, forkJoin} from "rxjs";
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 import {VideoInterface} from "../../Interfaces/video-interface";
 import {LinkChangerService} from "../../Services/link-changer.service";
+import {NumbersFormaterService} from "../../Services/numbers-formater.service";
 
 @Component({
   selector: 'app-search-results',
@@ -26,6 +27,7 @@ import {LinkChangerService} from "../../Services/link-changer.service";
 export class SearchResultsComponent implements OnInit {
   VideoFetchService = inject(VideosFetchService)
   LinkChangerService = inject(LinkChangerService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
   results: any[] = []
 
@@ -36,6 +38,10 @@ export class SearchResultsComponent implements OnInit {
       let search = params.get('userSearch') || ''
       this.searchResults(search)
     })
+  }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
   }
 
   searchResults(search: string) {

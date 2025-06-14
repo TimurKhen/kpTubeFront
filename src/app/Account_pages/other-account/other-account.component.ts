@@ -3,6 +3,7 @@ import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {ActivatedRoute, RouterLink} from "@angular/router"
 import {NgIf} from "@angular/common";
 import { LinkChangerService } from '../../Services/link-changer.service';
+import { NumbersFormaterService } from '../../Services/numbers-formater.service';
 
 @Component({
   selector: 'app-other-account',
@@ -17,6 +18,7 @@ import { LinkChangerService } from '../../Services/link-changer.service';
 export class OtherAccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   LinkChangerService = inject(LinkChangerService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
   userData: any[] = []
   userHeader: string | ArrayBuffer | null = null
@@ -60,6 +62,10 @@ export class OtherAccountComponent implements OnInit {
         this.loadOtherUserVideos()
       }
     )
+  }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
   }
 
   loadOtherUserVideos(): void {

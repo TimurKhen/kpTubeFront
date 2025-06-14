@@ -10,7 +10,7 @@
           </span>
         <span class="text">
           <h2><a href="./video/{{last_video.Video_ID}}">{{ last_video.name }}</a></h2>
-          <p>{{ last_video.views }} просмотров</p>
+          <p>{{ NumberFormater(last_video.views) }} просмотров</p>
           <p>{{ stars_count }} звёзд</p>
           <p>{{ getCreatedDate() }}</p>
         </span>

@@ -11,6 +11,7 @@ import {StrShorterService} from '../../Services/str-shorter.service'
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {LinkChangerService} from "../../Services/link-changer.service";
 import {AdsServiceService} from "../../Services/ads-service.service";
+import { NumbersFormaterService } from '../../Services/numbers-formater.service'
 
 @Component({
   selector: 'app-video',
@@ -36,6 +37,7 @@ export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
   AdsServiceService = inject(AdsServiceService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
 
   videoId: string = ''
@@ -54,7 +56,7 @@ export class VideoComponent implements OnInit {
   video_category: string = ''
   video_description: string = ''
   video_preview_link: string = ''
-  video_views: number = 0
+  video_views: string = ''
 
   VideoData: any | null = null
   VideoOwnerId: string = ''
@@ -119,7 +121,7 @@ export class VideoComponent implements OnInit {
         this.video_owner = data[0].owner
         this.video_category = data[0].category
         this.video_description = data[0].description
-        this.video_views = data[0].views
+        this.video_views = this.NumbersFormaterService.setSimpleNumberValue(data[0].views)
 
         this.loadAuthorDetails()
 

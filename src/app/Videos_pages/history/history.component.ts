@@ -53,6 +53,7 @@ export class HistoryComponent implements OnInit {
     }
   }
 
+
   history_urls_setter(historyData: string[]) {
     historyData.forEach((element: any) => {
       this.setLinks(element)

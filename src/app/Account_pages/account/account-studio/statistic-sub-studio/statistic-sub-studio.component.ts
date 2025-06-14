@@ -3,6 +3,7 @@ import {AsyncPipe} from "@angular/common";
 import {VideoInterface} from "../../../../Interfaces/video-interface";
 import { VideosFetchService } from '../../../../Services/videos-fetch.service';
 import {DateService} from "../../../../Services/date.service";
+import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
 
 @Component({
   selector: 'app-statistic-sub-studio',
@@ -16,6 +17,7 @@ import {DateService} from "../../../../Services/date.service";
 export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
   userVideos: any = []
   status_of_last_video: string = 'Загрузка'
@@ -58,6 +60,10 @@ export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
         this.urlSetter(video)
       })
     })
+  }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
   }
 
   urlSetter(response: any) {

@@ -7,6 +7,7 @@ import {MainSubStudioComponent} from "./main-sub-studio/main-sub-studio.componen
 import {StatisticSubStudioComponent} from "./statistic-sub-studio/statistic-sub-studio.component";
 import {SettingsSubStudioComponent} from "./settings-sub-studio/settings-sub-studio.component";
 import { LinkChangerService } from '../../../Services/link-changer.service';
+import { NumbersFormaterService } from '../../../Services/numbers-formater.service';
 
 @Component({
   selector: 'app-account-studio',
@@ -25,6 +26,7 @@ import { LinkChangerService } from '../../../Services/link-changer.service';
 export class AccountStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   LinkChangerService = inject(LinkChangerService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
   name: string = ''
   email: string = ''
@@ -48,6 +50,11 @@ export class AccountStudioComponent implements OnInit {
   ngOnInit() {
     this.url_setter()
   }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
+  }
+
 
   url_setter() {
     if (typeof localStorage !== 'undefined') {

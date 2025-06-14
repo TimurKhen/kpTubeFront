@@ -10,7 +10,7 @@
         </div>
         <div class="userName">
           <h1 class="userName">{{ userName }}</h1>
-          <p>{{userSubscribers}} подписчиков</p>
+          <p>{{NumberFormater(userSubscribers)}} подписчиков</p>
         </div>
         <div class="goToStudio" *ngIf="isCurrentUser">
           <button>
@@ -27,7 +27,7 @@
             <h5 class="video_name">{{ video.name }}</h5>
             <span class="author_and_views">
           <p>{{ video.owner }}</p>
-          <p>{{ video.views }} просмотров</p>
+          <p>{{ NumberFormater(video.views) }} просмотров</p>
         </span>
           </div>
         </div>

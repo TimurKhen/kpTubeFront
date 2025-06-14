@@ -4,15 +4,15 @@
     <div class="popularity_info">
       <span class="subscribers">
         <img src="User.svg">
-        <p>{{userSubscribers}} подписчика</p>
+        <p>{{NumberFormater(userSubscribers)}} подписчика</p>
       </span>
       <span class="likes">
         <img src="Liked_starred.svg">
-        <p>{{userTotalLikes}} звёзд</p>
+        <p>{{NumberFormater(userTotalLikes)}} звёзд</p>
       </span>
       <span class="views">
         <img src="icon_improve.svg">
-        <p>{{userTotalViews}} просмотров</p>
+        <p>{{NumberFormater(userTotalViews)}} просмотров</p>
       </span>
     </div>
   </div>
@@ -28,7 +28,7 @@
             <div class="info">
               <h5 class="video_name">{{video.name}}</h5>
               <span class="author_and_views">
-                <p>{{video.views}} просмотров</p>
+                <p>{{NumberFormater(video.views)}} просмотров</p>
                 <p>{{video.total_likes}} звёзд</p>
                 <p>{{getCreatedDate(video)}}</p>
               </span>

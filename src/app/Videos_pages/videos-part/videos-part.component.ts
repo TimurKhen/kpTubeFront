@@ -5,6 +5,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 import {LinkChangerService} from "../../Services/link-changer.service";
+import {NumbersFormaterService} from "../../Services/numbers-formater.service";
 
 export let videos = []
 
@@ -16,7 +17,7 @@ export let videos = []
     RouterLink,
     RouterLinkActive,
     SystemIconsStylesDirective,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './videos-part.component.html',
   styleUrl: './videos-part.component.sass',
@@ -24,15 +25,12 @@ export let videos = []
 export class VideosPartComponent implements AfterViewInit {
   VideosFetchService = inject(VideosFetchService)
   LinksChangerService = inject(LinkChangerService)
+  NumbersFormaterService = inject(NumbersFormaterService)
+
   isServerOnline: boolean = true
 
   ngAfterViewInit() {
-    this.VideosFetchService.checkIsServerOnline().subscribe((data: any) => {
-      this.isServerOnline = data.ok()
-      if (data.ok()) {
-        this.getVideos()
-      }
-    })
+    this.getVideos()
   }
 
   videos: VideoInterface[] = []
@@ -43,6 +41,10 @@ export class VideosPartComponent implements AfterViewInit {
       data = this.shuffleArray(data)
       this.videos = data
     })
+  }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
   }
 
   shuffleArray(array: any[]): any[] {

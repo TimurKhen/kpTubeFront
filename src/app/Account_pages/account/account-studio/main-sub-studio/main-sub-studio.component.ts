@@ -5,6 +5,7 @@ import {VideoInterface} from "../../../../Interfaces/video-interface";
 import {AsyncPipe} from "@angular/common";
 import {DateService} from "../../../../Services/date.service";
 import {RouterLink} from "@angular/router";
+import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
 
 @Component({
   selector: 'app-main-sub-studio',
@@ -19,6 +20,7 @@ import {RouterLink} from "@angular/router";
 export class MainSubStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
+  NumbersFormaterService = inject(NumbersFormaterService)
 
   last_video: any
   status_of_last_video: string = 'Загрузка'
@@ -47,6 +49,10 @@ export class MainSubStudioComponent implements OnInit {
       data.sort((a: any, b: any) => Number(a.id) - Number(b.id))
       this.urlSetter(data.at(-1))
     })
+  }
+
+  NumberFormater(num: any): string {
+    return this.NumbersFormaterService.setSimpleNumberValue(num)
   }
 
   urlSetter(response: VideoInterface) {

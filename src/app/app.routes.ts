@@ -1,8 +1,10 @@
 import {RouterModule, Routes} from '@angular/router'
+import { VideosPartComponent } from './Videos_pages/videos-part/videos-part.component'
+import { SearchResultsComponent } from './Videos_pages/search-results/search-results.component'
 
 export const routes: Routes = [
   {
-    path: '', loadComponent: () => import('./Videos_pages/videos-part/videos-part.component').then(m => m.VideosPartComponent)
+    path: '', component: VideosPartComponent
   },
   {
     path: 'account',
@@ -29,7 +31,7 @@ export const routes: Routes = [
   },
   {
     path: 'search/:userSearch',
-    loadComponent: () => import('./Videos_pages/search-results/search-results.component').then(m => m.SearchResultsComponent)
+    component: SearchResultsComponent
   },
   {
     path: 'history',
