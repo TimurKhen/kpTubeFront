@@ -6,11 +6,7 @@ import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {KpRatingComponent} from "../../KP-UI/kp-rating/kp-rating.component";
 import {DateService} from "../../Services/date.service";
-import {VideoInterface} from "../../Interfaces/video-interface";
-import {StrShorterService} from '../../Services/str-shorter.service'
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
-import {LinkChangerService} from "../../Services/link-changer.service";
-import {AdsServiceService} from "../../Services/ads-service.service";
 import { NumbersFormaterService } from '../../Services/numbers-formater.service'
 
 @Component({
@@ -36,9 +32,7 @@ import { NumbersFormaterService } from '../../Services/numbers-formater.service'
 export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
-  AdsServiceService = inject(AdsServiceService)
   NumbersFormaterService = inject(NumbersFormaterService)
-
 
   videoId: string = ''
   videoData: any = {}
@@ -71,8 +65,6 @@ export class VideoComponent implements OnInit {
   isSubscribe: boolean = false
   author_subscribers: number = 0
 
-  adsInformation: any = {}
-
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient
@@ -85,7 +77,6 @@ export class VideoComponent implements OnInit {
     })
     this.loadUserDetails()
     this.loadVideoDetails()
-    this.loadAds()
   }
 
   loadUserDetails(): void {
@@ -212,11 +203,6 @@ export class VideoComponent implements OnInit {
         this.isSubscribe = false
       })
     }
-  }
-
-  loadAds() {
-    this.adsInformation = this.AdsServiceService.generator()
-    console.log(this.adsInformation)
   }
 
   shareData = {
