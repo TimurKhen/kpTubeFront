@@ -7,7 +7,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {KpRatingComponent} from "../../KP-UI/kp-rating/kp-rating.component";
 import {DateService} from "../../Services/date.service";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
-import { NumbersFormaterService } from '../../Services/numbers-formater.service'
+import {NumbersFormaterService} from '../../Services/numbers-formater.service'
+import {SubscribesHandlerService} from "../../Services/subscribes-handler.service";
 
 @Component({
   selector: 'app-video',
@@ -16,14 +17,10 @@ import { NumbersFormaterService } from '../../Services/numbers-formater.service'
   imports: [
     FormsModule,
     RouterLink,
-    RouterLinkActive,
-    NgOptimizedImage,
-    NgStyle,
     NgClass,
     ReactiveFormsModule,
     FormsModule,
     NgIf,
-    NgForOf,
     KpRatingComponent,
     SystemIconsStylesDirective
   ],
@@ -33,6 +30,7 @@ export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
   NumbersFormaterService = inject(NumbersFormaterService)
+  SubscribesHandlerService = inject(SubscribesHandlerService)
 
   videoId: string = ''
   videoData: any = {}
@@ -192,17 +190,9 @@ export class VideoComponent implements OnInit {
 
 
   subscribe_to_blogger_handler() {
-    let userId = String(localStorage.getItem('UserID'))
-
-    if (!this.isSubscribe) {
-      this.VideosFetchService.subscribeToBlogger(userId, this.VideoOwnerId).subscribe((data) => {
-        this.isSubscribe = true
-      })
-    } else {
-      this.VideosFetchService.unSubscribeFromBlogger(userId, this.VideoOwnerId).subscribe((data) => {
-        this.isSubscribe = false
-      })
-    }
+    this.SubscribesHandlerService.subscriber(this.isSubscribe, this.video_owner).subscribe((data) => {
+      console.log(data)
+    })
   }
 
   shareData = {
