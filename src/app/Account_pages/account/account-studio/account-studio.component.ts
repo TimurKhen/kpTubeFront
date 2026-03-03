@@ -1,25 +1,22 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { NgClass } from "@angular/common";
-import {RouterLink} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {NgClass} from "@angular/common";
 import {VideosFetchService} from '../../../Services/videos-fetch.service';
 import {MainSubStudioComponent} from "./main-sub-studio/main-sub-studio.component";
 import {StatisticSubStudioComponent} from "./statistic-sub-studio/statistic-sub-studio.component";
 import {SettingsSubStudioComponent} from "./settings-sub-studio/settings-sub-studio.component";
-import { LinkChangerService } from '../../../Services/link-changer.service';
-import { NumbersFormaterService } from '../../../Services/numbers-formater.service';
+import {LinkChangerService} from '../../../Services/link-changer.service';
+import {NumbersFormaterService} from '../../../Services/numbers-formater.service';
 
 @Component({
-    selector: 'app-account-studio',
-    imports: [
-    RouterLink,
+  selector: 'app-account-studio',
+  imports: [
     NgClass,
     MainSubStudioComponent,
     StatisticSubStudioComponent,
     SettingsSubStudioComponent
-],
-    templateUrl: './account-studio.component.html',
-    styleUrl: './account-studio.component.sass'
+  ],
+  templateUrl: './account-studio.component.html',
+  styleUrl: './account-studio.component.sass'
 })
 export class AccountStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

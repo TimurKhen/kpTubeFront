@@ -1,20 +1,17 @@
-import {Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {VideosFetchService} from '../../../../Services/videos-fetch.service';
 import {VideoInterface} from "../../../../Interfaces/video-interface";
-import {AsyncPipe} from "@angular/common";
 import {DateService} from "../../../../Services/date.service";
 import {RouterLink} from "@angular/router";
-import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
+import {NumbersFormaterService} from '../../../../Services/numbers-formater.service';
 
 @Component({
-    selector: 'app-main-sub-studio',
-    imports: [
-        AsyncPipe,
-        RouterLink
-    ],
-    templateUrl: './main-sub-studio.component.html',
-    styleUrl: './main-sub-studio.component.sass'
+  selector: 'app-main-sub-studio',
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './main-sub-studio.component.html',
+  styleUrl: './main-sub-studio.component.sass'
 })
 export class MainSubStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

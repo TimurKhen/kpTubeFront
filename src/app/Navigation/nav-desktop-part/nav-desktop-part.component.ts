@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import { NgClass } from "@angular/common";
-import {trigger, transition, style, animate} from '@angular/animations';
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
@@ -15,17 +14,6 @@ import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.d
 ],
     templateUrl: './nav-desktop-part.component.html',
     styleUrl: './nav-desktop-part.component.sass',
-    animations: [
-        trigger('fadeInOut', [
-            transition(':enter', [
-                style({ opacity: 0 }),
-                animate('0.2s', style({ opacity: 1 }))
-            ]),
-            transition(':leave', [
-                animate('0.7s', style({ opacity: 0 }))
-            ])
-        ])
-    ]
 })
 export class NavDesktopPartComponent {
   isOpen = false

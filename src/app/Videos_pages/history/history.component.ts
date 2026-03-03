@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 
-import {ActivatedRoute, RouterLink, RouterLinkActive} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
 
 
@@ -14,13 +14,12 @@ interface history_video {
 }
 
 @Component({
-    selector: 'app-history',
-    imports: [
-    RouterLink,
-    RouterLinkActive
-],
-    templateUrl: './history.component.html',
-    styleUrl: './history.component.sass'
+  selector: 'app-history',
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './history.component.html',
+  styleUrl: './history.component.sass'
 })
 export class HistoryComponent implements OnInit {
   postService = inject(VideosFetchService)
@@ -87,7 +86,7 @@ export class HistoryComponent implements OnInit {
 
       // Сохраняем только самое новое видео
       if (!uniqueVideos.has(videoID) || watchedDate > new Date(uniqueVideos.get(videoID).whatchedAt)) {
-        uniqueVideos.set(videoID, { ...video, watchedDate });
+        uniqueVideos.set(videoID, {...video, watchedDate});
       }
     });
 

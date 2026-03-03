@@ -1,25 +1,20 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {FormsModule} from "@angular/forms"
 import {VideosFetchService} from "../../Services/videos-fetch.service"
-import { NgClass, NgStyle } from "@angular/common";
-import {RouterLink} from "@angular/router"
-import {HttpClient} from "@angular/common/http"
+import {NgClass} from "@angular/common";
 import {RegisterAndAuthComponent} from "./register-and-auth/register-and-auth.component";
 import {AccountStudioComponent} from "./account-studio/account-studio.component";
-import {retry} from "rxjs";
 
 @Component({
-    selector: 'app-account',
-    imports: [
+  selector: 'app-account',
+  imports: [
     FormsModule,
-    RouterLink,
     RegisterAndAuthComponent,
     AccountStudioComponent,
-    NgStyle,
     NgClass
-],
-    templateUrl: './account.component.html',
-    styleUrl: './account.component.sass'
+  ],
+  templateUrl: './account.component.html',
+  styleUrl: './account.component.sass'
 })
 export class AccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

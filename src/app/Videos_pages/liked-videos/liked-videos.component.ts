@@ -1,18 +1,16 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 
-import {ActivatedRoute, RouterLink, RouterLinkActive} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {it} from "node:test";
 
 @Component({
-    selector: 'app-history',
-    imports: [
-    RouterLink,
-    RouterLinkActive
-],
-    templateUrl: './liked-videos.component.html',
-    styleUrl: './liked-videos.component.sass'
+  selector: 'app-history',
+  imports: [
+    RouterLink
+  ],
+  templateUrl: './liked-videos.component.html',
+  styleUrl: './liked-videos.component.sass'
 })
 export class LikedVideosComponent implements OnInit {
   postService = inject(VideosFetchService)

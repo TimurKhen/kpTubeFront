@@ -10,9 +10,7 @@ import * as timers from "node:timers";
     selector: 'app-search-part',
     imports: [
       RouterLink,
-      RouterLinkActive,
       FormsModule,
-      NgStyle,
       SystemIconsStylesDirective
   ],
     templateUrl: './search-part.component.html',

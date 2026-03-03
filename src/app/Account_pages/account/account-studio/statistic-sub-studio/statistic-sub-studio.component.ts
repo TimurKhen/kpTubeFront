@@ -1,19 +1,16 @@
 import {Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
-import {AsyncPipe} from "@angular/common";
 import {VideoInterface} from "../../../../Interfaces/video-interface";
-import { VideosFetchService } from '../../../../Services/videos-fetch.service';
+import {VideosFetchService} from '../../../../Services/videos-fetch.service';
 import {DateService} from "../../../../Services/date.service";
-import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
+import {NumbersFormaterService} from '../../../../Services/numbers-formater.service';
 
 @Component({
-    selector: 'app-statistic-sub-studio',
-    imports: [
-        AsyncPipe
-    ],
-    templateUrl: './statistic-sub-studio.component.html',
-    styleUrl: './statistic-sub-studio.component.sass'
+  selector: 'app-statistic-sub-studio',
+  imports: [],
+  templateUrl: './statistic-sub-studio.component.html',
+  styleUrl: './statistic-sub-studio.component.sass'
 })
-export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
+export class StatisticSubStudioComponent implements OnInit, OnDestroy {
   VideosFetchService = inject(VideosFetchService)
   DateFetchService = inject(DateService)
   NumbersFormaterService = inject(NumbersFormaterService)

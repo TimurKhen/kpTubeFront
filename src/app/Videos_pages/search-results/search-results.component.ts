@@ -1,26 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {RouterLink, RouterLinkActive} from "@angular/router";
-import { videos } from "../videos-part/videos-part.component"
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {HttpClient} from "@angular/common/http";
-import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
-import {filter, forkJoin} from "rxjs";
 import {VideosFetchService} from "../../Services/videos-fetch.service";
 import {VideoInterface} from "../../Interfaces/video-interface";
 import {LinkChangerService} from "../../Services/link-changer.service";
 import {NumbersFormaterService} from "../../Services/numbers-formater.service";
 
 @Component({
-    selector: 'app-search-results',
-    templateUrl: './search-results.component.html',
-    imports: [
-    RouterLink,
-    RouterLinkActive,
-    NgOptimizedImage,
-    NgStyle,
-    NgClass
-],
-    styleUrls: ['./search-results.component.sass']
+  selector: 'app-search-results',
+  templateUrl: './search-results.component.html',
+  imports: [
+    RouterLink
+  ],
+  styleUrls: ['./search-results.component.sass']
 })
 export class SearchResultsComponent implements OnInit {
   VideoFetchService = inject(VideosFetchService)
@@ -29,7 +21,8 @@ export class SearchResultsComponent implements OnInit {
 
   results: any[] = []
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
