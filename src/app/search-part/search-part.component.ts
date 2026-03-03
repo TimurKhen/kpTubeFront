@@ -9,12 +9,12 @@ import * as timers from "node:timers";
 @Component({
     selector: 'app-search-part',
     imports: [
-    RouterLink,
-    RouterLinkActive,
-    FormsModule,
-    NgStyle,
-    SystemIconsStylesDirective
-],
+      RouterLink,
+      RouterLinkActive,
+      FormsModule,
+      NgStyle,
+      SystemIconsStylesDirective
+  ],
     templateUrl: './search-part.component.html',
     styleUrl: './search-part.component.sass'
 })
