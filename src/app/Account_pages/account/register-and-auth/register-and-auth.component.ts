@@ -1,17 +1,16 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {VideosFetchService} from "../../../Services/videos-fetch.service"
-import {NgIf} from "@angular/common"
+
 import {HttpClient} from "@angular/common/http"
 
 
 @Component({
     selector: 'app-register-and-auth',
     imports: [
-        FormsModule,
-        NgIf,
-        ReactiveFormsModule
-    ],
+    FormsModule,
+    ReactiveFormsModule
+],
     templateUrl: './register-and-auth.component.html',
     styleUrl: './register-and-auth.component.sass'
 })

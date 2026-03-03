@@ -7,14 +7,16 @@
 </div>
 
 
-<span class="navigation_menu"
-      (mouseenter)="setHoverStatus(true)"
-      (mouseleave)="setHoverStatus(false)"
-      *ngIf="isHoverAccount">
-  <span class="account_pages">
-    <button [routerLink]="['/account', userID]">Аккаунт</button>
-    <button routerLink="/account">Студия</button>
+@if (isHoverAccount) {
+  <span class="navigation_menu"
+    (mouseenter)="setHoverStatus(true)"
+    (mouseleave)="setHoverStatus(false)"
+    >
+    <span class="account_pages">
+      <button [routerLink]="['/account', userID]">Аккаунт</button>
+      <button routerLink="/account">Студия</button>
+    </span>
+    <button class="exit_button" (click)="exitAccount()">Выйти</button>
   </span>
-  <button class="exit_button" (click)="exitAccount()">Выйти</button>
-</span>
+}
 

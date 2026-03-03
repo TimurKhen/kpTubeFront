@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {FormsModule} from "@angular/forms"
 import {VideosFetchService} from "../../Services/videos-fetch.service"
-import {NgClass, NgIf} from "@angular/common"
+import { NgClass } from "@angular/common";
 import {Router} from '@angular/router'
 import {Subscription} from "rxjs"
 import {File} from "node:buffer"
@@ -9,10 +9,9 @@ import {File} from "node:buffer"
 @Component({
     selector: 'app-video-creating',
     imports: [
-        FormsModule,
-        NgIf,
-        NgClass
-    ],
+    FormsModule,
+    NgClass
+],
     templateUrl: './video-creating.component.html',
     styleUrl: './video-creating.component.sass'
 })

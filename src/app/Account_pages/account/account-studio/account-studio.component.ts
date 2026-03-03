@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {VideosFetchService} from '../../../Services/videos-fetch.service';
@@ -12,13 +12,12 @@ import { NumbersFormaterService } from '../../../Services/numbers-formater.servi
 @Component({
     selector: 'app-account-studio',
     imports: [
-        NgIf,
-        RouterLink,
-        NgClass,
-        MainSubStudioComponent,
-        StatisticSubStudioComponent,
-        SettingsSubStudioComponent
-    ],
+    RouterLink,
+    NgClass,
+    MainSubStudioComponent,
+    StatisticSubStudioComponent,
+    SettingsSubStudioComponent
+],
     templateUrl: './account-studio.component.html',
     styleUrl: './account-studio.component.sass'
 })

@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {ActivatedRoute, RouterLink, RouterLinkActive} from '@angular/router'
 import {HttpClient} from "@angular/common/http"
-import {NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle} from "@angular/common"
+import { NgClass, NgOptimizedImage, NgStyle } from "@angular/common";
 import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {KpRatingComponent} from "../../KP-UI/kp-rating/kp-rating.component";
@@ -14,15 +14,14 @@ import {SubscribesHandlerService} from "../../Services/subscribes-handler.servic
     selector: 'app-video',
     templateUrl: './video.component.html',
     imports: [
-        FormsModule,
-        RouterLink,
-        NgClass,
-        ReactiveFormsModule,
-        FormsModule,
-        NgIf,
-        KpRatingComponent,
-        SystemIconsStylesDirective
-    ],
+    FormsModule,
+    RouterLink,
+    NgClass,
+    ReactiveFormsModule,
+    FormsModule,
+    KpRatingComponent,
+    SystemIconsStylesDirective
+],
     styleUrls: ['./video.component.sass']
 })
 export class VideoComponent implements OnInit {

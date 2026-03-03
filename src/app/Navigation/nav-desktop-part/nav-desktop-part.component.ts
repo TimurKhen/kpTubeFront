@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {trigger, transition, style, animate} from '@angular/animations';
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
@@ -8,12 +8,11 @@ import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.d
 @Component({
     selector: 'app-desktop-nav-part',
     imports: [
-        NgIf,
-        NgClass,
-        RouterLink,
-        FormsModule,
-        SystemIconsStylesDirective,
-    ],
+    NgClass,
+    RouterLink,
+    FormsModule,
+    SystemIconsStylesDirective
+],
     templateUrl: './nav-desktop-part.component.html',
     styleUrl: './nav-desktop-part.component.sass',
     animations: [

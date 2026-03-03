@@ -2,20 +2,19 @@ import {Component, EventEmitter, inject, OnInit, Output} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {VideosFetchService} from "../Services/videos-fetch.service";
 import {FormsModule} from "@angular/forms";
-import {NgIf, NgStyle} from "@angular/common";
+import { NgStyle } from "@angular/common";
 import {SystemIconsStylesDirective} from '../Directives/system-icons-styles.directive'
 import * as timers from "node:timers";
 
 @Component({
     selector: 'app-search-part',
     imports: [
-        RouterLink,
-        RouterLinkActive,
-        FormsModule,
-        NgStyle,
-        NgIf,
-        SystemIconsStylesDirective
-    ],
+    RouterLink,
+    RouterLinkActive,
+    FormsModule,
+    NgStyle,
+    SystemIconsStylesDirective
+],
     templateUrl: './search-part.component.html',
     styleUrl: './search-part.component.sass'
 })

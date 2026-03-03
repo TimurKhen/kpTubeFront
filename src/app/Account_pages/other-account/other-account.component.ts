@@ -1,16 +1,15 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {ActivatedRoute, RouterLink} from "@angular/router"
-import {NgIf} from "@angular/common";
+
 import { LinkChangerService } from '../../Services/link-changer.service';
 import { NumbersFormaterService } from '../../Services/numbers-formater.service';
 
 @Component({
     selector: 'app-other-account',
     imports: [
-        RouterLink,
-        NgIf
-    ],
+    RouterLink
+],
     templateUrl: './other-account.component.html',
     styleUrl: './other-account.component.sass'
 })

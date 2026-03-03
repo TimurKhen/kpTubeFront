@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core'
 import {FormsModule} from "@angular/forms"
 import {VideosFetchService} from "../../Services/videos-fetch.service"
-import {NgClass, NgIf, NgStyle} from "@angular/common"
+import { NgClass, NgStyle } from "@angular/common";
 import {RouterLink} from "@angular/router"
 import {HttpClient} from "@angular/common/http"
 import {RegisterAndAuthComponent} from "./register-and-auth/register-and-auth.component";
@@ -11,14 +11,13 @@ import {retry} from "rxjs";
 @Component({
     selector: 'app-account',
     imports: [
-        FormsModule,
-        NgIf,
-        RouterLink,
-        RegisterAndAuthComponent,
-        AccountStudioComponent,
-        NgStyle,
-        NgClass
-    ],
+    FormsModule,
+    RouterLink,
+    RegisterAndAuthComponent,
+    AccountStudioComponent,
+    NgStyle,
+    NgClass
+],
     templateUrl: './account.component.html',
     styleUrl: './account.component.sass'
 })

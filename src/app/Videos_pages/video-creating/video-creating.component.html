@@ -2,9 +2,13 @@
   <div class="file">
     <label id="fileUploadLabel" for="fileUpload">
       <h1>Видео</h1>
-      <img *ngIf="!videoSrc" src="{{mainLink}}" width="80">
-      <video loop="loop" controls="controls" [src]="videoSrc" *ngIf="videoSrc"
-             id="previewVideo"></video>
+      @if (!videoSrc) {
+        <img src="{{mainLink}}" width="80">
+      }
+      @if (videoSrc) {
+        <video loop="loop" controls="controls" [src]="videoSrc"
+        id="previewVideo"></video>
+      }
     </label>
     <input id="fileUpload" type="file" (change)="onFileChange($event)" name="video" hidden="hidden" required>
   </div>
@@ -14,7 +18,7 @@
 
     <label id="descriptionTextlabel" for="descriptionText">Описание видео: </label>
     <textarea type="text" rows="8" cols="35" id="descriptionText" [(ngModel)]="description" name="description"
-              required></textarea>
+    required></textarea>
 
     <span class="category_choose" (click)="OpenCloseCategory()" [ngClass]="{open_category:categoryIsOpen}">
       <select (change)="onCategoryChange($event)">
@@ -29,39 +33,47 @@
     <label for="file-input" class="upload-label">
       <p>превью:</p>
       <div class="upload-container">
-        <img [src]="imageSrc" alt="Selected image" *ngIf="imageSrc">
-        <span *ngIf="!imageSrc"></span>
+        @if (imageSrc) {
+          <img [src]="imageSrc" alt="Selected image">
+        }
+        @if (!imageSrc) {
+          <span></span>
+        }
       </div>
     </label>
     <input id="file-input" name="preview" type="file" accept="image/jpeg" (change)="previewChange($event)"
-           hidden="hidden" required>
+      hidden="hidden" required>
 
-    <span class="status_choose">
-      <select (change)="onGlobalStatusChange($event)">
-        <option>Видно всем</option>
-        <option>Доступ по ссылке</option>
-      </select>
-    </span>
+      <span class="status_choose">
+        <select (change)="onGlobalStatusChange($event)">
+          <option>Видно всем</option>
+          <option>Доступ по ссылке</option>
+        </select>
+      </span>
 
-    <button type="submit" [disabled]="isButtonDisabled" class="uploadButt" (click)="onSubmit()">Upload</button>
-  </div>
-</form>
+      <button type="submit" [disabled]="isButtonDisabled" class="uploadButt" (click)="onSubmit()">Upload</button>
+    </div>
+  </form>
 
-<div *ngIf="loading" class="popup">
-  <h1>Загрузка</h1>
-  <p>не закрывайте это окно</p>
-  <!--  <p>Прогресс: {{ uploadProgress }}%</p>-->
-  <button (click)="cancelUpload()">Отменить загрузку</button>
-</div>
-
-
-<div *ngIf="errorMessage" class="popup">
-  <h1>Ошибка!</h1>
-  @if (errorMessage === 'accountError') {
-    <p>Необходимо верефицировать аккаунт!</p>
-    <button (click)="closePopup()">Закрыть</button>
-  } @else {
-    {{ errorMessage }}
-    <button (click)="closePopup()">Закрыть</button>
+  @if (loading) {
+    <div class="popup">
+      <h1>Загрузка</h1>
+      <p>не закрывайте это окно</p>
+      <!--  <p>Прогресс: {{ uploadProgress }}%</p>-->
+      <button (click)="cancelUpload()">Отменить загрузку</button>
+    </div>
   }
-</div>
+
+
+  @if (errorMessage) {
+    <div class="popup">
+      <h1>Ошибка!</h1>
+      @if (errorMessage === 'accountError') {
+        <p>Необходимо верефицировать аккаунт!</p>
+        <button (click)="closePopup()">Закрыть</button>
+      } @else {
+        {{ errorMessage }}
+        <button (click)="closePopup()">Закрыть</button>
+      }
+    </div>
+  }

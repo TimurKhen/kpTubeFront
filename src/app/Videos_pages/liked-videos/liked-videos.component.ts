@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
-import {NgForOf} from "@angular/common";
+
 import {ActivatedRoute, RouterLink, RouterLinkActive} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {it} from "node:test";
@@ -8,10 +8,9 @@ import {it} from "node:test";
 @Component({
     selector: 'app-history',
     imports: [
-        NgForOf,
-        RouterLink,
-        RouterLinkActive
-    ],
+    RouterLink,
+    RouterLinkActive
+],
     templateUrl: './liked-videos.component.html',
     styleUrl: './liked-videos.component.sass'
 })

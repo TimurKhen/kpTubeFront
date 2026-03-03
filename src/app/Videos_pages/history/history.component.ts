@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {VideosFetchService} from "../../Services/videos-fetch.service";
-import {NgForOf} from "@angular/common";
+
 import {ActivatedRoute, RouterLink, RouterLinkActive} from "@angular/router";
 import {VideoInterface} from "../../Interfaces/video-interface";
 
@@ -16,10 +16,9 @@ interface history_video {
 @Component({
     selector: 'app-history',
     imports: [
-        NgForOf,
-        RouterLink,
-        RouterLinkActive
-    ],
+    RouterLink,
+    RouterLinkActive
+],
     templateUrl: './history.component.html',
     styleUrl: './history.component.sass'
 })

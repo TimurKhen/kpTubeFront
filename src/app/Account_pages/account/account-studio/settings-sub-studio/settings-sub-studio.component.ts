@@ -1,14 +1,13 @@
 import {Component, inject, Input} from '@angular/core';
-import {NgIf} from "@angular/common";
+
 import {FormsModule} from "@angular/forms";
 import { VideosFetchService } from '../../../../Services/videos-fetch.service';
 
 @Component({
     selector: 'app-settings-sub-studio',
     imports: [
-        NgIf,
-        FormsModule
-    ],
+    FormsModule
+],
     templateUrl: './settings-sub-studio.component.html',
     styleUrl: './settings-sub-studio.component.sass'
 })

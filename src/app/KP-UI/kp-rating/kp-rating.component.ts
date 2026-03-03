@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {NgForOf} from "@angular/common";
+
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {VideosFetchService} from "../../Services/videos-fetch.service"
@@ -8,9 +8,8 @@ import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.d
 @Component({
     selector: 'app-kp-rating',
     imports: [
-        NgForOf,
-        SystemIconsStylesDirective
-    ],
+    SystemIconsStylesDirective
+],
     templateUrl: './kp-rating.component.html',
     styleUrl: './kp-rating.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
