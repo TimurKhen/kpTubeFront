@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+$primary-color: #09d3ac;
+$secondary-color: #2196f3;
+
 body {
   background: #0f0f0f;
   color: white;
@@ -15,6 +18,7 @@ body {
       width: 20px;
     }
   }
+
   &::-webkit-scrollbar-thumb {
     background: #1A1A1D;
     border-radius: 90px;

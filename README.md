@@ -42,9 +42,6 @@
       <li>video-creating: page to create a video by user</li>
       <hr>
       <li>rating: component using for rating current video</li>
-      <hr>
-      <li>kp-music: Page for listening music</li>
-      <hr>
       <li>music-creating: page to create a music by user</li>
     </ul>
   </div>

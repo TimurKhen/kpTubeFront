@@ -20,7 +20,6 @@
       </span>
       <span *ngIf="isInputDisabled || !isMobile" class="account_data">
         <button appSystemIconsStyles><a routerLink="/creating"><img class="systemIcons" src="newVideo.svg"></a></button>
-        <button appSystemIconsStyles><a routerLink="/KPmusic/Creating"><img class="systemIcons" src="NewMusic.svg"></a></button>
         @if (isUserHaveAccount && isServerOnline) {
           <button (mouseenter)="setHoverStatus(true)"
                   (mouseleave)="setHoverStatus(false)"

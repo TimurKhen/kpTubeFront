@@ -23,14 +23,6 @@ export const routes: Routes = [
     loadComponent: () => import('./Account_pages/other-account/other-account.component').then(m => m.OtherAccountComponent)
   },
   {
-    path: 'KPmusic',
-    loadComponent: () => import('./Music_pages/music-part/music-part.component').then(m => m.MusicPartComponent)
-  },
-  {
-    path: 'KPmusic/Creating',
-    loadComponent: () => import('./Music_pages/music-creating/music-creating.component').then(m => m.MusicCreatingComponent)
-  },
-  {
     path: 'search/:userSearch',
     component: SearchResultsComponent
   },
