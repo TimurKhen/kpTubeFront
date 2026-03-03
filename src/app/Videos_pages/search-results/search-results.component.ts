@@ -11,18 +11,17 @@ import {LinkChangerService} from "../../Services/link-changer.service";
 import {NumbersFormaterService} from "../../Services/numbers-formater.service";
 
 @Component({
-  selector: 'app-search-results',
-  templateUrl: './search-results.component.html',
-  standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    NgOptimizedImage,
-    NgStyle,
-    NgClass,
-    NgForOf,
-  ],
-  styleUrls: ['./search-results.component.sass']
+    selector: 'app-search-results',
+    templateUrl: './search-results.component.html',
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+        NgOptimizedImage,
+        NgStyle,
+        NgClass,
+        NgForOf,
+    ],
+    styleUrls: ['./search-results.component.sass']
 })
 export class SearchResultsComponent implements OnInit {
   VideoFetchService = inject(VideosFetchService)

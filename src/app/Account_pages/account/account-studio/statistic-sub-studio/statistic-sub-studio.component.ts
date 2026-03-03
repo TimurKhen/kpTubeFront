@@ -6,13 +6,12 @@ import {DateService} from "../../../../Services/date.service";
 import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
 
 @Component({
-  selector: 'app-statistic-sub-studio',
-  standalone: true,
-  imports: [
-    AsyncPipe
-  ],
-  templateUrl: './statistic-sub-studio.component.html',
-  styleUrl: './statistic-sub-studio.component.sass'
+    selector: 'app-statistic-sub-studio',
+    imports: [
+        AsyncPipe
+    ],
+    templateUrl: './statistic-sub-studio.component.html',
+    styleUrl: './statistic-sub-studio.component.sass'
 })
 export class StatisticSubStudioComponent implements OnInit, OnDestroy  {
   VideosFetchService = inject(VideosFetchService)

@@ -6,15 +6,14 @@ import {VideosFetchService} from "../../Services/videos-fetch.service"
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 
 @Component({
-  selector: 'app-kp-rating',
-  standalone: true,
-  imports: [
-    NgForOf,
-    SystemIconsStylesDirective
-  ],
-  templateUrl: './kp-rating.component.html',
-  styleUrl: './kp-rating.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-kp-rating',
+    imports: [
+        NgForOf,
+        SystemIconsStylesDirective
+    ],
+    templateUrl: './kp-rating.component.html',
+    styleUrl: './kp-rating.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpRatingComponent implements OnChanges {
   VideosFetchService = inject(VideosFetchService)

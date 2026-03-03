@@ -6,15 +6,14 @@ import {HttpClient} from "@angular/common/http";
 import {it} from "node:test";
 
 @Component({
-  selector: 'app-history',
-  standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink,
-    RouterLinkActive
-  ],
-  templateUrl: './liked-videos.component.html',
-  styleUrl: './liked-videos.component.sass'
+    selector: 'app-history',
+    imports: [
+        NgForOf,
+        RouterLink,
+        RouterLinkActive
+    ],
+    templateUrl: './liked-videos.component.html',
+    styleUrl: './liked-videos.component.sass'
 })
 export class LikedVideosComponent implements OnInit {
   postService = inject(VideosFetchService)

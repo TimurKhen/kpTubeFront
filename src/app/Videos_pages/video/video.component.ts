@@ -11,20 +11,19 @@ import {NumbersFormaterService} from '../../Services/numbers-formater.service'
 import {SubscribesHandlerService} from "../../Services/subscribes-handler.service";
 
 @Component({
-  selector: 'app-video',
-  templateUrl: './video.component.html',
-  standalone: true,
-  imports: [
-    FormsModule,
-    RouterLink,
-    NgClass,
-    ReactiveFormsModule,
-    FormsModule,
-    NgIf,
-    KpRatingComponent,
-    SystemIconsStylesDirective
-  ],
-  styleUrls: ['./video.component.sass']
+    selector: 'app-video',
+    templateUrl: './video.component.html',
+    imports: [
+        FormsModule,
+        RouterLink,
+        NgClass,
+        ReactiveFormsModule,
+        FormsModule,
+        NgIf,
+        KpRatingComponent,
+        SystemIconsStylesDirective
+    ],
+    styleUrls: ['./video.component.sass']
 })
 export class VideoComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

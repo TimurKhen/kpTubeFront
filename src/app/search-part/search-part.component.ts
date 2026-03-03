@@ -7,18 +7,17 @@ import {SystemIconsStylesDirective} from '../Directives/system-icons-styles.dire
 import * as timers from "node:timers";
 
 @Component({
-  selector: 'app-search-part',
-  standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    FormsModule,
-    NgStyle,
-    NgIf,
-    SystemIconsStylesDirective
-  ],
-  templateUrl: './search-part.component.html',
-  styleUrl: './search-part.component.sass'
+    selector: 'app-search-part',
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+        FormsModule,
+        NgStyle,
+        NgIf,
+        SystemIconsStylesDirective
+    ],
+    templateUrl: './search-part.component.html',
+    styleUrl: './search-part.component.sass'
 })
 export class SearchPartComponent implements OnInit {
   userAvatar: string | null = null

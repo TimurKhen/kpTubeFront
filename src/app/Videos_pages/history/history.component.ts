@@ -14,15 +14,14 @@ interface history_video {
 }
 
 @Component({
-  selector: 'app-history',
-  standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink,
-    RouterLinkActive
-  ],
-  templateUrl: './history.component.html',
-  styleUrl: './history.component.sass'
+    selector: 'app-history',
+    imports: [
+        NgForOf,
+        RouterLink,
+        RouterLinkActive
+    ],
+    templateUrl: './history.component.html',
+    styleUrl: './history.component.sass'
 })
 export class HistoryComponent implements OnInit {
   postService = inject(VideosFetchService)

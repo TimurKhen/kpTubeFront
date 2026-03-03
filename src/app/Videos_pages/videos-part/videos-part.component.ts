@@ -8,13 +8,12 @@ import {NumbersFormaterService} from "../../Services/numbers-formater.service";
 export let videos = []
 
 @Component({
-  selector: 'app-videos-part',
-  standalone: true,
-  imports: [
-    SystemIconsStylesDirective,
-  ],
-  templateUrl: './videos-part.component.html',
-  styleUrl: './videos-part.component.sass',
+    selector: 'app-videos-part',
+    imports: [
+        SystemIconsStylesDirective,
+    ],
+    templateUrl: './videos-part.component.html',
+    styleUrl: './videos-part.component.sass'
 })
 export class VideosPartComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

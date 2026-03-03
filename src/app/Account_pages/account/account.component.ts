@@ -9,19 +9,18 @@ import {AccountStudioComponent} from "./account-studio/account-studio.component"
 import {retry} from "rxjs";
 
 @Component({
-  selector: 'app-account',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    RouterLink,
-    RegisterAndAuthComponent,
-    AccountStudioComponent,
-    NgStyle,
-    NgClass
-  ],
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.sass'
+    selector: 'app-account',
+    imports: [
+        FormsModule,
+        NgIf,
+        RouterLink,
+        RegisterAndAuthComponent,
+        AccountStudioComponent,
+        NgStyle,
+        NgClass
+    ],
+    templateUrl: './account.component.html',
+    styleUrl: './account.component.sass'
 })
 export class AccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

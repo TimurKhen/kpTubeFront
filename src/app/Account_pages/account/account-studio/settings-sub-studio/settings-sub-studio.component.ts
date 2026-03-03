@@ -4,14 +4,13 @@ import {FormsModule} from "@angular/forms";
 import { VideosFetchService } from '../../../../Services/videos-fetch.service';
 
 @Component({
-  selector: 'app-settings-sub-studio',
-  standalone: true,
-  imports: [
-    NgIf,
-    FormsModule
-  ],
-  templateUrl: './settings-sub-studio.component.html',
-  styleUrl: './settings-sub-studio.component.sass'
+    selector: 'app-settings-sub-studio',
+    imports: [
+        NgIf,
+        FormsModule
+    ],
+    templateUrl: './settings-sub-studio.component.html',
+    styleUrl: './settings-sub-studio.component.sass'
 })
 export class SettingsSubStudioComponent {
   VideosFetchService = inject(VideosFetchService)

@@ -6,28 +6,27 @@ import {FormsModule} from "@angular/forms";
 import {SystemIconsStylesDirective} from "../../Directives/system-icons-styles.directive";
 
 @Component({
-  selector: 'app-desktop-nav-part',
-  standalone: true,
-  imports: [
-    NgIf,
-    NgClass,
-    RouterLink,
-    FormsModule,
-    SystemIconsStylesDirective,
-  ],
-  templateUrl: './nav-desktop-part.component.html',
-  styleUrl: './nav-desktop-part.component.sass',
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({opacity: 0}),
-        animate('0.2s', style({opacity: 1}))
-      ]),
-      transition(':leave', [
-        animate('0.7s', style({opacity: 0}))
-      ])
-    ])
-  ]
+    selector: 'app-desktop-nav-part',
+    imports: [
+        NgIf,
+        NgClass,
+        RouterLink,
+        FormsModule,
+        SystemIconsStylesDirective,
+    ],
+    templateUrl: './nav-desktop-part.component.html',
+    styleUrl: './nav-desktop-part.component.sass',
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('0.2s', style({ opacity: 1 }))
+            ]),
+            transition(':leave', [
+                animate('0.7s', style({ opacity: 0 }))
+            ])
+        ])
+    ]
 })
 export class NavDesktopPartComponent {
   isOpen = false

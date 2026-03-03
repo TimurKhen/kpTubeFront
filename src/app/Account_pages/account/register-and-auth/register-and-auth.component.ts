@@ -6,15 +6,14 @@ import {HttpClient} from "@angular/common/http"
 
 
 @Component({
-  selector: 'app-register-and-auth',
-  standalone: true,
+    selector: 'app-register-and-auth',
     imports: [
         FormsModule,
         NgIf,
         ReactiveFormsModule
     ],
-  templateUrl: './register-and-auth.component.html',
-  styleUrl: './register-and-auth.component.sass'
+    templateUrl: './register-and-auth.component.html',
+    styleUrl: './register-and-auth.component.sass'
 })
 export class RegisterAndAuthComponent {
   VideosFetchService = inject(VideosFetchService)

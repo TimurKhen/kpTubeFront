@@ -8,14 +8,13 @@ import {RouterLink} from "@angular/router";
 import { NumbersFormaterService } from '../../../../Services/numbers-formater.service';
 
 @Component({
-  selector: 'app-main-sub-studio',
-  standalone: true,
-  imports: [
-    AsyncPipe,
-    RouterLink
-  ],
-  templateUrl: './main-sub-studio.component.html',
-  styleUrl: './main-sub-studio.component.sass'
+    selector: 'app-main-sub-studio',
+    imports: [
+        AsyncPipe,
+        RouterLink
+    ],
+    templateUrl: './main-sub-studio.component.html',
+    styleUrl: './main-sub-studio.component.sass'
 })
 export class MainSubStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

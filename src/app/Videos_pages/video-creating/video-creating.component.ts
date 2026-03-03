@@ -7,15 +7,14 @@ import {Subscription} from "rxjs"
 import {File} from "node:buffer"
 
 @Component({
-  selector: 'app-video-creating',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    NgClass
-  ],
-  templateUrl: './video-creating.component.html',
-  styleUrl: './video-creating.component.sass'
+    selector: 'app-video-creating',
+    imports: [
+        FormsModule,
+        NgIf,
+        NgClass
+    ],
+    templateUrl: './video-creating.component.html',
+    styleUrl: './video-creating.component.sass'
 })
 export class VideoCreatingComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

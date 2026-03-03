@@ -6,14 +6,13 @@ import { LinkChangerService } from '../../Services/link-changer.service';
 import { NumbersFormaterService } from '../../Services/numbers-formater.service';
 
 @Component({
-  selector: 'app-other-account',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgIf
-  ],
-  templateUrl: './other-account.component.html',
-  styleUrl: './other-account.component.sass'
+    selector: 'app-other-account',
+    imports: [
+        RouterLink,
+        NgIf
+    ],
+    templateUrl: './other-account.component.html',
+    styleUrl: './other-account.component.sass'
 })
 export class OtherAccountComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

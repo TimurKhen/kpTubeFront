@@ -10,18 +10,17 @@ import { LinkChangerService } from '../../../Services/link-changer.service';
 import { NumbersFormaterService } from '../../../Services/numbers-formater.service';
 
 @Component({
-  selector: 'app-account-studio',
-  standalone: true,
-  imports: [
-    NgIf,
-    RouterLink,
-    NgClass,
-    MainSubStudioComponent,
-    StatisticSubStudioComponent,
-    SettingsSubStudioComponent
-  ],
-  templateUrl: './account-studio.component.html',
-  styleUrl: './account-studio.component.sass'
+    selector: 'app-account-studio',
+    imports: [
+        NgIf,
+        RouterLink,
+        NgClass,
+        MainSubStudioComponent,
+        StatisticSubStudioComponent,
+        SettingsSubStudioComponent
+    ],
+    templateUrl: './account-studio.component.html',
+    styleUrl: './account-studio.component.sass'
 })
 export class AccountStudioComponent implements OnInit {
   VideosFetchService = inject(VideosFetchService)

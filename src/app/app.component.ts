@@ -6,13 +6,12 @@ import {NavDesktopPartComponent} from "./Navigation/nav-desktop-part/nav-desktop
 import {SearchPartComponent} from "./search-part/search-part.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule,
-    VideosPartComponent, NavDesktopPartComponent,
-    RouterLink, RouterOutlet, RouterModule, RouterLinkActive, SearchPartComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+    selector: 'app-root',
+    imports: [CommonModule,
+        VideosPartComponent, NavDesktopPartComponent,
+        RouterLink, RouterOutlet, RouterModule, RouterLinkActive, SearchPartComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.sass'
 })
 export class AppComponent {
   isHoverAccount = false
