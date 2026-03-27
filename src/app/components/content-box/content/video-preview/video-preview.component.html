@@ -1,0 +1,23 @@
+<div class="video">
+    <div class="preview" (mouseenter)="showPreviewVideo()" (mouseleave)="hidePreviewVideo()">
+        <img [src]="currentPreviewImage()">
+    </div>
+    <div class="information">
+        <div class="author-avatar">
+            <img [src]="content().author.avatar">
+        </div>
+        <div class="main-information">
+            <h3>{{ makeShortTitle(content().title) }}</h3>
+            <div class="more-information">
+                <span class="author-information">
+                    <p>{{ content().author.username }}</p>
+                </span>
+                <span class="video-information">
+                    <p>{{ content().views | shortNumber }} просмотров</p>
+                    <p>•</p>
+                    <p>{{ content().uploadDate | timeAgoPipe }} назад</p>
+                </span>
+            </div> 
+        </div>
+    </div>
+</div>

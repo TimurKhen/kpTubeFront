@@ -1,0 +1,7 @@
+<div class="grid">
+    @if (videos().length > 0) {
+        @for (content of videos(); track content) {
+            <app-content-box [contentType]="0" [content]="content"></app-content-box>
+        }
+    }
+</div>

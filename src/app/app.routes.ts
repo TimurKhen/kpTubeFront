@@ -1,37 +1,8 @@
-import {RouterModule, Routes} from '@angular/router'
-import { VideosPartComponent } from './Videos_pages/videos-part/videos-part.component'
-import { SearchResultsComponent } from './Videos_pages/search-results/search-results.component'
-import { VideoComponent } from './Videos_pages/video/video.component'
+import {Routes} from '@angular/router'
+import { VideosGridComponent } from './pages/videos-grid/videos-grid.component'
 
 export const routes: Routes = [
   {
-    path: '', component: VideosPartComponent
-  },
-  {
-    path: 'account',
-    loadComponent: () => import('./Account_pages/account/account.component').then(m => m.AccountComponent)
-  }, {
-    path: 'creating',
-    loadComponent: () => import('./Videos_pages/video-creating/video-creating.component').then(m => m.VideoCreatingComponent)
-  },
-  {
-    path: 'video/:Video_ID',
-    component: VideoComponent
-  },
-  {
-    path: 'account/:User_ID',
-    loadComponent: () => import('./Account_pages/other-account/other-account.component').then(m => m.OtherAccountComponent)
-  },
-  {
-    path: 'search/:userSearch',
-    component: SearchResultsComponent
-  },
-  {
-    path: 'history',
-    loadComponent: () => import('./Videos_pages/history/history.component').then(m => m.HistoryComponent)
-  },
-  {
-    path: 'liked',
-    loadComponent: () => import('./Videos_pages/liked-videos/liked-videos.component').then(m => m.LikedVideosComponent)
-  },
+    path: '', component: VideosGridComponent
+  }
 ]

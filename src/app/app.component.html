@@ -1,22 +1,4 @@
-<app-search-part (hoverOnAccount)="setHoverStatus($event)" class="search"></app-search-part>
-
 <div class="container">
-  <app-desktop-nav-part class="nav"></app-desktop-nav-part>
-
-  <router-outlet class="router"></router-outlet>
+    <navigation></navigation>
+    <router-outlet></router-outlet>
 </div>
-
-
-@if (isHoverAccount) {
-  <span class="navigation_menu"
-    (mouseenter)="setHoverStatus(true)"
-    (mouseleave)="setHoverStatus(false)"
-    >
-    <span class="account_pages">
-      <button [routerLink]="['/account', userID]">Аккаунт</button>
-      <button routerLink="/account">Студия</button>
-    </span>
-    <button class="exit_button" (click)="exitAccount()">Выйти</button>
-  </span>
-}
-

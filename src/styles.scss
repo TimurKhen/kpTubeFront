@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-$primary-color: #09d3ac;
-$secondary-color: #2196f3;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
   background: #0f0f0f;
@@ -8,7 +7,6 @@ body {
   font-family: Roboto, Arial, sans-serif;
 
   overflow-x: hidden;
-  scrollbar-gutter: stable;
 
   &::-webkit-scrollbar {
     width: 12px;

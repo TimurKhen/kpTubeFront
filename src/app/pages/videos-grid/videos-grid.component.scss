@@ -1,0 +1,8 @@
+@use '../../../assets/variables.scss' as vars;
+
+.grid {
+    padding: vars.$size-40;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(vars.$size-400, min(1fr)));
+    gap: vars.$size-40;
+}

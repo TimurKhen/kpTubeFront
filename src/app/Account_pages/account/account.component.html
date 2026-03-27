@@ -1,8 +1,0 @@
-<div class="container" [ngClass]="{'active' : isRendered}">
-  @if (isAuth && isRendered) {
-    <app-account-studio class="account account_studio"></app-account-studio>
-  }
-  @if (!isAuth && isRendered) {
-    <app-register-and-auth class="account register_and_auth"></app-register-and-auth>
-  }
-</div>
