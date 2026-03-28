@@ -1,0 +1,111 @@
+<div class="container">
+    <div class="video-container">
+        <div class="video">
+            <video 
+                [src]="videoInformation()?.video"
+                controls
+                autoplay
+                ></video>
+        </div>
+        <div class="informaition">
+            <div class="main">
+                <h2>{{ videoInformation()?.title }}</h2>
+            </div>
+            <div class="additional">
+                <div class="first-row">
+                    <div class="profile_data">
+                        <div class="avatar">
+                            <img [src]="videoInformation()?.author?.avatar">
+                        </div>
+                        <div class="text">
+                            <h3>{{ videoInformation()?.author?.username }}</h3>
+                            <p>{{ videoInformation()?.author?.subscribers | shortNumber }} подписчиков</p>
+                        </div>
+                        <div class="subscribe-button">
+                            <button class="subscribe">
+                                Подписаться
+                            </button>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <div class="likes">
+                            <button 
+                                    [ngClass]="{'active': likedStatus() === 'liked'}"
+                                    (click)="clickLikeButton('liked')"
+                                >
+                                <img src="./icons/like-icon.svg" height="30">
+                                <p>{{ videoInformation()?.likes | shortNumber }}</p>
+                            </button>
+                            <span class="seperator"></span>
+                            <button 
+                                    [ngClass]="{'active': likedStatus() === 'disliked'}"
+                                    (click)="clickLikeButton('disliked')"
+                                >
+                                <img src="./icons/dislike-icon.svg" height="30">
+                                <p>{{ videoInformation()?.dislikes | shortNumber }}</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="description-container">
+                    <div class="information">
+                        <p>{{ videoInformation()?.views | shortNumber }}</p>
+                        <p>{{ videoInformation()?.uploadDate | timeAgoPipe }} назад</p>
+                    </div>
+                    <div class="description">
+                        <p>{{ videoInformation()?.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comments-container">
+        <div class="controls">
+            <div class="main">
+                <h3>{{ videoInformation()?.comments?.length }} комментария</h3>
+                <h3 (click)="changeCurrentCommentsStatus()">
+                    {{ isShowComments() ? 'Скрыть' : 'Показать'}}    
+                </h3>
+            </div>
+            @if (isShowComments()) {
+                <div class="input">
+                    <form [formGroup]="commentForm" class="interactive">
+                        <div class="top-line">
+                            <div class="avatar">
+                                <img [src]="currentUserData().avatar">
+                            </div>
+                            <p>{{ currentUserData().username }}</p>
+                        </div>
+                        <textarea 
+                            placeholder="Введите комментарий"
+                            formControlName="comment"
+                        ></textarea>
+                        <div class="buttons">
+                            @if (commentForm.valid) {
+                                <button 
+                                    (click)="commentForm.reset()"
+                                    class="clear" [animate.enter]="'enter'">
+                                    Очистить
+                                </button>
+                                <button class="submit" [animate.enter]="'enter'">
+                                    Опубликовать
+                                </button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            }
+        </div>
+            @if (isShowComments()) {
+                <div class="comments">
+                    @for (comment of videoInformation()?.comments; track comment) {
+                        @defer (on viewport) {
+                            <commentary [content]="comment"></commentary>
+                        } @placeholder {
+                            <div class="moch-comment"></div>
+                        }
+                    }
+                </div>
+            }
+        </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="comment">
+    <div class="author-avatar">
+        <img [src]="content().author.avatar">
+    </div>
+    <div class="text">
+        <div class="main-information">
+            <h4>{{ content().author.username }}</h4>
+            <h4>{{ content().publishDate | timeAgoPipe }} назад</h4>
+        </div>
+        <p>{{ content().content }}</p>
+    </div>
+</div>

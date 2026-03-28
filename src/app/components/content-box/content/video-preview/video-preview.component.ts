@@ -39,8 +39,9 @@ export class VideoPreviewComponent implements OnInit {
   }
 
   makeShortTitle(title: string) {
-    if (title.length > 30) {
-      return title.substring(0, 30) + '...'
+    const maxStringLength = 35
+    if (title.length > maxStringLength) {
+      return title.substring(0, maxStringLength) + '...'
     } else {
       return title
     }

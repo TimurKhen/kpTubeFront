@@ -1,0 +1,276 @@
+@use '../../../assets/variables.scss' as vars;
+
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: vars.$size-40;
+    padding: 0 vars.$size-40;
+
+    .video-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .video {
+            width: 100%;
+
+            video {
+                object-fit: contain;
+                width: 100%;
+            }
+        }
+
+        .informaition {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .main {
+                width: 100%;
+            }
+
+            .additional {
+                display: flex;
+                flex-direction: column;
+                gap: vars.$size-20;
+
+                .first-row {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .profile_data {
+                        display: flex;
+                        gap: vars.$size-20;
+                        align-items: center;
+
+                        .avatar {
+                            width: 100%;
+                            height: 100%;
+                            max-width: vars.$size-80;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            img {
+                                cursor: pointer;
+                                width: 100%;
+                                aspect-ratio: 1/1;
+                                object-fit: cover;
+                                border-radius: vars.$radius-full;
+                            }
+                        }
+                        .text {
+                            display: inline;
+                        }
+                        .subscribe-button {
+                            button {
+                                padding: vars.$size-12 vars.$size-24;
+                                border-radius: vars.$radius-full;   
+                                border: none;
+                            }
+                            
+                            .subscribe {
+                                background: vars.$color-red;
+                                font-weight: 800;
+                                font-size: vars.$font-sm;
+                                font-family: Roboto, sans-serif;
+                            }
+                        }
+                    }
+
+                    .buttons {
+                        display: flex;
+                        align-items: center;
+                        gap: vars.$size-20;
+
+                        .likes {
+                            display: flex;
+                            align-items: center;
+                            border-radius: vars.$radius-full;
+                            background: vars.$color-surface;
+                            gap: vars.$size-8;
+
+                            .seperator {
+                                display: flex;
+                                width: 1px;
+                                height: 30px;
+                                border-radius: vars.$radius-full;
+                                background: vars.$color-white;
+                            }
+
+                            button {
+                                border: none;
+                                background: none;
+                                min-width: vars.$size-80;
+
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: vars.$size-20;
+                                padding: 0 vars.$size-24;
+                                background: transparent;
+                                border-radius: vars.$radius-full;
+
+                                transition: background-color 0.3s;
+                                
+                                img {
+                                    height: 100%;
+                                    min-height: vars.$size-20;
+                                }
+                                
+                                p {
+                                    color: vars.$color-white;
+                                }
+                            }
+
+                            .active {
+                                background: vars.$color-active;
+                            }
+                        }
+                    }
+                }
+
+                .description-container {
+                    display: flex;
+                    flex-direction: column;
+                    background: vars.$color-surface;
+                    border-radius: vars.$radius-lg;
+                    padding: 0 vars.$size-20;
+
+                    .information {
+                        display: flex;
+                        gap: vars.$size-20;
+                        
+                        p {
+                            color: vars.$color-white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .comments-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$size-40;
+
+        .controls {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .main {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .input {
+                width: 100%;
+                display: flex;
+                
+                .interactive {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: vars.$size-12;
+                    
+                    .top-line {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        gap: vars.$size-12;
+
+                        .avatar {
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            max-width: vars.$size-40;
+        
+                            img {
+                                object-fit: cover;
+                                width: 100%;
+                                border-radius: vars.$radius-full;
+                            }
+                        }
+                    }
+                    textarea {
+                        width: 100%;
+                        resize: none;
+                        min-height: 2lh;
+                        background: vars.$color-surface;
+                        border-radius: vars.$radius-lg;
+                        border: none;
+                        outline: none; 
+                        color: vars.$color-white;
+                        padding: vars.$size-12;
+                        font-family: 'Arial', sans-serif;
+                        font-size: vars.$font-little;
+                        field-sizing: content;
+
+                        &::placeholder {
+                            font-family: 'Arial', sans-serif;
+                            font-size: vars.$font-little;
+                            color: #888;
+                        }
+
+                        &:focus {
+                            outline: none; 
+                        }
+
+                        &::-webkit-resizer {
+                            display: none;
+                        }
+                    }
+
+                    .buttons {
+                        display: flex;
+                        gap: vars.$size-12;
+
+                        button {
+                            padding: vars.$size-8 vars.$size-20;
+                            border: none;
+                            border-radius: vars.$radius-full;
+                            font-size: 0.9em;
+                            line-height: 1em;
+                            margin: 0;
+                        }
+
+                        .submit {
+                            background: vars.$color-blue;
+                            font-weight: 700;
+                        }
+                    }
+                }
+
+                textarea {
+                    width: 100%;
+                    resize: vertical;
+                }
+            }
+        }
+
+        .comments {
+            display: flex;
+            flex-direction: column;
+            gap: vars.$size-20;
+        }
+    }
+}
+
+.enter {
+    animation: fade 0.3s forwards;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(calc(vars.$size-12 * -1));
+    } 
+    to {
+        opacity: 1;
+        transform: translateY(0);    
+    }
+}

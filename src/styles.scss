@@ -9,17 +9,11 @@ body {
   overflow-x: hidden;
 
   &::-webkit-scrollbar {
-    width: 12px;
-    transition: width 0.3s ease-out;
-
-    &:focus {
-      width: 20px;
-    }
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
     background: #1A1A1D;
-    border-radius: 90px;
+    border-radius: 9999px;
   }
-
 }

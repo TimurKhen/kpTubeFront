@@ -1,0 +1,44 @@
+@use '../../../../assets/variables.scss' as vars;
+
+.comment {
+    display: flex;
+    padding: vars.$size-20;
+    background: vars.$color-surface;
+    border-radius: vars.$radius-lg;
+    gap: vars.$size-12;
+
+    .author-avatar {
+        display: flex;
+        align-items: flex-start;
+
+        max-width: vars.$size-40;
+
+        img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: vars.$radius-full;
+        }
+    }
+
+    .text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$size-20;
+
+        .main-information {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            h4 {
+                margin: 0;
+            }
+        }
+
+        p {
+            margin: 0.1em;
+        }
+    }
+}

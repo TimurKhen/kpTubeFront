@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { VideoPreview } from '../../interfaces/video/preview';
 import { ProfilePreview } from '../../interfaces/profile/preview';
+import { Video } from '../../interfaces/video/video';
+import { Observable, of } from 'rxjs';
+import { Commentry } from '../../interfaces/commentary/commentary';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +11,8 @@ import { ProfilePreview } from '../../interfaces/profile/preview';
 export class VideosService {
   author: ProfilePreview = {
     avatar: './templates/template_avatar.jpg',
-    username: 'Timur khen'
+    username: 'Timur khen',
+    subscribers: 13
   } 
   videos: VideoPreview[] = [
     {
@@ -132,4 +136,32 @@ export class VideosService {
         uploadDate: new Date('2026-01-01')
     }
 ];
+
+    getVideoByID(id: string): Observable<Video> {
+        const commentArray: Commentry[] = [
+            {
+                author: this.author,
+                content: 'Круто!!!!!',
+                publishDate: new Date('2026-01-02')
+            },
+            {
+                author: this.author,
+                content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
+                publishDate: new Date('2026-01-03')
+            }
+        ]
+        return of({
+            id: id,
+            title: 'Testovoe',
+            description : 'qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty ',
+            preview: './templates/teamplate_preview.jpg',
+            video: './templates/teamplate_video.mp4',
+            author: this.author,
+            views: 123123123,
+            uploadDate: new Date('2026-01-01'),
+            comments: commentArray,
+            likes: 30,
+            dislikes: 2
+        })
+    }
 }

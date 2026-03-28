@@ -5,7 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ShortNumberPipe implements PipeTransform {
 
-  transform(value: number): string {
+  transform(value: number | undefined): string {
+    if (value === undefined) return ''
+    
     return new Intl.NumberFormat('ru', {
       notation: 'compact'
     }).format(value)
