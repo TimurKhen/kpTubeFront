@@ -16,6 +16,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   videoPoster = input<string | undefined>()
   isPlaying = signal<boolean>(true)
   currentVolume = signal<number>(1)
+  lastVolumeValue = signal<number>(1)
   currentTime = signal<number>(0)
   duration = signal<number>(0)
 
@@ -64,10 +65,16 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   setVolume(event: Event) {
     const value = (event.target as HTMLInputElement).value
     this.videoPlayer.volume = parseFloat(value)
+    this.lastVolumeValue.set(this.currentVolume())
     this.currentVolume.set(parseFloat(value))
+    
     if (parseFloat(value) > 0) {
       this.videoPlayer.muted = false
     }
+    this.updateVolumeBar(value)
+  }
+
+  updateVolumeBar(value: string) {
     const volumeBar = this.volumeBarRef.nativeElement
     const percentage = parseFloat(value) * 100
     volumeBar.style.setProperty('--volume', `${percentage}%`)
@@ -94,5 +101,18 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
 
     this.videoPlayer.play()
     this.isPlaying.set(true)
+  }
+
+  changeMuteStatus() {
+    if (this.currentVolume() == 0) {
+      this.currentVolume.set(this.lastVolumeValue())
+      this.videoPlayer.muted = false
+    } else {
+      this.lastVolumeValue.set(this.currentVolume())
+      this.currentVolume.set(0)
+      this.videoPlayer.muted = true
+    }
+
+    this.updateVolumeBar(String(this.currentVolume()))
   }
 }
