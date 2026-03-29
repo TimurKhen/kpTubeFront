@@ -65,5 +65,7 @@ export class VideoPlayerComponent implements AfterViewInit {
     const value = (event.target as HTMLInputElement).value
     const time = (parseFloat(value) / 100) * this.videoPlayer.duration
     this.videoPlayer.currentTime = time
+    this.videoPlayer.play()
+    this.isPlaying.set(true)
   }
 }
