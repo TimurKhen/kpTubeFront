@@ -41,6 +41,11 @@
                     (input)="setVolume($event)">
             </div>
         </div>
+        <div class="right">
+            <button title="Картинка в картинке" (click)="togglePip()">
+                <img src="./icons/picture-in-picture-icon.svg">
+            </button>
+        </div>
         <input class="progress" type="range" 
             #progressBar min="0" max="100" step="0.01" 
             value="0" (input)="seekVideo($event)">

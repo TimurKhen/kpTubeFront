@@ -74,6 +74,32 @@
         }
       }
 
+      .right {
+        height: vars.$size-40;
+        display: flex;
+        align-items: center;
+        gap: vars.$size-20;
+        margin-right: vars.$size-20;
+      
+        button {
+          background-color: vars.$color-navigation-background;
+          backdrop-filter: blur(10px);
+          border-radius: vars.$radius-full;
+          
+          padding: 0 vars.$size-24;
+          width: vars.$size-40;
+          height: vars.$size-40;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            width: vars.$size-20;
+            height: vars.$size-20;
+          }
+        }
+      }
+
       button {
         border: none;
         background: none;

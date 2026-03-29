@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
 import { TimeConverterPipe } from "../../../pipes/time-converter/time-converter.pipe";
 
 @Component({
@@ -98,9 +98,6 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
     this.videoPlayer.currentTime = time
     const progress = this.progressBarRef.nativeElement
     progress.style.setProperty('--progress', `${percentage}%`)
-
-    this.videoPlayer.play()
-    this.isPlaying.set(true)
   }
 
   changeMuteStatus() {
@@ -114,5 +111,18 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
     }
 
     this.updateVolumeBar(String(this.currentVolume()))
+  }
+
+  async togglePip() {
+    const video = this.videoPlayer
+    try {
+      if (document.pictureInPictureElement) {
+        await document.exitPictureInPicture()
+      } else {
+        await video.requestPictureInPicture()
+      }
+    } catch (error) {
+      console.error('PiP error:', error)
+    }
   }
 }
