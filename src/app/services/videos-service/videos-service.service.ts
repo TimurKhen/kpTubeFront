@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { VideoPreview } from '../../interfaces/video/preview';
 import { ProfilePreview } from '../../interfaces/profile/preview';
 import { Video } from '../../interfaces/video/video';
-import { Observable, of } from 'rxjs';
+import { debounceTime, delay, Observable, of, timer } from 'rxjs';
 import { Commentry } from '../../interfaces/commentary/commentary';
 
 @Injectable({
@@ -217,6 +217,8 @@ export class VideosService {
             comments: commentArray,
             likes: 30,
             dislikes: 2
-        })
+        }).pipe(
+            delay(1000)
+        )
     }
 }

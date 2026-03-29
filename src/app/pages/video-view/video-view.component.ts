@@ -29,11 +29,10 @@ export class VideoViewComponent implements OnInit {
     subscribers: 13
   })
   isSubscribed = signal<boolean>(false)
-
   commentForm = new FormGroup({
     comment: new FormControl('', [Validators.required, Validators.minLength(1)])
   })
-
+  
   constructor(private routes: ActivatedRoute) {}
   
   ngOnInit(): void {
@@ -46,6 +45,7 @@ export class VideoViewComponent implements OnInit {
   getVideoInformation(id: string) {
     this.videoService.getVideoByID(id)
       .subscribe((data: Video) => {
+        console.log(data)
         this.videoInformation.set(
           data
         )

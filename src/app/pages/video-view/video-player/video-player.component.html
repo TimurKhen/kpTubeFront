@@ -6,30 +6,34 @@
     </video>
     
     <div class="controls">
-        <button (click)="playPauseVideo()">
-            <img [src]="isPlaying() ? './icons/stop-icon.svg' : './icons/play-icon.svg'">
-        </button>
-        <div class="time-container">
-            {{ currentTime() | timeConverter }} / {{ duration() | timeConverter}}
-        </div>
-        <div class="volume">
-            <button>
-                @if (currentVolume() > 0.6) {
-                    <img
-                        src="./icons/volume/volume-max-icon.svg"
-                    >
-                } @else if (currentVolume() > 0.2) {
-                    <img
-                        src="./icons/volume/volume-mid-icon.svg"
-                    >
-                } @else {
-                    <img
-                        src="./icons/volume/volume-min-icon.svg"
-                    >
-                }
+        <div class="left">
+            <button class="play-button" (click)="playPauseVideo()">
+                <img [src]="isPlaying() ? './icons/stop-icon.svg' : './icons/play-icon.svg'">
             </button>
-            <input type="range" #volumeBar min="0" max="1" step="0.1" (input)="setVolume($event)">
+            <div class="time-container">
+                <p>
+                    {{ currentTime() | timeConverter }} / {{ duration() | timeConverter}}
+                </p>
+            </div>
+            <div class="volume">
+                <button>
+                    @if (currentVolume() > 0.6) {
+                        <img
+                            src="./icons/volume/volume-max-icon.svg"
+                        >
+                    } @else if (currentVolume() > 0.2) {
+                        <img
+                            src="./icons/volume/volume-mid-icon.svg"
+                        >
+                    } @else {
+                        <img
+                            src="./icons/volume/volume-min-icon.svg"
+                        >
+                    }
+                </button>
+                <input type="range" class="volume-bar" #volumeBar min="0" max="1" step="0.01" (input)="setVolume($event)">
+            </div>
         </div>
-        <input type="range" #progressBar min="0" max="100" value="0" (input)="seekVideo($event)">
+        <input class="progress" type="range" #progressBar min="0" max="100" step="0.01" value="0" (input)="seekVideo($event)">
     </div>
 </div>
