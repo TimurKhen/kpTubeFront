@@ -32,6 +32,14 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       this.isPlaying.set(true)
     })
 
+    this.videoPlayer.addEventListener('play', () => {
+      this.isPlaying.set(true)
+    })
+
+    this.videoPlayer.addEventListener('pause', () => {
+      this.isPlaying.set(false)
+    })
+
     const volumeBar = this.volumeBarRef.nativeElement
     volumeBar.style.setProperty('--volume', `${this.currentVolume() * 100}%`)
 
@@ -60,7 +68,6 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       }
     }
   }
-
 
   setVolume(event: Event) {
     const value = (event.target as HTMLInputElement).value

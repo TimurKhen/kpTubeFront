@@ -76,6 +76,7 @@
                                 background: transparent;
                                 color: vars.$color-surface;
                                 transition: all 0.3s !important;
+                                cursor: pointer;
                             }
                             
                             .subscribe {
@@ -112,6 +113,7 @@
                             }
 
                             button {
+                                cursor: pointer;
                                 border: none;
                                 background: none;
                                 min-width: vars.$size-80;
@@ -269,6 +271,7 @@
                         gap: vars.$size-12;
 
                         button {
+                            cursor: pointer;
                             padding: vars.$size-8 vars.$size-20;
                             border: none;
                             border-radius: vars.$radius-full;
