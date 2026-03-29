@@ -1,0 +1,57 @@
+@use '../../../../assets/variables.scss' as vars;
+
+.player-container {
+    width: 100%;
+    height: 100%;
+    border-radius: vars.$radius-lg;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    video {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        border-radius: vars.$radius-lg;
+    }
+
+    .controls {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      background-color: vars.$color-navigation-background;
+      backdrop-filter: blur(10px);
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
+
+      border-radius: 0 0 vars.$radius-lg vars.$radius-lg;
+      button {
+        border: none;
+        background: none;
+      }
+      .volume {
+        display: flex;
+        align-items: center;
+        gap: vars.$size-12;
+
+        button {
+            display: flex;
+            width: vars.$size-20;
+
+            img {
+                width: vars.$size-20;
+                height: auto;
+                aspect-ratio: 1/1;
+            }
+        }
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+}

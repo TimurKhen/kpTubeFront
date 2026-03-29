@@ -1,0 +1,38 @@
+@use '../../../../assets/variables.scss' as vars;
+
+#nav-icon3 {
+    width: vars.$size-32;
+    height: vars.$size-40;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    margin: auto;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+} 
+#nav-icon3 span {
+    display: block;
+    height: vars.$size-4;
+    width: 100%;
+    background: #fff;
+    border-radius: vars.$radius-full;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+#nav-icon3.open span:nth-child(1) {
+    position: absolute;
+    // top: 16px;
+    width: 0%;
+}
+#nav-icon3.open span:nth-child(2) {
+    position: absolute;
+    transform: rotate(45deg);
+}
+#nav-icon3.open span:nth-child(3) {
+    position: absolute;
+    transform: rotate(-45deg);
+}

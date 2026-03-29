@@ -35,10 +35,20 @@
             h4 {
                 margin: 0;
             }
+            p {
+                font-size: vars.$font-little;
+            }
         }
 
         p {
             margin: 0.1em;
+            text-wrap: balance;
+        }
+
+        .change-status {
+            user-select: none;
+            cursor: pointer;
+            color: vars.$color-white;
         }
     }
 }

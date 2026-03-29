@@ -1,12 +1,21 @@
 <div class="comment">
     <div class="author-avatar">
-        <img [src]="content().author.avatar">
+        <img [src]="content().author.avatar" loading="lazy">
     </div>
     <div class="text">
         <div class="main-information">
             <h4>{{ content().author.username }}</h4>
-            <h4>{{ content().publishDate | timeAgoPipe }} назад</h4>
+            <p>{{ content().publishDate | timeAgoPipe }} назад</p>
         </div>
-        <p>{{ content().content }}</p>
+        @if (!isCommentOpen() && isLongComment()) {
+            <p>{{ shortedComment() }}</p>
+        } @else {
+            <p>{{ content().content }}</p>
+        }
+        @if (isLongComment()) {
+            <p class="change-status" (click)="changeCommentOpenStatus()">
+                {{ isCommentOpen() ? 'Закрыть' : 'Ещё'}}
+            </p>
+        }
     </div>
 </div>

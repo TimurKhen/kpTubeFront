@@ -139,17 +139,72 @@ export class VideosService {
 
     getVideoByID(id: string): Observable<Video> {
         const commentArray: Commentry[] = [
-            {
-                author: this.author,
-                content: 'Круто!!!!!',
-                publishDate: new Date('2026-01-02')
-            },
-            {
-                author: this.author,
-                content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
-                publishDate: new Date('2026-01-03')
-            }
-        ]
+        {
+            author: this.author,
+            content: 'Помню ваши первые видео, выросли качественно!',
+            publishDate: new Date('2024-06-15')
+        },
+        {
+            author: this.author,
+            content: 'Случайно нашел канал, очень нравится!',
+            publishDate: new Date('2025-11-20')
+        },
+        {
+            author: this.author,
+            content: 'Лучший канал по этой теме!',
+            publishDate: new Date('2026-01-01')
+        },
+        {
+            author: this.author,
+            content: 'Круто!!!!!',
+            publishDate: new Date('2026-01-02')
+        },
+        {
+            author: this.author,
+            content: 'Самый мрачный Никита - это легенда!',
+            publishDate: new Date('2026-01-03')
+        },
+        {
+            author: this.author,
+            content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
+            publishDate: new Date('2026-01-03')
+        },
+        {
+            author: this.author,
+            content: '<script>alert("hello")</script>',
+            publishDate: new Date('2026-01-10')
+        },
+        {
+            author: this.author,
+            content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
+            publishDate: new Date('2026-01-03')
+        },
+        {
+            author: this.author,
+            content: '<script>alert("hello")</script>',
+            publishDate: new Date('2026-01-10')
+        },
+        {
+            author: this.author,
+            content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
+            publishDate: new Date('2026-01-03')
+        },
+        {
+            author: this.author,
+            content: '<script>alert("hello")</script>',
+            publishDate: new Date('2026-01-10')
+        },
+        {
+            author: this.author,
+            content: 'Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита Самый мрачный Никита',
+            publishDate: new Date('2026-01-03')
+        },
+        {
+            author: this.author,
+            content: '<script>alert("hello")</script>',
+            publishDate: new Date('2026-01-10')
+        }
+    ]
         return of({
             id: id,
             title: 'Testovoe',

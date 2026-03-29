@@ -1,1 +1,27 @@
-<p>navigation works!</p>
+<div class="navigation">
+    <div class="logotype">
+        <div class="menu">
+            <menu-opener></menu-opener>
+        </div>
+        <h2>
+            KPTube
+        </h2>
+    </div>
+    
+    <div class="search-bar">
+        <input
+            placeholder="Поиск" 
+            [formControl]="searchForm">
+            <button>Поиск</button>
+    </div>
+ 
+    <div class="profile">
+        <div class="create">
+            <img src="icons/plus-icon.svg">
+            <button>Создать</button>
+        </div>
+        <div class="avatar">
+            <img [src]="userInformation().avatar">
+        </div>
+    </div>
+</div>

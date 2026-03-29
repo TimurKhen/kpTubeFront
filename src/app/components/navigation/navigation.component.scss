@@ -1,0 +1,96 @@
+@use '../../../assets/variables.scss' as vars;
+
+.navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(vars.$size-12);
+
+    background: vars.$color-navigation-background;
+    max-height: vars.$size-60;
+    position: fixed;
+    top: 0;
+
+    .logotype {
+        display: flex;
+        align-items: center;
+        gap: vars.$size-12;
+        margin-left: vars.$size-20;
+    }
+
+    .search-bar {
+        width: 20%;
+        height: 100%;
+
+        display: flex;
+        background: vars.$color-surface;
+        border-radius: vars.$radius-full;
+        border: vars.$border-basic;
+        
+        input {
+            width: 100%;
+            padding: vars.$size-8 vars.$size-20;
+            background: none;
+            border: none;
+            outline: none;
+            color: vars.$color-white;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        button {
+            padding: vars.$size-8 vars.$size-20;
+            border-radius: vars.$radius-full;
+            background: vars.$color-gray;
+            border: none;
+            color: vars.$color-white;
+            height: 100%;
+        }
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        gap: vars.$size-12;
+        margin-right: vars.$size-20;
+
+        .create {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: vars.$radius-full;
+            background: vars.$color-gray;
+            padding: vars.$size-12 vars.$size-24;
+            gap: vars.$size-4;
+            
+            img {
+                height: 100%;
+            }
+
+            button {
+                font-weight: 600;
+                background: none;
+                border: none;
+                color: vars.$color-white;
+            }
+        }
+
+        .avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            max-height: vars.$size-40;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: vars.$radius-full;
+            }
+        }
+    }
+}

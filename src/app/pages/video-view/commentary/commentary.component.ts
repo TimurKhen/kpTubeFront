@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { Commentry } from '../../../interfaces/commentary/commentary';
 import { TimeAgoPipe } from '../../../pipes/time-ago/time-ago-pipe.pipe';
 
@@ -8,6 +8,27 @@ import { TimeAgoPipe } from '../../../pipes/time-ago/time-ago-pipe.pipe';
   templateUrl: './commentary.component.html',
   styleUrl: './commentary.component.scss',
 })
-export class CommentaryComponent {
-  content = input.required<Commentry>()
+export class CommentaryComponent implements OnInit {
+  content = input.required<Commentry>() 
+  // По факту тут должен передаваться ID
+  maxCommentLength = 120
+  shortedComment = computed(() => {
+    const comment = this.content().content
+
+    if (comment.length > this.maxCommentLength) {
+      return comment.slice(0, this.maxCommentLength) + '...' 
+    } else {
+      return comment
+    }
+  })
+  isLongComment = computed(() => this.content().content.length > this.maxCommentLength)
+  isCommentOpen = signal<boolean>(false)
+
+  changeCommentOpenStatus() {
+    this.isCommentOpen.update((val: boolean) => !val)
+  }
+
+  ngOnInit() {
+    // console.log(this.content())
+  }
 }

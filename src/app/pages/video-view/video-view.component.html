@@ -1,11 +1,10 @@
 <div class="container">
     <div class="video-container">
         <div class="video">
-            <video 
-                [src]="videoInformation()?.video"
-                controls
-                autoplay
-                ></video>
+            <video-player 
+                [video]="videoInformation()?.video"
+                [videoPoster]="videoInformation()?.preview"
+                ></video-player>
         </div>
         <div class="informaition">
             <div class="main">
@@ -22,8 +21,10 @@
                             <p>{{ videoInformation()?.author?.subscribers | shortNumber }} подписчиков</p>
                         </div>
                         <div class="subscribe-button">
-                            <button class="subscribe">
-                                Подписаться
+                            <button 
+                                [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"   
+                                (click)="changeSubscribeStatus()">
+                                {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}
                             </button>
                         </div>
                     </div>
@@ -84,10 +85,12 @@
                             @if (commentForm.valid) {
                                 <button 
                                     (click)="commentForm.reset()"
-                                    class="clear" [animate.enter]="'enter'">
+                                    class="clear" [animate.enter]="'enter'" [animate.leave]="'leave'">
                                     Очистить
                                 </button>
-                                <button class="submit" [animate.enter]="'enter'">
+                                <button 
+                                    (click)="publishCommentary()"
+                                    class="submit" [animate.enter]="'enter'" [animate.leave]="'leave'">
                                     Опубликовать
                                 </button>
                             }
@@ -96,16 +99,21 @@
                 </div>
             }
         </div>
-            @if (isShowComments()) {
-                <div class="comments">
-                    @for (comment of videoInformation()?.comments; track comment) {
-                        @defer (on viewport) {
-                            <commentary [content]="comment"></commentary>
-                        } @placeholder {
-                            <div class="moch-comment"></div>
-                        }
+
+        @if (isShowComments()) {
+            <div class="comments">
+                @for (comment of videoInformation()?.comments; track comment) {
+                    @defer (on viewport) {
+                        <commentary [content]="comment"></commentary>
+                    } 
+                    @loading (minimum 500ms) {
+                        <div class="moch-comment"></div>
                     }
-                </div>
-            }
-        </div>
+                    @placeholder {
+                        <div class="moch-comment"></div>
+                    }
+                }
+            </div>
+        }
+    </div>
 </div>

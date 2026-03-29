@@ -5,15 +5,15 @@ body {
   background: #0f0f0f;
   color: white;
   font-family: Roboto, Arial, sans-serif;
-
   overflow-x: hidden;
+  padding: 0;
+  margin: 0;
 
   &::-webkit-scrollbar {
-    width: 8px;
+    display: none;
   }
-
+  
   &::-webkit-scrollbar-thumb {
-    background: #1A1A1D;
-    border-radius: 9999px;
+    display: none;
   }
 }

@@ -8,10 +8,11 @@ import { NgClass } from '@angular/common';
 import { CommentaryComponent } from "./commentary/commentary.component";
 import { ProfilePreview } from '../../interfaces/profile/preview';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { VideoPlayerComponent } from "./video-player/video-player.component";
 
 @Component({
   selector: 'app-video-view',
-  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent, ReactiveFormsModule],
+  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent, ReactiveFormsModule, VideoPlayerComponent],
   templateUrl: './video-view.component.html',
   styleUrl: './video-view.component.scss',
 })
@@ -27,6 +28,7 @@ export class VideoViewComponent implements OnInit {
     username: 'TimurKhen',
     subscribers: 13
   })
+  isSubscribed = signal<boolean>(false)
 
   commentForm = new FormGroup({
     comment: new FormControl('', [Validators.required, Validators.minLength(1)])
@@ -51,10 +53,23 @@ export class VideoViewComponent implements OnInit {
   }
 
   clickLikeButton(newStatus: 'liked' | 'disliked') {
-    this.likedStatus.set(newStatus)
+    if (this.likedStatus() == newStatus) {
+      this.likedStatus.set(null)
+    } else {
+      this.likedStatus.set(newStatus)
+    }
   }
 
   changeCurrentCommentsStatus() {
     this.isShowComments.update((val) => !val)
+  }
+
+  changeSubscribeStatus() {
+    this.isSubscribed.update((val) => !val)
+  }
+
+  publishCommentary() {
+    const values = this.commentForm.value
+    this.commentForm.reset()
   }
 }

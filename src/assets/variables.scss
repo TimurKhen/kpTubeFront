@@ -3,6 +3,7 @@ $size-8: 8px;
 $size-12: 12px;
 $size-20: 20px;
 $size-24: 24px;
+$size-32: 32px;
 $size-40: 40px;
 $size-60: 60px;
 $size-80: 80px;
@@ -12,6 +13,7 @@ $size-240: 240px;
 $size-320: 320px;
 $size-400: 400px;
 $size-520: 520px;
+$size-800: 800px;
 
 $radius-lg: 12px;
 $radius-full: 9999px;
@@ -26,3 +28,10 @@ $color-surface: #1C1C1C;
 $color-white: #E4E4E4;
 $color-black: #0F0F0F;
 $color-active: #e4e4e41f;
+$color-navigation-background: #272727cd;
+$color-gray: hsl(0, 0%, 19%);
+
+$background-loading: linear-gradient(90deg, #353535 0%, #1d1d1d 30%, #353535 100%);
+
+
+$border-basic: 2px solid hsl(0, 0%, 19%)
