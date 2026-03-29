@@ -167,7 +167,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: vars.$size-40;
+        gap: vars.$size-12;
 
         .controls {
             width: 100%;
@@ -178,6 +178,13 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+            
+                h3 {
+                    font-size: vars.$font-little;
+                }
+                .show-hide-button {
+                    cursor: pointer;
+                }
             }
 
             .input {
@@ -209,32 +216,51 @@
                             }
                         }
                     }
-                    textarea {
-                        width: 100%;
-                        resize: none;
-                        min-height: 2lh;
-                        background: vars.$color-surface;
-                        border-radius: vars.$radius-lg;
-                        border: none;
-                        outline: none; 
-                        color: vars.$color-white;
-                        padding: vars.$size-12;
-                        font-family: 'Arial', sans-serif;
-                        font-size: vars.$font-little;
-                        field-sizing: content;
 
-                        &::placeholder {
+                    .textarea {
+                        position: relative;
+
+                        textarea {
+                            width: 100%;
+                            resize: none;
+                            min-height: 4lh;
+                            background: vars.$color-surface;
+                            border-radius: vars.$radius-lg;
+                            border: none;
+                            outline: none;
+                            color: vars.$color-white;
+                            padding: vars.$size-12;
                             font-family: 'Arial', sans-serif;
                             font-size: vars.$font-little;
-                            color: #888;
+                            field-sizing: content;
+                            word-break: break-all;
+                            white-space: pre-wrap;
+                            
+                            &::placeholder {
+                                font-family: 'Arial', sans-serif;
+                                font-size: vars.$font-little;
+                                color: vars.$color-white;
+                            }
+    
+                            &:focus {
+                                outline: none; 
+                            }
+    
+                            &::-webkit-resizer {
+                                display: none;
+                            }
                         }
 
-                        &:focus {
-                            outline: none; 
+                        .text-count {
+                            position: absolute;
+                            color: vars.$color-gray;
+                            font-size: vars.$font-little;
+                            right: vars.$size-8;
+                            bottom: calc(vars.$size-24 * -1);
                         }
 
-                        &::-webkit-resizer {
-                            display: none;
+                        .active {
+                            color: vars.$color-white;
                         }
                     }
 

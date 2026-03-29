@@ -63,8 +63,8 @@
     <div class="comments-container">
         <div class="controls">
             <div class="main">
-                <h3>{{ videoInformation()?.comments?.length }} комментария</h3>
-                <h3 (click)="changeCurrentCommentsStatus()">
+                <h3>{{ videoInformation()?.comments?.length }} комментариев</h3>
+                <h3 class="show-hide-button" (click)="changeCurrentCommentsStatus()">
                     {{ isShowComments() ? 'Скрыть' : 'Показать'}}    
                 </h3>
             </div>
@@ -77,10 +77,20 @@
                             </div>
                             <p>{{ currentUserData().username }}</p>
                         </div>
-                        <textarea 
-                            placeholder="Введите комментарий"
-                            formControlName="comment"
-                        ></textarea>
+                        <div class="textarea">
+                            <textarea 
+                                cols="10"
+                                maxlength="1000"
+                                placeholder="Введите комментарий"
+                                formControlName="comment"
+                            ></textarea>
+                            <p 
+                                class="text-count"
+                                [ngClass]="{'active': commentForm.get('comment')?.value?.length}"
+                                >
+                                {{ commentForm.get('comment')?.value?.length }} / 1000
+                            </p>    
+                        </div>
                         <div class="buttons">
                             @if (commentForm.valid) {
                                 <button 
