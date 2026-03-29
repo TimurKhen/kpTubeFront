@@ -1,6 +1,7 @@
 <div class="player-container">
     <video 
         #videoPlayer 
+        (click)="this.playPauseVideo()"
     >
         <source [src]="video()" type="video/mp4">
     </video>

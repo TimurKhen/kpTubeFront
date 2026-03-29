@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
-import { TimeConverterPipe } from "../../../pipes/time-converter/time-converter.pipe";
+import { AfterViewInit, Component, ElementRef, HostListener, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
+import { TimeConverterPipe } from "../../../pipes/time-converter/time-converter.pipe"
 
 @Component({
   selector: 'video-player',
@@ -21,6 +21,33 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   duration = signal<number>(0)
 
   private videoPlayer!: HTMLVideoElement
+
+  @HostListener('document:keydown', ['$event'])
+  handleDeleteKeyboardEvent(event: KeyboardEvent) {
+    const keysToDisable = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']
+    
+    if (keysToDisable.includes(event.key)) {
+      event.preventDefault()
+    }
+    
+    switch (event.key) {
+      case ' ':
+        this.playPauseVideo()
+        break        
+      case 'ArrowLeft':
+        this.videoPlayer.currentTime = this.videoPlayer.currentTime - 5
+        break
+      case 'ArrowRight':
+        this.videoPlayer.currentTime = this.videoPlayer.currentTime + 5
+        break
+      case 'm':
+      case 'M':
+      case 'ь':
+      case 'Ь': 
+        this.changeMuteStatus()
+        break
+    }
+  }
 
   ngAfterViewInit() {
     this.videoPlayer = this.videoPlayerRef.nativeElement
