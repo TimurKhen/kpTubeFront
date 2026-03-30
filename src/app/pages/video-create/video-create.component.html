@@ -1,5 +1,60 @@
 <div class="container">
-    <div class="video">
-
-    </div>
+    <form [formGroup]="videoForm">
+        <div class="video-zone">
+            @if (videoURL()) {
+                <div class="video">
+                    <video-player [video]="videoURL()" [alwaysShowUI]="true"></video-player>
+                </div>
+                <button class="delete-button" 
+                    (click)="clearVideo()">Удалить видео</button>
+            } @else {
+                <label class="video">
+                    <input type="file" accept="video/mp4, .mp4" formControlName="video" (input)="onVideoChange($event)">
+                </label>
+            }
+        </div>
+        <div class="second-zone">
+            <div class="preview-zone">
+                @if (previewURL()) {
+                    <div class="preview">
+                        <img [src]="previewURL()">
+                    </div>
+                    <button class="delete-button" 
+                        (click)="clearPreview()">Удалить превью</button>
+                } @else {
+                    <label class="preview">
+                        <input type="file" (input)="onPreviewChange($event)" accept=".jpg" formControlName="preview">
+                    </label>
+                }
+            </div>
+            <div class="inputs">
+                <label>
+                    <p>Название:</p>
+                    <input maxlength="70" formControlName="name">
+                    <p 
+                        class="text-count"
+                        [ngClass]="{'active': videoForm.get('name')?.value?.length}"
+                        >
+                        {{ videoForm.get('name')?.value?.length }} / 70
+                    </p> 
+                </label>
+                <label>
+                    <p>Описание:</p>
+                    <textarea maxlength="2500" cols="40" formControlName="description"></textarea>
+                    <p 
+                        class="text-count"
+                        [ngClass]="{'active': videoForm.get('description')?.value?.length}"
+                        >
+                        {{ videoForm.get('description')?.value?.length }} / 2500
+                    </p>  
+                </label>
+            </div>
+        </div>
+    </form>
+    <button 
+        class="publish-button"
+        [disabled]="!videoForm.valid"
+        >
+        Опубликовать
+    </button>
 </div>

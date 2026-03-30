@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, ViewContainerRef} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { AlertService } from './services/alert/alert.service';
@@ -10,19 +10,11 @@ import { AlertService } from './services/alert/alert.service';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     private alertService: AlertService, 
     private vcr: ViewContainerRef 
   ) {
     this.alertService.setContainer(this.vcr)
-  }
-
-  ngOnInit(): void {
-    this.alertService.show(
-      'Test',
-      'kruto',
-      true
-    )
   }
 }

@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, HostListener, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
 import { TimeConverterPipe } from "../../../pipes/time-converter/time-converter.pipe"
+import { NgStyle } from '@angular/common'
 
 @Component({
   selector: 'video-player',
-  imports: [TimeConverterPipe],
+  imports: [TimeConverterPipe, NgStyle],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.scss',
 })
@@ -14,6 +15,8 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   
   video = input<string | undefined>()
   videoPoster = input<string | undefined>()
+  alwaysShowUI = input<boolean>(false)
+
   isPlaying = signal<boolean>(true)
   currentVolume = signal<number>(1)
   lastVolumeValue = signal<number>(1)
@@ -24,6 +27,9 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   handleDeleteKeyboardEvent(event: KeyboardEvent) {
+    if (this.alwaysShowUI()) {
+      return
+    }
     const keysToDisable = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']
     
     if (keysToDisable.includes(event.key)) {

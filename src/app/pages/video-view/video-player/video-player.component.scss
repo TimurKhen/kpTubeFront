@@ -1,233 +1,153 @@
 @use '../../../../assets/variables.scss' as vars;
 
 .player-container {
+  width: 100%;
+  height: 100%;
+  border-radius: vars.$radius-lg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: vars.$size-600;
+  
+  video {
+    max-height: vars.$size-600;
+    object-fit: contain;
     width: 100%;
     height: 100%;
     border-radius: vars.$radius-lg;
-    position: relative;
+  }
+
+  .controls {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 
-    video {
-        object-fit: contain;
-        width: 100%;
-        height: 100%;
-        border-radius: vars.$radius-lg;
-    }
+    padding: vars.$size-12 0;
+    padding-top: vars.$size-20;
+    
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+    border-radius: 0 0 vars.$radius-lg vars.$radius-lg;
 
-    .controls {
-      width: 100%;
+    .left {
+      height: vars.$size-40;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: vars.$size-20;
+      margin-left: vars.$size-20;
 
-      padding: vars.$size-12 0;
-      padding-top: vars.$size-20;
-      
-      position: absolute;
-      bottom: 0;
-      opacity: 0;
-      transition: opacity 0.5s;
-      border-radius: 0 0 vars.$radius-lg vars.$radius-lg;
-
-      .left {
+      .play-button {
+        background-color: vars.$color-navigation-background;
+        backdrop-filter: blur(10px);
+        border-radius: vars.$radius-full;
+        
+        padding: 0 vars.$size-24;
+        width: vars.$size-40;
         height: vars.$size-40;
         display: flex;
+        justify-content: center;
         align-items: center;
-        gap: vars.$size-20;
-        margin-left: vars.$size-20;
 
-        .play-button {
-          background-color: vars.$color-navigation-background;
-          backdrop-filter: blur(10px);
-          border-radius: vars.$radius-full;
-          
-          padding: 0 vars.$size-24;
-          width: vars.$size-40;
-          height: vars.$size-40;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          img {
-            width: vars.$size-20;
-            height: vars.$size-20;
-          }
-        }
-
-        .time-container {
-          background-color: vars.$color-navigation-background;
-          backdrop-filter: blur(10px);
-          border-radius: vars.$radius-full;
-          padding: 0 vars.$size-24;
-          
-          display: flex;
-          height: 100%;
-          align-items: center;
-
-          p {
-            line-height: 1em;
-            font-variant-numeric: tabular-nums;
-            margin: 0;
-            padding: 0;
-          }
+        img {
+          width: vars.$size-20;
+          height: vars.$size-20;
         }
       }
 
-      .right {
-        height: vars.$size-40;
-        display: flex;
-        align-items: center;
-        gap: vars.$size-20;
-        margin-right: vars.$size-20;
-      
-        button {
-          background-color: vars.$color-navigation-background;
-          backdrop-filter: blur(10px);
-          border-radius: vars.$radius-full;
-          
-          padding: 0 vars.$size-24;
-          width: vars.$size-40;
-          height: vars.$size-40;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          img {
-            width: vars.$size-20;
-            height: vars.$size-20;
-          }
-        }
-      }
-
-      button {
-        border: none;
-        background: none;
-        cursor: pointer;
-      }
-
-      .volume {
+      .time-container {
         background-color: vars.$color-navigation-background;
         backdrop-filter: blur(10px);
         border-radius: vars.$radius-full;
         padding: 0 vars.$size-24;
-
-        height: 100%;
+        
         display: flex;
+        height: 100%;
         align-items: center;
-        gap: vars.$size-12;
 
-        button {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        p {
+          line-height: 1em;
+          font-variant-numeric: tabular-nums;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    .right {
+      height: vars.$size-40;
+      display: flex;
+      align-items: center;
+      gap: vars.$size-20;
+      margin-right: vars.$size-20;
+    
+      button {
+        background-color: vars.$color-navigation-background;
+        backdrop-filter: blur(10px);
+        border-radius: vars.$radius-full;
+        
+        padding: 0 vars.$size-24;
+        width: vars.$size-40;
+        height: vars.$size-40;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
           width: vars.$size-20;
           height: vars.$size-20;
-
-          img {
-            height: 100%;
-            aspect-ratio: 1/1;
-          }
         }
+      }
+    }
 
-        .volume-bar {
-          --volume: 100%;
-          width: vars.$size-100;
-          height: vars.$size-4;
-          -webkit-appearance: none;
-          appearance: none;
-          background: linear-gradient(to right, 
-            vars.$color-white var(--volume), 
-            vars.$color-black var(--volume));
-          border-radius: 999px;
-          outline: none;
-          cursor: pointer;
-          margin: 0;
-        }
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
 
-        .volume-bar::-webkit-slider-runnable-track {
-          width: 100%;
-          height: vars.$size-8;
-          cursor: pointer;
-          border-radius: 999px;
-          background: transparent;
-          border: none;
-        }
+    .volume {
+      background-color: vars.$color-navigation-background;
+      backdrop-filter: blur(10px);
+      border-radius: vars.$radius-full;
+      padding: 0 vars.$size-24;
 
-        .volume-bar::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: vars.$size-12;
-          height: vars.$size-12;
-          background: vars.$color-white;
-          border: none;
-          border-radius: vars.$radius-full;
-          margin-top: calc(vars.$size-4 * -1 + 2px);
-        }
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: vars.$size-12;
 
-        .volume-bar::-moz-range-track {
-          width: 100%;
-          height: vars.$size-4;
-          background: var(--volume-track);
-          border-radius: vars.$radius-full;
-        }
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: vars.$size-20;
+        height: vars.$size-20;
 
-        .volume-bar::-moz-range-progress {
-          background: vars.$color-white;
-          height: vars.$size-4;
-          border-radius: vars.$radius-full;
-        }
-
-        .volume-bar::-moz-range-thumb {
-          width: vars.$size-12;
-          height: vars.$size-12;
-          background: vars.$color-white;
-          border-radius: vars.$radius-full;
-          border: none;
-        }
-
-        .volume-bar::-ms-track {
-          width: 100%;
-          height: vars.$size-4;
-          background: transparent;
-          border-color: transparent;
-          color: transparent;
-        }
-
-        .volume-bar::-ms-fill-lower {
-          background: vars.$color-white;
-          border-radius: vars.$radius_full;
-        }
-
-        .volume-bar::-ms-fill-upper {
-          background: var(--volume-track);
-          border-radius: vars.$radius_full;
+        img {
+          height: 100%;
+          aspect-ratio: 1/1;
         }
       }
 
-      &:hover {
-        opacity: 1;
-      }
-
-      .progress {
-        --progress: 0%;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: vars.$size-8;
-        width: 98%;
+      .volume-bar {
+        --volume: 100%;
+        width: vars.$size-100;
         height: vars.$size-4;
         -webkit-appearance: none;
         appearance: none;
-        background: linear-gradient(to right, vars.$color-red var(--progress), 
-          vars.$color-navigation-background var(--progress));
+        background: linear-gradient(to right, 
+          vars.$color-white var(--volume), 
+          vars.$color-black var(--volume));
         border-radius: 999px;
         outline: none;
         cursor: pointer;
         margin: 0;
       }
 
-      .progress::-webkit-slider-runnable-track {
+      .volume-bar::-webkit-slider-runnable-track {
         width: 100%;
         height: vars.$size-8;
         cursor: pointer;
@@ -236,54 +156,136 @@
         border: none;
       }
 
-      .progress::-webkit-slider-thumb {
+      .volume-bar::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
         width: vars.$size-12;
         height: vars.$size-12;
-        background: vars.$color-red;
+        background: vars.$color-white;
         border: none;
         border-radius: vars.$radius-full;
         margin-top: calc(vars.$size-4 * -1 + 2px);
       }
 
-      .progress::-moz-range-track {
+      .volume-bar::-moz-range-track {
         width: 100%;
-        height: vars.$size-8;
-        background: var(--progress-track, vars.$color-gray);
+        height: vars.$size-4;
+        background: var(--volume-track);
         border-radius: vars.$radius-full;
       }
 
-      .progress::-moz-range-progress {
-        background: var(--progress-color, vars.$color-red);
-        height: vars.$size-12;
+      .volume-bar::-moz-range-progress {
+        background: vars.$color-white;
+        height: vars.$size-4;
         border-radius: vars.$radius-full;
       }
 
-      .progress::-moz-range-thumb {
+      .volume-bar::-moz-range-thumb {
         width: vars.$size-12;
         height: vars.$size-12;
-        background: var(--progress-color, vars.$color-red);
+        background: vars.$color-white;
         border-radius: vars.$radius-full;
         border: none;
       }
 
-      .progress::-ms-track {
+      .volume-bar::-ms-track {
         width: 100%;
-        height: vars.$size-8;
+        height: vars.$size-4;
         background: transparent;
         border-color: transparent;
         color: transparent;
       }
 
-      .progress::-ms-fill-lower {
-        background: var(--progress-color, vars.$color-red);
-        border-radius: vars.$radius-full;
+      .volume-bar::-ms-fill-lower {
+        background: vars.$color-white;
+        border-radius: vars.$radius_full;
       }
 
-      .progress::-ms-fill-upper {
-        background: var(--progress-track, vars.$color-gray);
-        border-radius: vars.$radius-full;
-      }    
+      .volume-bar::-ms-fill-upper {
+        background: var(--volume-track);
+        border-radius: vars.$radius_full;
+      }
     }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .progress {
+      --progress: 0%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: vars.$size-8;
+      width: 98%;
+      height: vars.$size-4;
+      -webkit-appearance: none;
+      appearance: none;
+      background: linear-gradient(to right, vars.$color-red var(--progress), 
+        vars.$color-navigation-background var(--progress));
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .progress::-webkit-slider-runnable-track {
+      width: 100%;
+      height: vars.$size-8;
+      cursor: pointer;
+      border-radius: 999px;
+      background: transparent;
+      border: none;
+    }
+
+    .progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: vars.$size-12;
+      height: vars.$size-12;
+      background: vars.$color-red;
+      border: none;
+      border-radius: vars.$radius-full;
+      margin-top: calc(vars.$size-4 * -1 + 2px);
+    }
+
+    .progress::-moz-range-track {
+      width: 100%;
+      height: vars.$size-8;
+      background: var(--progress-track, vars.$color-gray);
+      border-radius: vars.$radius-full;
+    }
+
+    .progress::-moz-range-progress {
+      background: var(--progress-color, vars.$color-red);
+      height: vars.$size-12;
+      border-radius: vars.$radius-full;
+    }
+
+    .progress::-moz-range-thumb {
+      width: vars.$size-12;
+      height: vars.$size-12;
+      background: var(--progress-color, vars.$color-red);
+      border-radius: vars.$radius-full;
+      border: none;
+    }
+
+    .progress::-ms-track {
+      width: 100%;
+      height: vars.$size-8;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+
+    .progress::-ms-fill-lower {
+      background: var(--progress-color, vars.$color-red);
+      border-radius: vars.$radius-full;
+    }
+
+    .progress::-ms-fill-upper {
+      background: var(--progress-track, vars.$color-gray);
+      border-radius: vars.$radius-full;
+    }  
+  }
 }

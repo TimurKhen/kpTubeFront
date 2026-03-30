@@ -6,7 +6,9 @@
         <source [src]="video()" type="video/mp4">
     </video>
     
-    <div class="controls">
+    <div 
+        class="controls"
+    >
         <div class="left">
             <button class="play-button" (click)="playPauseVideo()">
                 <img [src]="isPlaying() ? './icons/stop-icon.svg' : './icons/play-icon.svg'">
