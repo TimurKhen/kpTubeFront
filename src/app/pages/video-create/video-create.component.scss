@@ -34,6 +34,30 @@
                 border-radius: vars.$radius-lg;
                 padding: vars.$size-24;
                 max-height: vars.$size-600;
+            
+                .message {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    button {
+                        pointer-events: none;
+                        align-self: center;
+                        justify-self: center;
+                        padding: vars.$size-12 vars.$size-40;
+                        border-radius: vars.$radius-full;
+                        border: none;
+                        font-size: vars.$font-sm;
+                        user-select: none;
+                    }
+                }
+
+
+                input {
+                    display: none;
+                }
             }
     
             .delete-button {
@@ -75,6 +99,29 @@
                         object-fit: cover; 
                         object-position: center;
                         border-radius: vars.$radius-lg;
+                    }
+
+                    .message {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        
+                        button {
+                            pointer-events: none;
+                            align-self: center;
+                            justify-self: center;
+                            padding: vars.$size-12 vars.$size-40;
+                            border-radius: vars.$radius-full;
+                            border: none;
+                            font-size: vars.$font-sm;
+                            user-select: none;
+                        }
+                    }
+
+                    input {
+                        display: none;
                     }
                 }
     
@@ -143,7 +190,7 @@
     }
     
     .publish-button {
-        margin-right: vars.$size-40;
+        margin-right: 10vw;
         padding: vars.$size-12 vars.$size-40;
         border: none;
         border-radius: vars.$radius-full;

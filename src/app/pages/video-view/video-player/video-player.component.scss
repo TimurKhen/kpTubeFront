@@ -9,6 +9,10 @@
   flex-direction: column;
   max-height: vars.$size-600;
   
+  &:hover .controls {
+    opacity: 1;
+  }
+
   video {
     max-height: vars.$size-600;
     object-fit: contain;
@@ -205,10 +209,6 @@
         background: var(--volume-track);
         border-radius: vars.$radius_full;
       }
-    }
-
-    &:hover {
-      opacity: 1;
     }
 
     .progress {

@@ -55,4 +55,8 @@ export class VideoCreateComponent implements OnDestroy {
     this.previewURL.set('')
     this.videoForm.patchValue({ preview: null })
   }
+
+  publish() {
+    
+  }
 }

@@ -8,8 +8,14 @@
                 <button class="delete-button" 
                     (click)="clearVideo()">Удалить видео</button>
             } @else {
-                <label class="video">
-                    <input type="file" accept="video/mp4, .mp4" formControlName="video" (input)="onVideoChange($event)">
+                <label class="video" for="video-input">
+                    <div class="message">
+                        <button>Загрузить видео</button>
+                    </div>
+                    <input 
+                        id="video-input"
+                        type="file" accept="video/mp4, .mp4" 
+                        formControlName="video" (input)="onVideoChange($event)">
                 </label>
             }
         </div>
@@ -22,8 +28,11 @@
                     <button class="delete-button" 
                         (click)="clearPreview()">Удалить превью</button>
                 } @else {
-                    <label class="preview">
-                        <input type="file" (input)="onPreviewChange($event)" accept=".jpg" formControlName="preview">
+                    <label class="preview" for="preview-input">
+                        <div class="message">
+                            <button>Загрузить превью</button>
+                        </div>
+                        <input id="preview-input" type="file" (input)="onPreviewChange($event)" accept=".jpg" formControlName="preview">
                     </label>
                 }
             </div>
@@ -54,6 +63,7 @@
     <button 
         class="publish-button"
         [disabled]="!videoForm.valid"
+        (click)="publish()"
         >
         Опубликовать
     </button>
