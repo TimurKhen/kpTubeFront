@@ -1,0 +1,11 @@
+<div class="alert" [animate.enter]="'show'" [ngClass]="{'hide': isClosing()}">
+    <div class="left">
+        <div class="image">
+            <img [src]="!isError() ? './icons/information-icon.svg' : './icons/warning-icon.svg'">
+        </div>
+        <div class="text-information">
+            <h3>{{ title() }}</h3>
+            <p>{{ message() }}</p>
+        </div>
+    </div>
+</div>

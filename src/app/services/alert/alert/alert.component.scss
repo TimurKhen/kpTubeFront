@@ -1,0 +1,77 @@
+@use '../../../../assets/variables.scss' as vars;
+
+.alert {
+    min-width: 30vw;
+    min-height: 5vh;
+    border: vars.$border-basic;
+    border-radius: vars.$radius-lg;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: vars.$size-12 vars.$size-20;
+    background: vars.$color-black;
+    position: fixed;
+    z-index: 99999;
+    top: vars.$size-12;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    animation: slideDown 0.3s ease-out forwards;
+    
+    .left {
+        display: flex;
+        align-items: center;
+        gap: vars.$size-12;
+        width: 100%;
+        
+        .image {
+            display: flex;
+            align-items: center;
+            height: 100%;
+
+            img {
+                width: vars.$size-24;
+                height: auto;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+            }
+        }
+
+        .text-information {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: vars.$size-12;
+            height: 100%;
+
+            color: vars.$color-white;
+
+            h3, p {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+    .right {
+        img {
+            cursor: pointer;
+        }
+    }
+}
+
+.hide {
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateX(-50%) translateY(-100%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 1;
+    }
+}
