@@ -1,7 +1,10 @@
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VideoPlayerComponent } from "../video-view/video-player/video-player.component";
 import { NgClass } from '@angular/common';
+import { VideosService } from '../../services/videos-service/videos-service.service';
+import { LoaderService } from '../../services/loader/loader.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-video-create',
@@ -10,53 +13,108 @@ import { NgClass } from '@angular/common';
   styleUrl: './video-create.component.scss',
 })
 export class VideoCreateComponent implements OnDestroy {
+  private videoService = inject(VideosService)
+  private loaderService = inject(LoaderService)
+
   videoForm = new FormGroup({
-    video: new FormControl<File | null>(null, [Validators.required]),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string>(''),
-    preview: new FormControl<File | null>(null, [Validators.required]),
   })
+  
   videoURL = signal<string>('')
   previewURL = signal<string>('')
+  
+  videoFile: File | null = null
+  previewFile: File | null = null
+  
+  @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>
+  @ViewChild('previewInput') previewInput!: ElementRef<HTMLInputElement>
+
+  private loaderProgress = signal(0)
 
   onVideoChange(event: Event) {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
-      const videoFile = input.files[0]
-      this.videoURL.set(URL.createObjectURL(videoFile))
-      this.videoForm.patchValue({ video: videoFile })
+      this.videoFile = input.files[0]
+      if (this.videoURL()) {
+        URL.revokeObjectURL(this.videoURL())
+      }
+      this.videoURL.set(URL.createObjectURL(this.videoFile))
     }
   }
 
   onPreviewChange(event: Event) {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
-      const previewFile = input.files[0]
-      this.previewURL.set(URL.createObjectURL(previewFile))
-      this.videoForm.patchValue({ preview: previewFile })
+      this.previewFile = input.files[0]
+      if (this.previewURL()) {
+        URL.revokeObjectURL(this.previewURL())
+      }
+      this.previewURL.set(URL.createObjectURL(this.previewFile))
     }
   }
 
   ngOnDestroy(): void {
     if (this.videoURL()) {
       URL.revokeObjectURL(this.videoURL())
+    }
+    if (this.previewURL()) {
       URL.revokeObjectURL(this.previewURL())
     }
   }
 
   clearVideo() {
-    URL.revokeObjectURL(this.videoURL())
+    if (this.videoURL()) {
+      URL.revokeObjectURL(this.videoURL())
+    }
     this.videoURL.set('')
-    this.videoForm.patchValue({ video: null })
+    this.videoFile = null
+    if (this.videoInput) {
+      this.videoInput.nativeElement.value = ''
+    }
   }
 
   clearPreview() {
-    URL.revokeObjectURL(this.previewURL())
+    if (this.previewURL()) {
+      URL.revokeObjectURL(this.previewURL())
+    }
     this.previewURL.set('')
-    this.videoForm.patchValue({ preview: null })
+    this.previewFile = null
+    if (this.previewInput) {
+      this.previewInput.nativeElement.value = ''
+    }
   }
 
-  publish() {
-    
+  async publish() {
+    if (this.videoForm.valid && this.videoFile && this.previewFile) {
+      await this.loaderService.show(signal<string>('Загрузка видео'), this.loaderProgress);
+      
+      this.videoService.createVideo({
+        video: this.videoFile,
+        name: this.videoForm.value.name!,
+        description: this.videoForm.value.description || '',
+        preview: this.previewFile
+      }).subscribe({
+        next: (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            const percentDone = Math.round(100 * event.loaded / event.total!);
+            this.loaderProgress.set(percentDone);
+          } 
+          else if (event.type === HttpEventType.Response) {
+            this.loaderProgress.set(100);
+            
+            setTimeout(() => {
+              this.loaderService.hide()
+              this.videoForm.reset()
+              this.clearVideo()
+              this.clearPreview()
+            }, 500)
+          }
+        },
+        error: (error) => {
+          this.loaderService.hide()
+        }
+      })
+    }
   }
 }

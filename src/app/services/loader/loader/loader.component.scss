@@ -1,0 +1,73 @@
+@use '../../../../assets/variables.scss' as vars;
+
+.loader {
+    min-width: 15vw;
+    min-height: 5vh;
+    border: vars.$border-basic;
+    border-radius: vars.$radius-lg;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: vars.$size-12 vars.$size-20;
+    padding-bottom: vars.$size-24;
+    background: vars.$color-black;
+    position: fixed;
+    z-index: 99999;
+    bottom: vars.$size-20;
+    right: vars.$size-20;
+
+    .image {
+        display: flex;
+        align-items: center;
+        width: vars.$size-40;
+        height: vars.$size-40;
+
+        loader-icon {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .text-information {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        color: vars.$color-white;
+
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+.show {
+    animation: slideDown 0.3s cubic-bezier(.31,1.02,.71,1.27) forwards;
+}
+
+.hide {
+    transform: translateX(50%);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(.2,-0.63,.6,.96);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

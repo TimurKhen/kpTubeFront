@@ -1,0 +1,10 @@
+@if (isShow()) {
+    <div class="loader" [animate.enter]="'show'" [animate.leave]="'hide'">
+        <div class="image">
+            <loader-icon></loader-icon>
+        </div>
+        <div class="text-information">
+            <h3>{{ title() }}</h3>
+        </div>
+    </div>
+}

@@ -3,6 +3,7 @@ import {RouterOutlet} from "@angular/router";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { AlertService } from './services/alert/alert.service';
 import { SideBarComponent } from "./components/side-bar/side-bar.component";
+import { LoaderService } from './services/loader/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,10 @@ import { SideBarComponent } from "./components/side-bar/side-bar.component";
 export class AppComponent {
   constructor(
     private alertService: AlertService, 
+    private loaderService: LoaderService,
     private vcr: ViewContainerRef 
   ) {
     this.alertService.setContainer(this.vcr)
+    this.loaderService.setContainer(this.vcr)
   }
 }

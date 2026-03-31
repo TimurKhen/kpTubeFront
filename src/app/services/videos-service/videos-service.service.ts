@@ -161,14 +161,25 @@ export class VideosService {
     }
 
     createVideo(videoForm: {
-        video: File | null,
+        video: File | null | undefined,
         name: string,
         description: string,
-        preview: File | null
+        preview: File | null | undefined
     }) {
-        this.http.post(
-            this.mainURL,
-            this.converterObjToFD.objectToFormData(videoForm)
+        const formData = this.converterObjToFD.objectToFormData(videoForm);
+        
+        return this.http.post(this.mainURL, formData, {
+            reportProgress: true, 
+            observe: 'events'     
+        }).pipe(
+            catchError((err) => {
+                this.alert.show(
+                    'Ошибка при создании видео',
+                    `Номер ошибки ${err.status}`,
+                    true
+                )
+                return throwError(err)
+            })
         )
     }
 
