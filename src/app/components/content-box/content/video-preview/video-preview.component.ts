@@ -1,4 +1,4 @@
-import { Component, computed, input, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { VideoPreview } from '../../../../interfaces/video/preview';
 import { TimeAgoPipe } from "../../../../pipes/time-ago/time-ago-pipe.pipe";
 import { ShortNumberPipe } from '../../../../pipes/short-number/short-number.pipe';
@@ -19,7 +19,7 @@ export class VideoPreviewComponent implements OnInit {
   previewStatus$ = this.previewState$.pipe(
     switchMap(isHovering => {
       if (isHovering) {
-        return timer(1000).pipe(
+        return timer(700).pipe(
           takeUntil(this.previewState$.pipe(
             filter(v => !v)
           )),

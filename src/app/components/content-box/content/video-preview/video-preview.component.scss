@@ -1,26 +1,31 @@
 @use '../../../../../assets/variables.scss' as vars;
 
 .video {
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
 
     display: flex;
     flex-direction: column;
     border-radius: vars.$radius-lg;
     gap: vars.$size-20;
+    max-width: vars.$size-520;
     
     .preview {
-        display: flex;
-        
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        max-height: vars.$size-240;
-        cursor: pointer;
+        height: auto;
+        background: vars.$color-surface;
+        border-radius: vars.$radius-lg;
+        aspect-ratio: 16/9;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
         
         img {
-            object-fit: cover;
             width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
             border-radius: vars.$radius-lg;
         }
     }

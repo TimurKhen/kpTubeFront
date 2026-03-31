@@ -10,12 +10,7 @@ import { RouterLink } from "@angular/router";
   templateUrl: './videos-grid.component.html',
   styleUrl: './videos-grid.component.scss',
 })
-export class VideosGridComponent implements OnInit {
+export class VideosGridComponent {
   videoService = inject(VideosService)
-  videos = signal<VideoPreview[]>([])
-
-  ngOnInit(): void {
-    this.videos.set(this.videoService.videos)
-  }
-
+  videos = this.videoService.videos
 }

@@ -15,8 +15,8 @@
     height: 100%;
     background: vars.$color-surface;
 
-    transform: translateX(-10vw);
-    transition: transform 0.3s;
+    transform: translateX(-200%);
+    transition: transform 0.4s;
 
     .logotype {
         display: flex;
