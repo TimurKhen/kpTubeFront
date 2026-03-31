@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, input, OnDestroy, ChangeDetectionStrategy, output, signal } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, output, signal } from '@angular/core';
 import { delay, Subject } from 'rxjs';
 
 @Component({
@@ -17,7 +17,8 @@ export class AlertComponent {
   message = input<string>('')
 
   hide = output()
-  isClosing = signal<boolean>(false)
+  
+  isShow = signal<boolean>(true)
   
   constructor() {
     this.timeout$
@@ -31,12 +32,10 @@ export class AlertComponent {
   }
 
   onClose() {
-    this.isClosing.set(true)
-
+    this.isShow.set(false)
     setTimeout(() => {
-      this.isClosing.set(false)
       this.timeout$.unsubscribe()
       this.hide.emit()
-    }, 300)
+    }, 400)
   }
 }

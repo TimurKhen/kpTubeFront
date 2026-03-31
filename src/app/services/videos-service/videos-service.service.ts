@@ -1,8 +1,9 @@
+import { AlertService } from './../alert/alert.service';
 import { inject, Injectable, signal } from '@angular/core';
 import { VideoPreview } from '../../interfaces/video/preview';
 import { ProfilePreview } from '../../interfaces/profile/preview';
 import { Video } from '../../interfaces/video/video';
-import { delay, Observable, of } from 'rxjs';
+import { catchError, delay, Observable, of, throwError } from 'rxjs';
 import { Commentry } from '../../interfaces/commentary/commentary';
 import { HttpClient } from '@angular/common/http';
 import { masterURL } from '../masterURL';
@@ -15,7 +16,9 @@ export class VideosService {
     private converterObjToFD = inject(ConverterObjToFormdataService)
     private http = inject(HttpClient)
     private mainURL = masterURL
+    private alert = inject(AlertService)
 
+    // TEMPORARY CODE WITH TEMPLATES !!!!!
     author: ProfilePreview = {
         avatar: './templates/template_avatar.jpg',
         username: 'Timur khen',
@@ -166,6 +169,21 @@ export class VideosService {
         this.http.post(
             this.mainURL,
             this.converterObjToFD.objectToFormData(videoForm)
+        )
+    }
+
+    searchVideos(keyword: string) {
+        return this.http.get(
+            this.mainURL + '/search/' + keyword
+        ).pipe(
+            catchError((err) => {
+                this.alert.show(
+                    'Ошибка поиска',
+                    `Номер ошибки ${err.status}`,
+                    true
+                )
+                return throwError(err)
+            })   
         )
     }
 }

@@ -1,11 +1,16 @@
-<div class="alert" [animate.enter]="'show'" [ngClass]="{'hide': isClosing()}">
-    <div class="left">
-        <div class="image">
-            <img [src]="!isError() ? './icons/information-icon.svg' : './icons/warning-icon.svg'">
+@if (isShow()) {
+    <div class="alert" [animate.enter]="'show'" [animate.leave]="'hide'">
+        <div class="left">
+            <div class="image">
+                <img width="32" [src]="!isError() ? './icons/information-icon.svg' : './icons/warning-icon.svg'">
+            </div>
+            <div class="text-information" [ngClass]="{'error': isError()}">
+                <h3>{{ title() }}</h3>
+                <p>{{ message() }}</p>
+            </div>
         </div>
-        <div class="text-information">
-            <h3>{{ title() }}</h3>
-            <p>{{ message() }}</p>
+        <div class="right">
+            <img (click)="onClose()" src="./icons/close-icon.svg">
         </div>
     </div>
-</div>
+}
