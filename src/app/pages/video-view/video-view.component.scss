@@ -16,7 +16,10 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            
+            background: vars.$color-surface;
+            border-radius: vars.$radius-lg;
+            overflow: hidden;
+
             video-player {
                 width: 100%;
                 max-height: vars.$size-800;

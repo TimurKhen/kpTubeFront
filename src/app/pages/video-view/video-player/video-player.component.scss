@@ -8,10 +8,6 @@
   display: flex;
   flex-direction: column;
   max-height: vars.$size-600;
-  
-  &:hover .controls {
-    opacity: 1;
-  }
 
   video {
     max-height: vars.$size-600;
@@ -21,6 +17,29 @@
     border-radius: vars.$radius-lg;
   }
 
+  &:fullscreen {
+    max-height: none;
+    border-radius: 0;
+    background-color: vars.$color-black;
+    
+    video {
+      max-height: none;
+      border-radius: 0;
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 0;
+      z-index: 9999;
+    }
+  }
+  
   .controls {
     width: 100%;
     display: flex;
@@ -110,6 +129,7 @@
       border: none;
       background: none;
       cursor: pointer;
+      outline: none;
     }
 
     .volume {

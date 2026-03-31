@@ -12,7 +12,8 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   @ViewChild('videoPlayer') videoPlayerRef!: ElementRef<HTMLVideoElement>
   @ViewChild('volumeBar') volumeBarRef!: ElementRef<HTMLInputElement>
   @ViewChild('progressBar') progressBarRef!: ElementRef<HTMLInputElement>
-  
+  @ViewChild('controls') controlsRef!: ElementRef<HTMLDivElement>
+
   video = input<string | undefined>()
   videoPoster = input<string | undefined>()
   alwaysShowUI = input<boolean>(false)
@@ -23,6 +24,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   currentTime = signal<number>(0)
   duration = signal<number>(0)
 
+  controlsTimeout: any
   private videoPlayer!: HTMLVideoElement
 
   @HostListener('document:keydown', ['$event'])
@@ -73,9 +75,26 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       this.isPlaying.set(false)
     })
 
+    this.videoPlayer.addEventListener('mousemove', () => {
+      this.showControls()
+    })
+    
+    this.videoPlayer.addEventListener('mouseleave', () => {
+      this.hideControls()
+    })
+    
+    const controls = this.controlsRef.nativeElement
+
+    controls?.addEventListener('mousemove', () => {
+      this.showControls()
+    })
+    
+    controls?.addEventListener('mouseleave', () => {
+      this.hideControls()
+    })
+
     const volumeBar = this.volumeBarRef.nativeElement
     volumeBar.style.setProperty('--volume', `${this.currentVolume() * 100}%`)
-
     if (this.video()) {
       this.videoPlayer.load()
     }
@@ -99,6 +118,29 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
         this.videoPlayer.pause()
         this.isPlaying.set(false)
       }
+    }
+  }
+
+  showControls() {
+    const controls = this.controlsRef?.nativeElement
+    if (controls) {
+      controls.style.opacity = '1'
+
+      if (this.controlsTimeout) {
+        clearTimeout(this.controlsTimeout)
+      }
+      this.controlsTimeout = setTimeout(() => {
+        this.hideControls()
+      }, 3000)
+    }
+  }
+
+  hideControls() {
+    const controls = this.controlsRef?.nativeElement
+    const isHoveringControls = controls?.matches(':hover')
+
+    if (controls && !this.videoPlayer.paused && !isHoveringControls) {
+      controls.style.opacity = '0'
     }
   }
 
@@ -163,6 +205,19 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       }
     } catch (error) {
       console.error('PiP error:', error)
+    }
+  }
+
+  async toggleSize() {
+    const container = document.querySelector('.player-container')    
+    try {
+      if (!document.fullscreenElement) {
+        await container?.requestFullscreen()
+      } else {
+        await document.exitFullscreen()
+      }
+    } catch (error) {
+      console.error('Fullscreen error:', error)
     }
   }
 }
