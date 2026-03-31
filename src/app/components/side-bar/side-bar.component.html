@@ -1,0 +1,21 @@
+<div 
+    [ngClass]="{'show': isOpen()}"    
+    class="bar">
+
+    <div class="logotype">
+        <div class="menu">
+            <menu-opener (isOpenOutput)="changeStatusOfOpen($event)" [isOpenInput]="isOpen()"></menu-opener>
+        </div>
+        <h2 routerLink="/">
+            KPTube
+        </h2>
+    </div>
+    
+    @for (item of buttons; track item) {
+        <button [routerLink]="item.router" (click)="changeStatusOfOpen(false)">
+            <img [src]="item.icon">
+            <p>{{ item.title }}</p>
+        </button>
+    }
+
+</div>

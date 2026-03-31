@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'menu-opener',
@@ -8,9 +8,18 @@ import { Component, signal } from '@angular/core';
   styleUrl: './menu-opener.component.scss',
 })
 export class MenuOpenerComponent {
-  isOpen = signal<boolean>(false)
+  isOpenInput = input<boolean>(false)
+  isOpenOutput = output<boolean>()
+  isOpen = signal<boolean>(this.isOpenInput())
+
+  constructor() {
+    effect(() => {
+      this.isOpen.set(this.isOpenInput())
+    })
+  }
 
   changeStatus() {
     this.isOpen.update((val) => !val)
+    this.isOpenOutput.emit(this.isOpen())
   }
 }

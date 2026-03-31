@@ -1,7 +1,7 @@
 <div class="navigation">
     <div class="logotype">
         <div class="menu">
-            <menu-opener></menu-opener>
+            <menu-opener (isOpenOutput)="changeStatusOfOpen($event)" [isOpenInput]="sideBarService.isSideBarOpen()"></menu-opener>
         </div>
         <h2 routerLink="/">
             KPTube

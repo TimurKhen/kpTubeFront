@@ -73,6 +73,7 @@
 
             img {
                 height: 100%;
+                cursor: pointer;
             }
 
             button {
@@ -80,6 +81,7 @@
                 background: none;
                 border: none;
                 color: vars.$color-white;
+                cursor: pointer;
             }
         }
 
