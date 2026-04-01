@@ -1,9 +1,13 @@
 <div class="container">
     <form [formGroup]="videoForm">
         <div class="video-zone">
-            @if (videoURL()) {
+            @if (videoURL()) {            
                 <div class="video">
-                    <video-player [video]="videoURL()" [alwaysShowUI]="true"></video-player>
+                    @defer {
+                        <video-player [video]="videoURL()" [alwaysShowUI]="true"></video-player>
+                    } @placeholder {
+                        <div class="placeholder">Видео загружается...</div>
+                    }
                 </div>
                 <button class="delete-button" 
                     (click)="clearVideo()">Удалить видео</button>
@@ -16,7 +20,7 @@
                         #videoInput
                         id="video-input"
                         type="file" accept="video/mp4, .mp4" 
-                        formControlName="video" (input)="onVideoChange($event)">
+                        (input)="onVideoChange($event)">
                 </label>
             }
         </div>
@@ -37,7 +41,7 @@
                             #previewInput
                             id="preview-input" 
                             type="file" 
-                            (input)="onPreviewChange($event)" accept=".jpg" formControlName="preview">
+                            (input)="onPreviewChange($event)" accept=".jpg">
                     </label>
                 }
             </div>

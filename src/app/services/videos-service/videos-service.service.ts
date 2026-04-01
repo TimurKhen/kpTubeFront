@@ -24,7 +24,7 @@ export class VideosService {
         username: 'Timur khen',
         subscribers: 13
     } 
-    videos = signal<VideoPreview[]>([
+    private videosTemplate = signal<VideoPreview[]>([
         {
             id: '1',
             title: 'Как приготовить идеальный кофе за 5 минут',
@@ -74,6 +74,10 @@ export class VideosService {
             uploadDate: new Date('2026-03-05')
         },
     ])
+
+    get videos() {
+        return signal<VideoPreview[]>(this.videosTemplate())
+    }
 
     getVideoByID(id: string): Observable<Video> {
         const commentArray: Commentry[] = [

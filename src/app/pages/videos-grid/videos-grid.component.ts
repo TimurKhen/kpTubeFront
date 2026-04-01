@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { VideosService } from '../../services/videos-service/videos-service.service';
-import { VideoPreview } from '../../interfaces/video/preview';
 import { ContentBoxComponent } from "../../components/content-box/content-box.component";
 import { RouterLink } from "@angular/router";
 
