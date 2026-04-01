@@ -172,10 +172,8 @@ export class VideosService {
     }) {
         const formData = this.converterObjToFD.objectToFormData(videoForm);
         
-        return this.http.post(this.mainURL, formData, {
-            reportProgress: true, 
-            observe: 'events'     
-        }).pipe(
+        return this.http.post(this.mainURL, formData)
+        .pipe(
             catchError((err) => {
                 this.alert.show(
                     'Ошибка при создании видео',

@@ -1,10 +1,15 @@
 <div class="container">
     <div class="video-container">
         <div class="video">
-            <video-player 
-                [video]="videoInformation()?.video"
-                [videoPoster]="videoInformation()?.preview"
-                ></video-player>
+            @defer {
+                <video-player 
+                    [video]="videoInformation()?.video"
+                    [videoPoster]="videoInformation()?.preview"
+                    ></video-player>
+            }
+            @loading (minimum 300ms) {
+                <div class="moch-video"></div>
+            }
         </div>
         <div class="informaition">
             <div class="main">

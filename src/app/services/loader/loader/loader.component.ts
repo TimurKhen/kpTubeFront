@@ -9,7 +9,6 @@ import { LoaderIconComponent } from "./loader-icon/loader-icon.component";
 })
 export class LoaderComponent {
   title = input<string>('')
-  status = input<string>('')
   hide = output()
 
   isShow = signal<boolean>(true)

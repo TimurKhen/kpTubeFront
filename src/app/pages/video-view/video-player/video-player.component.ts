@@ -29,19 +29,30 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
 
   @HostListener('document:keydown', ['$event'])
   handleDeleteKeyboardEvent(event: KeyboardEvent) {
+    const target = event.target as HTMLElement;
+    const isInputFocused = 
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.isContentEditable
+
+    if (isInputFocused) {
+      return
+    }
+
     if (this.alwaysShowUI()) {
       return
     }
+
     const keysToDisable = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']
-    
+
     if (keysToDisable.includes(event.key)) {
       event.preventDefault()
     }
-    
+
     switch (event.key) {
       case ' ':
         this.playPauseVideo()
-        break        
+        break
       case 'ArrowLeft':
         this.videoPlayer.currentTime = this.videoPlayer.currentTime - 5
         break
@@ -51,8 +62,14 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       case 'm':
       case 'M':
       case 'ь':
-      case 'Ь': 
+      case 'Ь':
         this.changeMuteStatus()
+        break
+      case 'а':
+      case 'А':
+      case 'f':
+      case 'F':
+        this.toggleSize()
         break
     }
   }

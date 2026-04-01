@@ -71,7 +71,7 @@
     </form>
     <button 
         class="publish-button"
-        [disabled]="!videoForm.valid"
+        [disabled]="!videoForm.valid || isLoading()"
         (click)="publish()"
         >
         Опубликовать

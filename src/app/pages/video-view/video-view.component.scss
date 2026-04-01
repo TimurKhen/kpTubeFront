@@ -24,6 +24,15 @@
                 width: 100%;
                 max-height: vars.$size-800;
             }
+        
+            .moch-video {
+                width: 100%;
+                height: vars.$size-800;
+
+                background: vars.$background-loading;
+                background-size: 200% 100%;
+                animation: loading 3s infinite;
+            }
         }
 
         .informaition {
@@ -320,11 +329,6 @@
                 height: vars.$size-100;
                 border-radius: vars.$radius-lg;
             }
-
-            @keyframes loading {
-                0% { background-position: 200% 0; }
-                100% { background-position: -200% 0; }
-            }
         }
     }
 }
@@ -337,6 +341,11 @@
     opacity: 0;
     transform: translateY(calc(vars.$size-12 * -1));
     transition: all 0.2s;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 @keyframes fade {
