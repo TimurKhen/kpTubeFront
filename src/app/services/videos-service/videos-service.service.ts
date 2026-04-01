@@ -28,7 +28,7 @@ export class VideosService {
         {
             id: '1',
             title: 'Как приготовить идеальный кофе за 5 минут',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview_2.jpg',
             author: this.author,
             views: 1542000,
             uploadDate: new Date('2026-03-15')
@@ -36,7 +36,7 @@ export class VideosService {
         {
             id: '2',
             title: 'Обзор нового iPhone 17 Pro Max',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview.jpg',
             author: this.author,
             views: 3420000,
             uploadDate: new Date('2026-03-10')
@@ -44,7 +44,7 @@ export class VideosService {
         {
             id: '3',
             title: '10 ошибок начинающих программистов',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview_3.jpg',
             author: this.author,
             views: 567000,
             uploadDate: new Date('2026-03-05')
@@ -52,7 +52,7 @@ export class VideosService {
         {
             id: '4',
             title: '10 ошибок начинающих программистов',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview.jpg',
             author: this.author,
             views: 567000,
             uploadDate: new Date('2026-03-05')
@@ -60,7 +60,7 @@ export class VideosService {
         {
             id: '5',
             title: '10 ошибок начинающих программистов',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview.jpg',
             author: this.author,
             views: 567000,
             uploadDate: new Date('2026-03-05')
@@ -68,7 +68,7 @@ export class VideosService {
         {
             id: '6',
             title: '10 ошибок начинающих программистов',
-            preview: './templates/teamplate_preview.jpg',
+            preview: './templates/previews/teamplate_preview_2.jpg',
             author: this.author,
             views: 567000,
             uploadDate: new Date('2026-03-05')
@@ -147,21 +147,28 @@ export class VideosService {
             publishDate: new Date('2026-01-10')
         }
     ]
+    
+        let videoURL = ''
+
+        if (id === '1') {
+            videoURL = './templates/videos/teamplate_video.mp4'
+        } else {
+            videoURL = `./templates/videos/teamplate_video_${id}.mp4`
+        }
+
         return of({
             id: id,
             title: 'Testovoe',
             description : 'qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty qwerty ',
-            preview: './templates/teamplate_preview.jpg',
-            video: './templates/teamplate_video.mp4',
+            preview: './templates/previews/teamplate_preview.jpg',
+            video: videoURL,
             author: this.author,
             views: 123123123,
             uploadDate: new Date('2026-01-01'),
             comments: commentArray,
             likes: 30,
             dislikes: 2
-        }).pipe(
-            delay(1000)
-        )
+        })
     }
 
     createVideo(videoForm: {

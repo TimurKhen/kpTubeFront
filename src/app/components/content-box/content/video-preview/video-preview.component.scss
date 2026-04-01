@@ -16,6 +16,7 @@
         background: vars.$color-surface;
         border-radius: vars.$radius-lg;
         aspect-ratio: 16/9;
+        max-height: vars.$size-240;
         
         display: flex;
         justify-content: center;

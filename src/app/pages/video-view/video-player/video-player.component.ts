@@ -39,10 +39,6 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       return
     }
 
-    if (this.alwaysShowUI()) {
-      return
-    }
-
     const keysToDisable = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' ']
 
     if (keysToDisable.includes(event.key)) {
