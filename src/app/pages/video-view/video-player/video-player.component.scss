@@ -17,6 +17,36 @@
     border-radius: vars.$radius-lg;
   }
 
+  .effect {
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+    padding: vars.$size-20;
+    background: vars.$color-navigation-background;
+    border-radius: vars.$radius-full;
+    width: vars.$size-80;
+    height: vars.$size-80;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  .active-effect {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
   &:fullscreen {
     max-height: none;
     border-radius: 0;

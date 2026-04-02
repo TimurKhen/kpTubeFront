@@ -1,10 +1,14 @@
-<div class="player-container">
+<div class="player-container" #playerContainer>
     <video 
         #videoPlayer 
         (click)="this.playPauseVideo()"
     >
         <source [src]="video()" type="video/mp4">
     </video>
+
+    <div class="effect" [ngClass]="{'active-effect': isAnimatingEffect()}">
+        <img [src]="'./icons/' + currentEffectSrc()">
+    </div>
     
     <div 
         #controls
@@ -21,28 +25,14 @@
             </div>
             <div class="volume">
                 <button (click)="changeMuteStatus()">
-                    @if (currentVolume() > 0.8) {
-                        <img
-                            src="./icons/volume/volume-max-icon.svg"
-                        >
-                    } @else if (currentVolume() > 0.4) {
-                        <img
-                            src="./icons/volume/volume-mid-icon.svg"
-                        >
-                    } @else if (currentVolume() > 0) {
-                        <img
-                            src="./icons/volume/volume-min-icon.svg"
-                        >
-                    } @else {
-                        <img
-                            src="./icons/volume/volume-zero-icon.svg"
-                        >
-                    }
+                    <img
+                        [src]="'./icons/' + currentVolumeIcon()"
+                    >
                 </button>
                 <input type="range" class="volume-bar" 
                     #volumeBar min="0" max="1" step="0.01" 
                     [value]="currentVolume()"
-                    (input)="setVolume($event)">
+                    (input)="setVolumeEvent($event)">
             </div>
         </div>
         <div class="right">
