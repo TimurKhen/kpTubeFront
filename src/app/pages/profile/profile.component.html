@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="profile">
+        <div class="header">
+            <img [src]="userInformation()?.header">
+        </div>
+        <div class="information">
+            <div class="avatar">
+                <img [src]="userInformation()?.avatar">
+            </div>
+            <div class="text">
+                <h3>{{ userInformation()?.username }}</h3>
+                <p>{{ userInformation()?.subscribers | shortNumber }} подписчиков</p>
+            </div>
+            <div class="subscribe-button">
+                <button 
+                    [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"   
+                    (click)="changeSubscribeStatus()">
+                    {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="videos">
+        @for (content of convertedVideos(); track content) {
+            <app-content-box 
+                [routerLink]="['./video', content.id]"
+                [contentType]="0" [content]="content"></app-content-box>
+        }
+    </div>
+</div>
