@@ -1,0 +1,84 @@
+@use '../../../assets/variables.scss' as vars;
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: vars.$size-40;
+
+    .profile {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 80%;
+
+        .header {
+            width: 100%;
+
+            img {
+                width: 100%;
+                max-height: vars.$size-400;
+                object-fit: cover;
+                object-position: center;
+                border-radius: vars.$radius-lg;
+            }
+        }
+        .information {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: vars.$size-20;
+
+            .avatar {
+                width: 100%;
+                height: 100%;
+                max-width: vars.$size-80;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    cursor: pointer;
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    border-radius: vars.$radius-full;
+                }
+            }
+            
+            .subscribe-button {
+                button {
+                    padding: vars.$size-12 vars.$size-24;
+                    border-radius: vars.$radius-full;   
+                    border: none;
+                    font-size: vars.$font-sm;
+                    font-family: Roboto, sans-serif;
+                    background: transparent;
+                    color: vars.$color-surface;
+                    transition: all 0.3s !important;
+                    cursor: pointer;
+                }
+                
+                .subscribe {
+                    background: vars.$color-red;
+                    font-weight: 800;
+                }
+
+                .dissubscribe {
+                    font-weight: 600;
+                    background: vars.$color-surface;
+                    color: vars.$color-white;
+                }
+            }
+        }
+    }
+
+    .videos {
+        width: 80%;
+        padding: vars.$size-40;
+        display: flex;
+        flex-direction: column;
+        gap: vars.$size-40;
+    }
+}

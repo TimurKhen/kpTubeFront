@@ -21,7 +21,13 @@
             <button>Создать</button>
         </div>
         <div class="avatar">
-            <img [src]="userInformation().avatar">
+            @if (userInformation() == null) {
+                <a href="./registration">Войти</a>
+            } @else {
+                <a class="avatar" href="./account">
+                    <img [src]="userInformation()?.avatar">
+                </a>
+            }
         </div>
     </div>
 </div>

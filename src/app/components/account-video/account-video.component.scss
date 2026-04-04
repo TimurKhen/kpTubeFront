@@ -1,0 +1,96 @@
+@use '../../../assets/variables.scss' as vars;
+
+.video {
+    width: auto;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: vars.$radius-lg;
+    gap: vars.$size-20;
+    max-width: vars.$size-520;
+    
+    .preview {
+        width: 100%;
+        height: auto;
+        background: vars.$color-surface;
+        border-radius: vars.$radius-lg;
+        aspect-ratio: 16/9;
+        max-height: vars.$size-240;
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center;
+            border-radius: vars.$radius-lg;
+        }
+    }
+
+    .information {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: vars.$size-12;
+
+        .author-avatar {
+            width: 100%;
+            height: 100%;
+            max-width: vars.$size-60;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            img {
+                cursor: pointer;
+                width: 100%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                border-radius: vars.$radius-full;
+            }
+        }
+
+        .main-information {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: vars.$size-12;
+
+            h3 {
+                cursor: pointer;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                max-height: unset;
+                line-height: 1em;
+            }
+
+            .more-information {
+                display: flex;
+                flex-direction: column;
+
+                // .author-inforamtion {
+                    // p {
+                        // line-height: 0;
+                //     }
+                // }
+
+                p {
+                    cursor: pointer;
+                    font-size: small;
+                    line-height: 0;
+                }
+                
+                .video-information {
+                    height: auto;
+                    display: flex;
+                    gap: vars.$size-8;
+                }
+            }
+        }
+    }
+}

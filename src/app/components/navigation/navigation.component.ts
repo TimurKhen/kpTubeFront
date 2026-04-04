@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProfilePreview } from '../../interfaces/profile/preview';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MenuOpenerComponent } from "./menu-opener/menu-opener.component";
@@ -12,16 +12,20 @@ import { VideosService } from '../../services/videos-service/videos-service.serv
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
-export class NavigationComponent {
-  userInformation = signal<ProfilePreview>({
-    avatar: './templates/template_avatar.jpg',
-    username: 'TimurKhen',
-    subscribers: 123
-  })
+export class NavigationComponent implements OnInit {
+  userInformation = signal<ProfilePreview | null>(null)
 
   searchForm = new FormControl('', [Validators.required, Validators.minLength(1)])
   sideBarService = inject(SideBarHandlerService)
   videoService = inject(VideosService)
+
+  ngOnInit(): void {
+    this.userInformation.set({
+      avatar: './templates/template_avatar.jpg',
+      username: 'TimurKhen',
+      subscribers: 123
+    })
+  }
 
   changeStatusOfOpen($event: boolean) {
     this.sideBarService.isSideBarOpen.set($event)

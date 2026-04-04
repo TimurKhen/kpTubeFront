@@ -1,0 +1,52 @@
+@use '../../../assets/variables.scss' as vars;
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: vars.$size-40;
+    min-height: vars.$size-600;
+
+    .main {
+        background: vars.$color-surface;
+        max-width: vars.$size-520;
+        min-height: vars.$size-320;
+        border-radius: vars.$radius-lg;
+        width: 40%;
+        height: 100%;
+        display: grid;
+        grid-template-rows: 1fr 3fr;
+        align-items: center;
+        justify-content: center;
+        gap: vars.$size-20;
+        padding: vars.$size-20;
+    
+        h2 {
+            text-align: center;
+            font-size: vars.$font-sm;
+        }
+
+        .buttons {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            .sign-service {
+                display: flex;
+                align-items: center;
+                background: vars.$color-white;
+                border: none;
+                outline: none;
+                gap: vars.$size-20;
+                padding: 0 vars.$size-20;
+                border-radius: vars.$radius-lg;
+            }
+        }
+    }
+}
