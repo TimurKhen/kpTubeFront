@@ -76,11 +76,17 @@
             flex-direction: column;
     
             .preview-zone {
-                width: 50%;
-                display: flex;
-                flex-direction: column;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
                 gap: vars.$size-12;
     
+                .preview-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: vars.$size-12;
+                }
+
                 .preview {
                     padding: vars.$size-12;
                     width: 100%;
@@ -133,6 +139,50 @@
                     color: vars.$color-white;
                     font-size: vars.$font-sm;
                     align-self: flex-end;
+                }
+
+                .visibility {
+                    width: 100%;
+                    height: auto;
+                    background: vars.$color-surface;
+                    border-radius: vars.$radius-lg;
+                    aspect-ratio: 16/9;
+                    
+                    display: flex;
+                    flex-direction: column;
+                    gap: vars.$size-12;
+
+                    h4 {
+                        margin-left: vars.$size-20;
+                    }
+
+                    .select {
+                        width: 90%;
+                        align-self: center;
+                        display: flex;
+                        align-items: center;
+                        gap: vars.$size-12;
+                        border: 2px solid transparent;
+                        border-radius: vars.$radius-full;
+                        padding: vars.$size-12;
+                        background: transparent;
+                        color: vars.$color-white;
+
+                        transition: border-color 0.3s;
+
+                        img {
+                            object-fit: contain;
+                            max-height: vars.$size-40;
+                        }
+                        p {
+                            margin: 0;
+                            line-height: 0.5lh;
+                        }
+                    }
+                    .active {
+                        border: 2px solid vars.$color-active;
+
+                    }
                 }
             }
     

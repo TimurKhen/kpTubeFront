@@ -27,11 +27,13 @@
         <div class="second-zone">
             <div class="preview-zone">
                 @if (previewURL()) {
-                    <div class="preview">
-                        <img [src]="previewURL()">
+                    <div class="preview-container">
+                        <div class="preview">
+                            <img [src]="previewURL()">
+                        </div>
+                        <button class="delete-button" 
+                            (click)="clearPreview()">Удалить превью</button>
                     </div>
-                    <button class="delete-button" 
-                        (click)="clearPreview()">Удалить превью</button>
                 } @else {
                     <label class="preview" for="preview-input">
                         <div class="message">
@@ -44,6 +46,24 @@
                             (input)="onPreviewChange($event)" accept=".jpg">
                     </label>
                 }
+
+                <div class="visibility">
+                    <h4>Доступность видео</h4>
+                    <button class="select public" 
+                        [ngClass]="{'active': videoForm.get('visibility')?.value == 0}"
+                        (click)="changeCurrentVisibility(0)"
+                    >    
+                        <img src="icons/wide-icon.svg">
+                        <p>Доступно всем</p>
+                    </button>
+                    <button class="select link" 
+                        [ngClass]="{'active': videoForm.get('visibility')?.value == 1}"
+                        (click)="changeCurrentVisibility(1)"
+                    >
+                        <img src="icons/link-icon.svg">
+                        <p>Доступ по ссылке</p>
+                    </button>
+                </div>
             </div>
             <div class="inputs">
                 <label>

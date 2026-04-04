@@ -21,6 +21,7 @@ export class VideoCreateComponent implements OnDestroy {
   videoForm = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string>(''),
+    visibility: new FormControl<number>(0, Validators.required)
   })
   
   videoURL = signal<string>('')
@@ -33,7 +34,6 @@ export class VideoCreateComponent implements OnDestroy {
   @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>
   @ViewChild('previewInput') previewInput!: ElementRef<HTMLInputElement>
 
-  private loaderProgress = signal(0)
   private createVideoSubscription?: Subscription
   private worker: Worker
 
@@ -107,6 +107,12 @@ export class VideoCreateComponent implements OnDestroy {
     if (this.previewInput) {
       this.previewInput.nativeElement.value = ''
     }
+  }
+
+  changeCurrentVisibility(newVisibility: number) {
+    this.videoForm.patchValue({
+      'visibility': newVisibility
+    })
   }
   
   async publish() {
