@@ -45,7 +45,8 @@ export class AccountComponent {
         uploadDate: new Date(),
         comments: [],                        
         likes: 0,
-        dislikes: 0
+        dislikes: 0,
+        visibility: 0
       }
     })
   })

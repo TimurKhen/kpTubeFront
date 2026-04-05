@@ -12,5 +12,6 @@ export interface Video {
     uploadDate: Date
     comments: Commentry[],
     likes: number,
-    dislikes: number
+    dislikes: number,
+    visibility: number
 }

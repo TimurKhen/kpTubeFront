@@ -167,7 +167,8 @@ export class VideosService {
             uploadDate: new Date('2026-01-01'),
             comments: commentArray,
             likes: 30,
-            dislikes: 2
+            dislikes: 2,
+            visibility: 0
         })
     }
 

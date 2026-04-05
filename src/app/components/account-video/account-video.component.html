@@ -12,17 +12,22 @@
                     <p>{{ content().dislikes | shortNumber }} дизлайков</p>
                     <p>{{ content().uploadDate | timeAgoPipe }} назад</p>
                 </div>
-                <div class="controls">
-                    <button class="change-visibility">
-                        <img>
-                        <p>Сменить на доступ по ссылке</p>
-                    </button>
-                    <button class="delete">
-                        <img>
-                        <p>Удалить видео</p>
-                    </button>
-                </div>
             </div> 
         </div>
+    </div>
+    <div class="controls">
+        <button class="change-visibility">
+            @if (content().visibility === 0) {
+                <img src="icons/link-icon.svg">
+                <p>Сменить на доступ по ссылке</p>
+            } @else {
+                <img src="icons/wide-icon.svg">
+                <p>Сменить на глобальный доступ</p>
+            }
+        </button>
+        <button class="delete">
+            <img src="icons/red-trash-icon.svg">
+            <p>Удалить видео</p>
+        </button>
     </div>
 </div>
