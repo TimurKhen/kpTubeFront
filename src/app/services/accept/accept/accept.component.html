@@ -1,0 +1,23 @@
+@if (isShow()) {
+    <div class="alert" [animate.enter]="'show'" [animate.leave]="'hide'">
+        <div class="left">
+            @if (icon()) {
+                <div class="image">
+                    <img width="32" [src]="icon()">
+                </div>
+            }
+            <div class="text-information">
+                <h3>{{ title() }}</h3>
+                <p>{{ message() }}</p>
+            </div>
+        </div>
+        <div class="buttons">
+            <button (click)="onClose(0)">
+                Да
+            </button>
+            <button (click)="onClose(1)">
+                Нет
+            </button>
+        </div>
+    </div>
+}
