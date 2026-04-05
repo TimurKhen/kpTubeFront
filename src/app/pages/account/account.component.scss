@@ -47,28 +47,29 @@
                 }
             }
             
-            .subscribe-button {
-                button {
-                    padding: vars.$size-12 vars.$size-24;
+            .text {
+                width: 100%;
+            }
+
+            .open-gzg-id-button {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: vars.$size-12;
+
+                    background: vars.$color-surface;
+                    padding: 0 vars.$size-24;
                     border-radius: vars.$radius-full;   
                     border: none;
                     font-size: vars.$font-sm;
                     font-family: Roboto, sans-serif;
-                    background: transparent;
-                    color: vars.$color-surface;
+                    color: vars.$color-white;
                     transition: all 0.3s !important;
                     cursor: pointer;
-                }
-                
-                .subscribe {
-                    background: vars.$color-red;
-                    font-weight: 800;
-                }
-
-                .dissubscribe {
-                    font-weight: 600;
-                    background: vars.$color-surface;
-                    color: vars.$color-white;
                 }
             }
         }

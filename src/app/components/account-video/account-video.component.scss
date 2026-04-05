@@ -1,11 +1,10 @@
 @use '../../../assets/variables.scss' as vars;
 
 .video {
-    width: auto;
+    width: 100%; 
     height: auto;
 
     display: flex;
-    flex-direction: column;
     border-radius: vars.$radius-lg;
     gap: vars.$size-20;
     max-width: vars.$size-520;
@@ -37,24 +36,8 @@
         align-items: center;
         gap: vars.$size-12;
 
-        .author-avatar {
-            width: 100%;
-            height: 100%;
-            max-width: vars.$size-60;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-
-            img {
-                cursor: pointer;
-                width: 100%;
-                aspect-ratio: 1/1;
-                object-fit: cover;
-                border-radius: vars.$radius-full;
-            }
-        }
-
         .main-information {
+            width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -70,8 +53,14 @@
             }
 
             .more-information {
+                width: 100%;
                 display: flex;
-                flex-direction: column;
+                justify-content: space-between;
+
+                .video-information {
+                    display: flex;
+                    flex-direction: column;
+                }
 
                 // .author-inforamtion {
                     // p {
