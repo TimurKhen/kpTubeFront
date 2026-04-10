@@ -1,11 +1,94 @@
 <div class="container">
     <div class="main">
-        <h2>Войдите в аккаунт KPTube</h2>
+        <h2>Создайте аккаунт KPTube</h2>
+        
+        <form [formGroup]="registerForm" autocomplete="off">
+            <div class="avatar-part">
+                @if (avatarUrl()) {
+                    <div class="have-avatar">
+                        <div class="avatar">
+                            <img width="100" [src]="avatarUrl()">
+                        </div>
+                        <button type="button" (click)="clearAvatar()">Удалить аватар</button>
+                    </div>
+                } @else {
+                    <label class="dont-have-avatar" for="avatar">
+                        <span>Выберите аватар</span>
+                        <input 
+                            accept=".jpg, .png"
+                            type="file" id="avatar" 
+                            #avatarInput hidden="hidden" (change)="avatarCreate($event)">
+                    </label>
+                }
+            </div>
+
+            <div class="header-part">
+                @if (headerUrl()) {
+                    <div class="have-header">
+                        <div class="avatar">
+                            <img width="200" [src]="headerUrl()">
+                        </div>
+                        <button type="button" (click)="clearHeader()">Удалить шапку</button>
+                    </div>
+                } @else {
+                    <label class="dont-have-header" for="header">
+                        <span>Выберите шапку профиля</span>
+                        <input accept=".jpg, .png" type="file" id="header" #headerInput hidden="hidden" (change)="headerCreate($event)">
+                    </label>
+                    }
+            </div>
+
+            <div class="name-part">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" formControlName="name">
+                @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        Имя обязательно для заполнения
+                    </div>
+                }
+            </div>
+
+            <div class="pass-part">
+                <label for="password">Пароль:</label>
+                <input id="password" formControlName="password">
+                
+                @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        @if (registerForm.get('password')?.errors?.['required']) {
+                            <div>Пароль обязателен</div>
+                        }
+                        @if (registerForm.get('password')?.errors?.['minlength']) {
+                            <div>Пароль должен быть минимум 8 символов</div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="email-part">
+                <label for="email">Почта:</label>
+                <input type="email" id="email" formControlName="email">
+                
+                @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        @if (registerForm.get('email')?.errors?.['required']) {
+                            <div>Email обязателен</div>
+                        }
+                        @if (registerForm.get('email')?.errors?.['email']) {
+                            <div>Введите корректный email</div>
+                        }
+                    </div>
+                }
+            </div>
+        </form>
+
         <div class="buttons">
-            <button class="sign-service gzg-id">
-                <img src="icons/thirdParty/gzgId.svg">
-                <h3>Войти через GZG ID</h3>
+            <button (click)="onRegister($event)" 
+                [disabled]="isRegistrationRequestNow() || !registerForm.valid" 
+                class="submit-button"
+            >
+                <h3>{{ isRegistrationRequestNow() ? 'Регистрация...' : 'Отправить' }}</h3>
             </button>
+            <a href="/login">Есть аккаунт? <b>Войти</b></a>
         </div>
     </div>
 </div>

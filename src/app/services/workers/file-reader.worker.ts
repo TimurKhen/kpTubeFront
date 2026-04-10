@@ -3,7 +3,7 @@
 addEventListener('message', ( event ) => {
   const { file, action } = event.data
   
-  if (action === 'processVideo') {
+  if (action === 'processVideo' || action === 'processFile') {
     const reader = new FileReaderSync()
     try {
       const arrayBuffer = reader.readAsArrayBuffer(file)

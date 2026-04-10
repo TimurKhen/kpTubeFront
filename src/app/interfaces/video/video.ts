@@ -1,17 +1,13 @@
-import { Commentry } from "../commentary/commentary";
-import { ProfilePreview } from "../profile/preview";
-
-export interface Video {
-    id: string,
-    title: string,
-    description : string,
-    preview: string,
-    video: string,
-    author: ProfilePreview,
-    views: number,
-    uploadDate: Date
-    comments: Commentry[],
-    likes: number,
-    dislikes: number,
-    visibility: number
+export interface VideoInterface {
+  id: number,
+  Video_ID: string,
+  name: string,
+  description: string,
+  likes: number,
+  views: number,
+  video: string,
+  preview: string,
+  category: string,
+  owner: string,
+  total_likes: number
 }

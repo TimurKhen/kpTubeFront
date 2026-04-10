@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, computed, ElementRef, HostListener, input, OnChanges, OnInit, signal, ViewChild } from '@angular/core'
-import { TimeConverterPipe } from "../../../pipes/time-converter/time-converter.pipe"
 import { NgStyle, NgClass } from '@angular/common'
+import { TimeConverterPipe } from '../../pipes/time-converter/time-converter.pipe'
 
 @Component({
   selector: 'video-player',

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { VideoPreviewComponent } from "./content/video-preview/video-preview.component";
-import { VideoPreview } from '../../interfaces/video/preview';
+import { VideoInterface } from '../../interfaces/video/video';
 
 @Component({
   selector: 'app-content-box',
@@ -10,5 +10,5 @@ import { VideoPreview } from '../../interfaces/video/preview';
 })
 export class ContentBoxComponent {
   contentType = input.required<number>()
-  content = input.required<VideoPreview>()
+  content = input.required<VideoInterface>()
 }

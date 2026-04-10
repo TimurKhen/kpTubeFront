@@ -9,6 +9,9 @@
     border-radius: vars.$radius-lg;
     gap: vars.$size-20;
     max-width: vars.$size-520;
+
+    outline: none;
+    border: none;
     
     .preview {
         width: 100%;
@@ -73,14 +76,7 @@
                 display: flex;
                 flex-direction: column;
 
-                // .author-inforamtion {
-                    // p {
-                        // line-height: 0;
-                //     }
-                // }
-
-                p {
-                    cursor: pointer;
+                p, a {
                     font-size: small;
                     line-height: 0;
                 }
@@ -93,4 +89,10 @@
             }
         }
     }
+}
+
+a {
+    color: vars.$color-white;
+    text-decoration: none;
+    cursor: pointer;
 }

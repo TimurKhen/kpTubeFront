@@ -1,21 +1,25 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserService } from '../../services/user-service/user-service.service';
 import { ProfileInterface } from '../../interfaces/profile/profile-interface';
 import { ContentBoxComponent } from "../../components/content-box/content-box.component";
-import { VideoPreview } from '../../interfaces/video/preview';
-import { ProfilePreview } from '../../interfaces/profile/preview';
 import { ShortNumberPipe } from '../../pipes/short-number/short-number.pipe';
 import { NgClass } from '@angular/common';
+import { PathConverterPipe } from "../../pipes/path-converter/path-converter.pipe";
+import { VideoPreview } from '../../interfaces/video/preview';
+import { VideoInterface } from '../../interfaces/video/video';
+import { VideosService } from '../../services/videos-service/videos-service.service';
+import { VideosGridComponent } from "../videos-grid/videos-grid.component";
 
 @Component({
   selector: 'app-profile',
-  imports: [ContentBoxComponent, RouterLink, ShortNumberPipe, NgClass],
+  imports: [ContentBoxComponent, RouterLink, ShortNumberPipe, NgClass, PathConverterPipe, VideosGridComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   private userService = inject(UserService)
+  private videosService = inject(VideosService)
   
   constructor(private routes: ActivatedRoute) {}
 
@@ -23,27 +27,7 @@ export class ProfileComponent {
   userInformation = signal<ProfileInterface | null>(null)
   isSubscribed = signal<boolean>(false)
 
-  convertedVideos = computed<VideoPreview[]>(() => {
-    const user = this.userInformation()
-    if (!user) return []
-
-    const author: ProfilePreview = {
-      avatar: user.avatar,
-      username: user.username,
-      subscribers: user.subscribers
-    }
-
-    return user.videos.map(videoId => {
-      return {
-        id: videoId,
-        title: `Video ${videoId}`, 
-        preview: `/templates/previews/teamplate_preview_${videoId}.jpg`, 
-        author: author,
-        views: 0,                         
-        uploadDate: new Date()            
-      }
-    })
-  })
+  userVideos = signal<VideoInterface[]>([])
 
   ngOnInit(): void {
     this.routes.paramMap.subscribe((data: any) => {
@@ -54,9 +38,18 @@ export class ProfileComponent {
 
   getProfileInformation(id: string) {
     this.userService.getUserByID(id)
-      .subscribe((val) => {
-        this.userInformation.set(val)
+      .subscribe((val: ProfileInterface[]) => {
+        this.userInformation.set(val[0])
+        console.log(val[0])
+        this.getUserVideos(val[0].name)
       })
+  }
+
+  getUserVideos(username: string) {
+    this.videosService.getVideosByUser(username).subscribe((videos: VideoInterface[]) => {
+      this.userVideos.set(videos)
+      console.log(videos)
+    })
   }
 
   changeSubscribeStatus() {

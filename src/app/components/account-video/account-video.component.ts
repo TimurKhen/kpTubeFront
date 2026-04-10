@@ -1,5 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { Video } from '../../interfaces/video/video';
+import { VideoInterface } from '../../interfaces/video/video';
 import { ShortNumberPipe } from "../../pipes/short-number/short-number.pipe";
 import { TimeAgoPipe } from "../../pipes/time-ago/time-ago-pipe.pipe";
 import { AcceptService } from '../../services/accept/accept.service';
@@ -13,14 +13,14 @@ import { AcceptService } from '../../services/accept/accept.service';
 export class AccountVideoComponent {
   acceptService = inject(AcceptService)
 
-  content = input.required<Video>()
+  content = input.required<VideoInterface>()
 
   status = output<string>()
   delete = output<string>()
 
   changeStatus(newType: number) {
     this.acceptService.show(
-      'Поменять доступность видео: ' + this.content().title, 
+      'Поменять доступность видео: ' + this.content().name, 
       `Вы уверены, что хотите поменять статус
         видео на ${newType == 0 ? 'по ссылке' : 'глобальный'}`,
       newType == 0 ? './icons/link-icon.svg' : './icons/wide-icon.svg'
@@ -31,12 +31,12 @@ export class AccountVideoComponent {
 
   deleteBlock() {
     this.acceptService.show(
-      'Удалить видео: ' + this.content().title, 
+      'Удалить видео: ' + this.content().name, 
       'Вы уверены, что вы хотите удалить это видео?',
       './icons/red-trash-icon.svg'
     ).subscribe((val) => {
       if (val == 1) {
-        this.delete.emit(this.content().id)
+        this.delete.emit(String(this.content().id))
       } 
     })
   }

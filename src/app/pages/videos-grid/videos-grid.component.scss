@@ -5,4 +5,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(vars.$size-400, min(1fr)));
     gap: vars.$size-40;
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
 }

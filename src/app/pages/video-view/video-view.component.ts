@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Video } from '../../interfaces/video/video';
+import { VideoInterface } from '../../interfaces/video/video';
 import { VideosService } from '../../services/videos-service/videos-service.service';
 import { ShortNumberPipe } from "../../pipes/short-number/short-number.pipe";
 import { TimeAgoPipe } from "../../pipes/time-ago/time-ago-pipe.pipe";
@@ -8,19 +8,25 @@ import { NgClass } from '@angular/common';
 import { CommentaryComponent } from "./commentary/commentary.component";
 import { ProfilePreview } from '../../interfaces/profile/preview';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { VideoPlayerComponent } from "./video-player/video-player.component";
+import { PathConverterPipe } from "../../pipes/path-converter/path-converter.pipe";
+import { UserService } from '../../services/user-service/user-service.service';
+import { ProfileInterface } from '../../interfaces/profile/profile-interface';
+import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 
 @Component({
   selector: 'app-video-view',
-  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent, ReactiveFormsModule, VideoPlayerComponent],
+  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent, 
+    ReactiveFormsModule, VideoPlayerComponent, PathConverterPipe],
   templateUrl: './video-view.component.html',
   styleUrl: './video-view.component.scss',
 })
-export class VideoViewComponent implements OnInit {
+export class VideoViewComponent implements OnInit, OnDestroy {
   videoService = inject(VideosService) 
+  userService = inject(UserService)
 
   id = signal<string>('')
-  videoInformation = signal<Video | undefined>(undefined)
+  videoInformation = signal<VideoInterface | undefined>(undefined)
+  authorInformation = signal<ProfileInterface | undefined>(undefined)
   likedStatus = signal<'liked' | 'disliked' | null>(null)
   isShowComments = signal<boolean>(true)
   currentUserData = signal<ProfilePreview>({
@@ -42,14 +48,24 @@ export class VideoViewComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.userService.clearCache()
+  }
+
   getVideoInformation(id: string) {
     this.videoService.getVideoByID(id)
-      .subscribe((data: Video) => {
-        console.log(data)
+      .subscribe((data: VideoInterface[]) => {
         this.videoInformation.set(
-          data
+          data[0]
         )
+        this.getAuthorInformation(data[0].owner)
       })
+  }
+
+  getAuthorInformation(authorName: string) {
+    this.userService.getUserByName(authorName).subscribe((user) => {
+      this.authorInformation.set(user[0])
+    })
   }
 
   clickLikeButton(newStatus: 'liked' | 'disliked') {

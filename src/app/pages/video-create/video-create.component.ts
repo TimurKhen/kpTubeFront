@@ -1,11 +1,14 @@
-import { Component, inject, OnDestroy, signal, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core'
+import { Component, inject, OnDestroy, signal, ViewChild, ElementRef, ChangeDetectionStrategy, effect } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { VideoPlayerComponent } from "../video-view/video-player/video-player.component"
 import { NgClass } from '@angular/common'
 import { VideosService } from '../../services/videos-service/videos-service.service'
 import { LoaderService } from '../../services/loader/loader.service'
-import { HttpEvent, HttpEventType } from '@angular/common/http'
 import { Subscription } from 'rxjs'
+import { VideoPlayerComponent } from '../../components/video-player/video-player.component'
+import { AlertService } from '../../services/alert/alert.service'
+import { Router } from '@angular/router'
+import { UserService } from '../../services/user-service/user-service.service'
+import { ProfileInterface } from '../../interfaces/profile/profile-interface'
 
 @Component({
   selector: 'app-video-create',
@@ -16,7 +19,10 @@ import { Subscription } from 'rxjs'
 })
 export class VideoCreateComponent implements OnDestroy {
   private videoService = inject(VideosService)
+  private userService = inject(UserService)
   private loaderService = inject(LoaderService)
+  private alertService = inject(AlertService)
+  private router = inject(Router)
 
   videoForm = new FormGroup({
     name: new FormControl<string>('', [Validators.required]),
@@ -27,7 +33,8 @@ export class VideoCreateComponent implements OnDestroy {
   videoURL = signal<string>('')
   previewURL = signal<string>('')
   isLoading = signal<boolean>(false)
-  
+  userInformation = signal<ProfileInterface | null>(null) 
+
   videoFile: File | null = null
   previewFile: File | null = null
   
@@ -38,7 +45,11 @@ export class VideoCreateComponent implements OnDestroy {
   private worker: Worker
 
   constructor() {
-    this.worker = new Worker(new URL('./file-reader.worker.ts', import.meta.url))
+    effect(() => {
+      this.userInformation.set(this.userService.userData()) 
+    })
+
+    this.worker = new Worker(new URL('../../services/workers/file-reader.worker.ts', import.meta.url))
     this.worker.onmessage = (event) => {
       const { blob, fileName, error } = event.data
       if (error) {
@@ -120,26 +131,52 @@ export class VideoCreateComponent implements OnDestroy {
       this.isLoading.set(true)
       await this.loaderService.show(signal<string>('Загрузка видео'))
       
-      this.videoService.createVideo({
-        video: this.videoFile,
-        name: this.videoForm.value.name!,
-        description: this.videoForm.value.description || '',
-        preview: this.previewFile
-      }).subscribe({
-        next: (event) => {           
+      const userName = this.userInformation()?.name
+
+      if (userName) {
+        this.videoService.createVideo({
+          file: this.videoFile!,
+          name: this.videoForm.value.name!,
+          description: this.videoForm.value.description || '',
+          preview: this.previewFile!,
+          owner: userName,
+          category: "По умолчанию",
+          isGlobal: true
+        }).subscribe({
+          next: (event) => {           
             setTimeout(() => {
               this.isLoading.set(false)
               this.loaderService.hide()
               this.videoForm.reset()
               this.clearVideo()
               this.clearPreview()
+              this.router.navigate(['/'])
+              this.alertService.show(
+                'Видео успешно создано!',
+                '',
+                false
+              )
             }, 500)
-        },
-        error: (error) => {
-          this.loaderService.hide()
-          this.isLoading.set(false)
-        }
-      })
+          },
+          error: (error) => {
+            this.loaderService.hide()
+            this.isLoading.set(false)
+            this.alertService.show(
+              'Ошибка при создании видео',
+              error.details,
+              true
+            )
+          }
+        })
+      } else {
+        this.loaderService.hide()
+        this.isLoading.set(false)
+        this.alertService.show(
+          'Ошибка при создании видео',
+          'Вы не авторизованы',
+          true
+        )
+      }
     }
   }
 }

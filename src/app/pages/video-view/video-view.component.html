@@ -3,27 +3,27 @@
         <div class="video">
             @defer {
                 <video-player 
-                    [video]="videoInformation()?.video"
+                    [video]="videoInformation()?.video | pathConverter"
                     [videoPoster]="videoInformation()?.preview"
                     ></video-player>
             }
-            @loading (minimum 300ms) {
+            @loading {
                 <div class="moch-video"></div>
             }
         </div>
         <div class="informaition">
             <div class="main">
-                <h2>{{ videoInformation()?.title }}</h2>
+                <h2>{{ videoInformation()?.name }}</h2>
             </div>
             <div class="additional">
                 <div class="first-row">
                     <div class="profile_data">
-                        <div class="avatar">
-                            <img [src]="videoInformation()?.author?.avatar">
-                        </div>
+                        <a [href]="'profile/' + authorInformation()?.User_ID" class="avatar">
+                            <img [src]="authorInformation()?.avatar | pathConverter">
+                        </a>
                         <div class="text">
-                            <h3>{{ videoInformation()?.author?.username }}</h3>
-                            <p>{{ videoInformation()?.author?.subscribers | shortNumber }} подписчиков</p>
+                            <h3>{{ authorInformation()?.name }}</h3>
+                            <p>{{ authorInformation()?.subscribers | shortNumber }} подписчиков</p>
                         </div>
                         <div class="subscribe-button">
                             <button 
@@ -40,15 +40,7 @@
                                     (click)="clickLikeButton('liked')"
                                 >
                                 <img src="./icons/like-icon.svg" height="30">
-                                <p>{{ videoInformation()?.likes | shortNumber }}</p>
-                            </button>
-                            <span class="seperator"></span>
-                            <button 
-                                    [ngClass]="{'active': likedStatus() === 'disliked'}"
-                                    (click)="clickLikeButton('disliked')"
-                                >
-                                <img src="./icons/dislike-icon.svg" height="30">
-                                <p>{{ videoInformation()?.dislikes | shortNumber }}</p>
+                                <p>{{ videoInformation()?.total_likes | shortNumber }} лайка</p>
                             </button>
                         </div>
                     </div>
@@ -56,7 +48,6 @@
                 <div class="description-container">
                     <div class="information">
                         <p>{{ videoInformation()?.views | shortNumber }} просмотров</p>
-                        <p>{{ videoInformation()?.uploadDate | timeAgoPipe }} назад</p>
                     </div>
                     <div class="description">
                         <p>{{ videoInformation()?.description }}</p>
@@ -68,7 +59,6 @@
     <div class="comments-container">
         <div class="controls">
             <div class="main">
-                <h3>{{ videoInformation()?.comments?.length }} комментариев</h3>
                 <h3 class="show-hide-button" (click)="changeCurrentCommentsStatus()">
                     {{ isShowComments() ? 'Скрыть' : 'Показать'}}    
                 </h3>
@@ -117,17 +107,6 @@
 
         @if (isShowComments()) {
             <div class="comments">
-                @for (comment of videoInformation()?.comments; track comment) {
-                    @defer (on viewport) {
-                        <commentary [content]="comment"></commentary>
-                    } 
-                    @loading (minimum 500ms) {
-                        <div class="moch-comment"></div>
-                    }
-                    @placeholder {
-                        <div class="moch-comment"></div>
-                    }
-                }
             </div>
         }
     </div>

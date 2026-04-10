@@ -1,0 +1,113 @@
+@use '../../../assets/variables.scss' as vars;
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: vars.$size-40;
+    min-height: vars.$size-600;
+
+    .main {
+        background: vars.$color-surface;
+        max-width: vars.$size-520;
+        min-height: vars.$size-320;
+        border-radius: vars.$radius-lg;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: vars.$size-24;
+        padding: vars.$size-20;
+    
+        h2 {
+            text-align: center;
+            font-size: vars.$font-sm;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: vars.$size-12;
+            width: 100%;
+
+            .name-part, .pass-part {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: vars.$size-12;
+            
+                input {
+                    width: 100%;
+                    padding: vars.$size-8 vars.$size-12;
+                    background: vars.$color-active;
+                    color: vars.$color-white;
+                    border-radius: vars.$radius-full;
+                    border: none;
+                    outline: none;
+                }
+
+                .error {
+                    color: vars.$color-red;
+                }
+            }
+        }
+
+        .buttons {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: vars.$size-12;
+
+            .login-button {
+                width: 100%;
+                h3 {
+                    width: 100%;
+                    text-align: center;
+                }
+                display: flex;
+                align-items: center;
+                background: vars.$color-white;
+                border: none;
+                outline: none;
+                gap: vars.$size-20;
+                padding: 0 vars.$size-20;
+                border-radius: vars.$radius-lg;
+                transition: background-color 0.3s color 0.3s;
+            
+                &:disabled {
+                    background: vars.$color-active;
+                }
+            }
+        }
+    }
+}
+
+.enter {
+    animation: show-hide 0.3s ease-out;
+}
+
+.leave {
+    opacity: 0;
+    transform: translateY(calc(vars.$size-12 * -1));
+    transition: all 0.3s ease-out;
+}
+
+@keyframes show-hide {
+    0% {
+        opacity: 0;
+        transform: translateY(calc(vars.$size-12 * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

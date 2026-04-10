@@ -1,1 +1,1 @@
-export const masterURL = 'http://localhost:8080' 
+export const masterURL = 'https://kptube.kringeproduction.ru' 

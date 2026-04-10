@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="main">
+        <h2>Войдите в аккаунт KPTube</h2>
+        <form [formGroup]="loginForm">
+            <div class="name-part">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" formControlName="name">
+                @if (loginForm.get('name')?.invalid && loginForm.get('name')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        Имя обязательно для заполнения
+                    </div>
+                }
+            </div>
+            <div class="pass-part">
+                <label for="password">Пароль:</label>
+                <input id="password" formControlName="password" type="password">
+                
+                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        @if (loginForm.get('password')?.errors?.['required']) {
+                            <div>Пароль обязателен</div>
+                        }
+                    </div>
+                }
+            </div>
+        </form>
+        <div class="buttons">
+            <button 
+                (click)="enter($event)" 
+                class="login-button"
+                [disabled]="isLoading() || !loginForm.valid"
+            >   
+                <h3>{{ isLoading() ? 'Загрузка' : 'Войти' }}</h3>
+            </button>
+            <a href="/registration">Нет аккаунта? <b>Зарегистрироваться</b></a>
+        </div>
+    </div>
+</div>

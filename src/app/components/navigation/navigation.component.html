@@ -25,7 +25,7 @@
                 <a href="./registration">Войти</a>
             } @else {
                 <a class="avatar" href="./account">
-                    <img [src]="userInformation()?.avatar">
+                    <img [src]="userInformation()?.avatar | pathConverter">
                 </a>
             }
         </div>

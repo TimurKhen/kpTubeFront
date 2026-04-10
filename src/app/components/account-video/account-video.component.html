@@ -4,27 +4,16 @@
     </div>
     <div class="information">
         <div class="main-information">
-            <h3>{{ makeShortTitle(content().title) }}</h3>
+            <h3>{{ makeShortTitle(content().name) }}</h3>
             <div class="more-information">
                 <div class="video-information">
                     <p>{{ content().views | shortNumber }} просмотров</p>
                     <p>{{ content().likes | shortNumber }} лайков</p>
-                    <p>{{ content().dislikes | shortNumber }} дизлайков</p>
-                    <p>{{ content().uploadDate | timeAgoPipe }} назад</p>
                 </div>
             </div> 
         </div>
     </div>
     <div class="controls">
-        <button class="change-visibility" (click)="changeStatus(content().visibility)">
-            @if (content().visibility === 0) {
-                <img src="icons/link-icon.svg">
-                <p>Сменить на доступ по ссылке</p>
-            } @else {
-                <img src="icons/wide-icon.svg">
-                <p>Сменить на глобальный доступ</p>
-            }
-        </button>
         <button class="delete" (click)="deleteBlock()">
             <img src="icons/red-trash-icon.svg">
             <p>Удалить видео</p>

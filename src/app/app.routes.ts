@@ -5,6 +5,8 @@ import { VideoCreateComponent } from './pages/video-create/video-create.componen
 import { ProfileComponent } from './pages/profile/profile.component'
 import { RegistrationComponent } from './pages/registration/registration.component'
 import { AccountComponent } from './pages/account/account.component'
+import { accountGuard } from './services/guards/account-guard.guard'
+import { LoginComponent } from './pages/login/login.component'
 
 export const routes: Routes = [
   {
@@ -23,6 +25,9 @@ export const routes: Routes = [
     path: 'registration', component: RegistrationComponent
   },
   {
-    path: 'account', component: AccountComponent
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'account', component: AccountComponent, canActivate: [accountGuard]
   }
 ]

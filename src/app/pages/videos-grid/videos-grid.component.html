@@ -2,7 +2,6 @@
     @if (videos().length > 0) {
         @for (content of videos(); track content) {
             <app-content-box 
-                [routerLink]="['./video', content.id]"
                 [contentType]="0" [content]="content"></app-content-box>
         }
     }

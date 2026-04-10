@@ -15,18 +15,168 @@
         max-width: vars.$size-520;
         min-height: vars.$size-320;
         border-radius: vars.$radius-lg;
-        width: 40%;
+        width: 100%;
         height: 100%;
-        display: grid;
-        grid-template-rows: 1fr 3fr;
+        display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: vars.$size-20;
+        gap: vars.$size-40;
         padding: vars.$size-20;
     
         h2 {
             text-align: center;
             font-size: vars.$font-sm;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: vars.$size-12;
+            width: 100%;
+
+            p {
+                margin: 0;
+            }
+
+            .avatar-part {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+
+                .have-avatar {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: vars.$size-12;
+                    
+                    img {
+                        padding: vars.$size-12;
+                        background: vars.$color-black;
+                        border-radius: vars.$radius-full;
+
+                        width: vars.$size-160;
+                        height: vars.$size-160;
+                        max-height: vars.$size-200;
+                        object-fit: cover;
+                        object-position: center;
+                        aspect-ratio: 16/9;
+                    }
+
+                    button {
+                        align-self: center;
+                        justify-self: center;
+                        padding: vars.$size-8 vars.$size-24;
+                        border-radius: vars.$radius-full;
+                        border: none;
+                        font-size: vars.$font-sm;
+                    }
+                }
+
+                .dont-have-avatar {
+                    width: vars.$size-160;
+                    height: vars.$size-160;
+                    padding: vars.$size-12;
+                    background: vars.$color-black;
+                    border-radius: vars.$radius-full;
+                    
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    span {
+                        text-align: center;
+                        width: 100%;
+                        padding: vars.$size-8;
+                        background: vars.$color-active;
+                        color: vars.$color-white;
+                        border-radius: vars.$radius-full;
+                        border: none;
+                        outline: none;
+                    }
+                }
+            }
+
+            .header-part {
+                width: 100%;
+                .have-header {
+                    width: 100%;
+                    
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: vars.$size-12;
+                    
+                    img {
+                        padding: vars.$size-12;
+                        height: auto;
+                        background: vars.$color-black;
+                        width: 100%;
+                        max-height: vars.$size-200;
+                        object-fit: cover;
+                        object-position: center;
+                        border-radius: vars.$radius-lg;
+                        aspect-ratio: 16/9;
+                    }
+
+                    button {
+                        align-self: center;
+                        justify-self: center;
+                        padding: vars.$size-12 vars.$size-40;
+                        border-radius: vars.$radius-full;
+                        border: none;
+                        font-size: vars.$font-sm;
+                    }
+                }
+                .dont-have-header {
+                    width: 100%;
+                    padding: vars.$size-12;
+                    width: 100%;
+                    height: auto;
+                    background: vars.$color-black;
+                    border-radius: vars.$radius-lg;
+                    aspect-ratio: 16/9;
+                    
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    span {
+                        text-align: center;
+                        width: 100%;
+                        padding: vars.$size-8 vars.$size-12;
+                        background: vars.$color-active;
+                        color: vars.$color-white;
+                        border-radius: vars.$radius-full;
+                        border: none;
+                        outline: none;
+                    }
+                }
+            }
+
+            .name-part, .pass-part, .email-part {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                gap: vars.$size-12;
+            
+                input {
+                    width: 100%;
+                    padding: vars.$size-8 vars.$size-12;
+                    background: vars.$color-active;
+                    color: vars.$color-white;
+                    border-radius: vars.$radius-full;
+                    border: none;
+                    outline: none;
+                }
+            }
+
+            .error {
+                color: vars.$color-red;
+            }
         }
 
         .buttons {
@@ -36,8 +186,14 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: vars.$size-12;
             
-            .sign-service {
+            .submit-button {
+                width: 100%;
+                h3 {
+                    width: 100%;
+                    text-align: center;
+                }
                 display: flex;
                 align-items: center;
                 background: vars.$color-white;
@@ -46,7 +202,33 @@
                 gap: vars.$size-20;
                 padding: 0 vars.$size-20;
                 border-radius: vars.$radius-lg;
+                transition: background-color 0.3s color 0.3s;
+            
+                &:disabled {
+                    background: vars.$color-active;
+                }
             }
         }
+    }
+}
+
+.enter {
+    animation: show-hide 0.3s ease-out;
+}
+
+.leave {
+    opacity: 0;
+    transform: translateY(calc(vars.$size-12 * -1));
+    transition: all 0.3s ease-out;
+}
+
+@keyframes show-hide {
+    0% {
+        opacity: 0;
+        transform: translateY(calc(vars.$size-12 * -1));
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

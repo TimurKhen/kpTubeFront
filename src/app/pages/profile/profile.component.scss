@@ -22,6 +22,7 @@
                 object-fit: cover;
                 object-position: center;
                 border-radius: vars.$radius-lg;
+                aspect-ratio: 16/9;
             }
         }
         .information {
