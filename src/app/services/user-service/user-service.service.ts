@@ -1,64 +1,92 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, of, shareReplay, throwError } from 'rxjs';
+import { catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
 import { ProfileInterface } from '../../interfaces/profile/profile-interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { masterURL } from '../masterURL';
+import { CookieService } from 'ngx-cookie-service'
+import { Router } from '@angular/router';
+
+interface tokensResponse {
+  acces_token: string, 
+  refresh_token: string
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient)
+  private router = inject(Router)
+  private cookieService = inject(CookieService)
+
   private account = masterURL + '/users/'
   private createUser = masterURL + '/create_user/'
   private userCache = new Map<string, Observable<ProfileInterface[]>>()
 
   public userName = signal<string>('')
   public userData = signal<ProfileInterface | null>(null)
-  public password = signal<string>('') 
+  token = signal<string | null>(null)
+  refreshToken = signal<string | null>(null)
 
   get isAuth() {
-    if (this.userName().length === 0 || this.password().length === 0) {
+    if (!this.token()) {
       this.loadUserData()
     }
-    return this.userName.length > 0 && this.password.length > 0
+    return !!this.token()
   }
 
   loadUserData() {
-    this.userName.set(localStorage.getItem('username') || '')
-    this.password.set(localStorage.getItem('password') || '')
+    this.token.set(this.cookieService.get('token'))
+    this.refreshToken.set(this.cookieService.get('refreshToken'))
 
-    if (this.userName() === '' || this.password() === '') return
-
-    if (this.userData() === null) {
-      this.getUserByName(this.userName()).subscribe((data) => {
-        if (data.length !== 1) return
-        this.userData.set(data[0])
-      })
+    if (!this.token()) {
+      // !!!!!!!!!!!!!!!!!!!!!!!!!
+      // !     ВХОД В АККАУНТ    !
+      // !!!!!!!!!!!!!!!!!!!!!!!!!
+      // this.getUserByName(this.userName()).subscribe((data) => {
+      //   if (data.length !== 1) return
+      //   this.userData.set(data[0])
+      // })
     }
+  }
+
+  refreshAuthToken() {
+    return this.http.post<tokensResponse>(
+      masterURL + '/refresh',
+      JSON.stringify({
+        'refresh_token': this.refreshToken
+      })
+    ).pipe(
+      tap(val => this.saveTokens(val)),
+      catchError(err => {
+        this.logout()
+        return throwError(err)
+      })
+    )
   }
 
   logout() {
     this.userName.set('')
-    this.password.set('')
+    this.cookieService.deleteAll()
+    this.token.set(null)
+    this.refreshToken.set(null)
     this.userData.set(null)
+
+    this.router.navigate(['/reg'])
   }
 
-  setUsernameAndPassword(username: string, password: string) {
-    this.userName.set(username)
-    this.password.set(password)
+  saveTokens(tokens: tokensResponse) {
+    this.token.set(tokens.acces_token)
+    this.refreshToken.set(tokens.refresh_token)
 
-    localStorage.setItem('username', username)
-    localStorage.setItem('password', password)
+    if (!this.token() || !this.refreshToken()) this.logout()
+
+    this.cookieService.set('token', String(this.token()))
+    this.cookieService.set('refreshToken', String(this.refreshToken()))
   }
 
   getUserByID(UserID: string) {
-    let headers = new HttpHeaders()
-  
-    headers = headers.set('X-USERNAME', String(this.userName()))
-    headers = headers.set('X-PASSWORD', String(this.password()))
-
-    return this.http.get<any>(this.account + '?User_ID=' + UserID, {headers: headers})
+    return this.http.get<any>(this.account + '?User_ID=' + UserID)
   }
 
   register(formData: FormData) {
@@ -66,16 +94,10 @@ export class UserService {
   }
 
   enterUser(name: string, password: string) {
-    this.setUsernameAndPassword(name, password)
-
-    let headers = new HttpHeaders()
-  
-    headers = headers.set('X-USERNAME', String(this.userName()))
-    headers = headers.set('X-PASSWORD', String(this.password()))
-
-    return this.http.get<ProfileInterface[]>(
+    return this.http.get<tokensResponse>(
       this.account + '?name=' + name, 
-      {headers: headers}
+    ).pipe(
+      tap((val: tokensResponse) => this.saveTokens(val))
     )
   }
 

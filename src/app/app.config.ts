@@ -2,7 +2,8 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import { authTokenInterceptor } from './services/user-service/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [ 
@@ -11,5 +12,5 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
       }),
-    ), provideHttpClient()]
+    ), provideHttpClient(withInterceptors([authTokenInterceptor]))]
 };

@@ -3,6 +3,7 @@ import { VideosService } from '../../services/videos-service/videos-service.serv
 import { ContentBoxComponent } from "../../components/content-box/content-box.component";
 import { RouterLink } from "@angular/router";
 import { VideoInterface } from '../../interfaces/video/video';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-videos-grid',
@@ -16,6 +17,7 @@ export class VideosGridComponent implements OnChanges {
   
   videos = signal<any[]>([])
 
+  isError = signal<boolean>(false)
   hasVideos = computed(() => (this.videos()?.length ?? 0) > 0);
 
   ngOnChanges(changes: SimpleChanges) {
@@ -28,9 +30,17 @@ export class VideosGridComponent implements OnChanges {
     if (this.videosInput().length > 0) {
       this.videos.set(this.videosInput())
     } else {
-      this.videoService.getVideos().subscribe(data => {
-        this.videos.set(data as VideoInterface[])
-      })
+      this.videoService.getVideos()
+        .pipe(
+          catchError((err) => {
+            this.isError.set(true)
+            return throwError(err)
+          })
+        )
+        .subscribe(data => {
+          console.log(data)
+          this.videos.set(data as VideoInterface[])
+        })
     }
   }
 }

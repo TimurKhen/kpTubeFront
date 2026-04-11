@@ -39,13 +39,8 @@ export class VideosService {
     }) {
         this.userService.loadUserData()
 
-        let headers = new HttpHeaders()
-          
-        headers = headers.set('X-USERNAME', String(this.userService.userName()))
-        headers = headers.set('X-PASSWORD', String(this.userService.password()))
-
         const formData = this.converterObjToFD.objectToFormData(videoForm)
-        return this.http.post(this.allVideos, formData, {headers: headers})
+        return this.http.post(this.allVideos, formData)
     }
 
     // searchVideos(keyword: string) {

@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service/user-service.service';
 import { AlertService } from '../../services/alert/alert.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -30,23 +31,27 @@ export class LoginComponent {
 
     if (formValues) {
       this.userService.enterUser(formValues.name!, formValues.password!)
-        .subscribe((data) => {
-          this.isLoading.set(false)
-          if (data.length !== 1) {
+        .pipe(
+          catchError((err) => {
+            this.isLoading.set(false)
             this.alertService.show(
-              'Ошибка при входе',
+              'Ошибка при входе в аккаунт',
               'Проверьте данные для входа',
               true
             )
-          } else {
-            this.alertService.show(
-              'Вы успешно вошли в аккаунт',
-              '',
-              false
-            )
-            this.userService.loadUserData()
-            this.router.navigate(['/'])
-          }
+
+            return throwError(err)
+          })
+        )  
+        .subscribe((data) => {
+          this.isLoading.set(false)
+          this.alertService.show(
+            'Вы успешно вошли в аккаунт',
+            '',
+            false
+          )
+          this.userService.loadUserData()
+          this.router.navigate(['/'])
         })
     }
   }

@@ -1,8 +1,18 @@
-<div class="grid">
-    @if (videos().length > 0) {
-        @for (content of videos(); track content) {
-            <app-content-box 
-                [contentType]="0" [content]="content"></app-content-box>
+@if (hasVideos()) {
+    <div class="grid">
+        @if (videos().length > 0) {
+            @for (content of videos(); track content) {
+                @defer { 
+                    <app-content-box 
+                        [contentType]="0" [content]="content"></app-content-box>
+                }
+            }
         }
-    }
-</div>
+    </div>
+} 
+@else if (isError()) {
+    <div class="error-container">
+        <h2>Ошибка</h2>
+        <h1>Видео не смогли загрузиться</h1>
+    </div>
+}
