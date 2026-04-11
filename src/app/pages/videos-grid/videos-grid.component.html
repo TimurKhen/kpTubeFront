@@ -13,7 +13,7 @@
 @else if (isError()) {
     <div class="error-container">
         <h1>Видео не смогли загрузиться</h1>
-        @if (isOnline) {
+        @if (isOnline()) {
             <p>Сервер офлайн</p>
         } @else {
             <p>Вы офлайн</p>
