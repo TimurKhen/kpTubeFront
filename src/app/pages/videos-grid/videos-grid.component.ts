@@ -18,6 +18,7 @@ export class VideosGridComponent implements OnChanges {
   
   videos = signal<any[]>([])
 
+  isOnline = navigator.onLine
   isError = signal<boolean>(false)
   hasVideos = computed(() => (this.videos()?.length ?? 0) > 0);
 
