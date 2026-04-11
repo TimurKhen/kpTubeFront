@@ -1,0 +1,37 @@
+@use '../../../assets/variables.scss' as vars;
+
+.bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;    
+
+    height: vars.$size-40;
+    width: 100%;
+    background: vars.$color-surface;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.enter {
+    animation: show 0.4s cubic-bezier(.09,.65,.26,.97);
+}
+
+.leave {
+    bottom: calc(vars.$size-40 * -1);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(.09,.65,.26,.97);
+}
+
+@keyframes show {
+    0% {
+        bottom: calc(vars.$size-40 * -1);
+        opacity: 0;
+    }
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
+}

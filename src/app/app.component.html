@@ -4,3 +4,10 @@
 </div>
 
 <app-side-bar></app-side-bar>
+
+<app-bottom-bar 
+    [message]="
+        isOnline() ? null : 'Вы офлайн'
+    "
+    [mustHide]="isOnline()"
+></app-bottom-bar>

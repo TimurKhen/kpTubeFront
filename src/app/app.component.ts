@@ -1,14 +1,16 @@
-import {Component, ViewContainerRef} from '@angular/core';
+import {Component, inject, ViewContainerRef} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import { NavigationComponent } from "./components/navigation/navigation.component";
 import { AlertService } from './services/alert/alert.service';
 import { SideBarComponent } from "./components/side-bar/side-bar.component";
 import { LoaderService } from './services/loader/loader.service';
 import { AcceptService } from './services/accept/accept.service';
+import { BottomBarComponent } from "./components/bottom-bar/bottom-bar.component";
+import { OnlineHandlerService } from './services/online-handler/online-handler.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationComponent, SideBarComponent],
+  imports: [RouterOutlet, NavigationComponent, SideBarComponent, BottomBarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -24,4 +26,6 @@ export class AppComponent {
     this.loaderService.setContainer(this.vcr)
     this.acceptService.setContainer(this.vcr)
   }
+
+  isOnline = inject(OnlineHandlerService).isOnline
 }
