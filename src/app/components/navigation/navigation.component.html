@@ -16,10 +16,12 @@
     </div>
  
     <div class="profile">
-        <div class="create" routerLink="/create">
-            <img src="icons/plus-icon.svg">
-            <button>Создать</button>
-        </div>
+        @if (userInformation()) {
+            <div class="create" routerLink="/create">
+                <img src="icons/plus-icon.svg">
+                <button>Создать</button>
+            </div>
+        }
         <div class="avatar">
             @if (userInformation() == null) {
                 <a href="./registration">Войти</a>
