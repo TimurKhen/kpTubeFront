@@ -4,10 +4,11 @@ import { ContentBoxComponent } from "../../components/content-box/content-box.co
 import { RouterLink } from "@angular/router";
 import { VideoInterface } from '../../interfaces/video/video';
 import { catchError, throwError } from 'rxjs';
+import { LoaderIconComponent } from "../../services/loader/loader/loader-icon/loader-icon.component";
 
 @Component({
   selector: 'app-videos-grid',
-  imports: [ContentBoxComponent, RouterLink],
+  imports: [ContentBoxComponent, RouterLink, LoaderIconComponent],
   templateUrl: './videos-grid.component.html',
   styleUrl: './videos-grid.component.scss',
 })

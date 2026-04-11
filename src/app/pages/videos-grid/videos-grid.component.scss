@@ -12,11 +12,16 @@
     }
 }
 
-.error-container {
+.error-container, .loader {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 60dvh;
+
+    .spinner {
+        width: vars.$size-40;
+        height: vars.$size-40;
+    }
 }
