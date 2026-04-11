@@ -25,6 +25,7 @@
         align-self: flex-start;
         justify-self: flex-start;
         margin-left: vars.$size-20;
+        user-select: none;
     }
 
     button {
