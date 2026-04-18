@@ -164,7 +164,7 @@ export class RegistrationComponent implements OnDestroy {
           this.isRegistrationRequestNow.set(false)
           this.alertService.show(
             'Ошибка при регстрации',
-            error.error,
+            error.status,
             true
           )
         }

@@ -12,6 +12,7 @@ import { PathConverterPipe } from "../../pipes/path-converter/path-converter.pip
 import { UserService } from '../../services/user-service/user-service.service';
 import { ProfileInterface } from '../../interfaces/profile/profile-interface';
 import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
+import {ShareService} from "../../services/share/share.service";
 
 @Component({
   selector: 'app-video-view',
@@ -21,8 +22,9 @@ import { VideoPlayerComponent } from '../../components/video-player/video-player
   styleUrl: './video-view.component.scss',
 })
 export class VideoViewComponent implements OnInit, OnDestroy {
-  videoService = inject(VideosService)
-  userService = inject(UserService)
+  private videoService = inject(VideosService)
+  private userService = inject(UserService)
+  private shareService = inject(ShareService)
 
   id = signal<string>('')
   videoInformation = signal<VideoInterface | undefined>(undefined)
@@ -72,24 +74,27 @@ export class VideoViewComponent implements OnInit, OnDestroy {
     return new Date(+date)
   }
 
-  clickLikeButton(newStatus: 'liked' | 'disliked') {
-    if (this.likedStatus() == newStatus) {
-      this.likedStatus.set(null)
-    } else {
-      this.likedStatus.set(newStatus)
-    }
-  }
-
-  changeCurrentCommentsStatus() {
-    this.isShowComments.update((val) => !val)
-  }
-
-  changeSubscribeStatus() {
-    this.isSubscribed.update((val) => !val)
-  }
-
-  publishCommentary() {
-    const values = this.commentForm.value
-    this.commentForm.reset()
+  // clickLikeButton(newStatus: 'liked' | 'disliked') {
+  //   if (this.likedStatus() == newStatus) {
+  //     this.likedStatus.set(null)
+  //   } else {
+  //     this.likedStatus.set(newStatus)
+  //   }
+  // }
+  //
+  // changeCurrentCommentsStatus() {
+  //   this.isShowComments.update((val) => !val)
+  // }
+  //
+  // changeSubscribeStatus() {
+  //   this.isSubscribed.update((val) => !val)
+  // }
+  //
+  // publishCommentary() {
+  //   const values = this.commentForm.value
+  //   this.commentForm.reset()
+  // }
+  shareVideo() {
+    this.shareService.shareVideo(this.videoInformation(), this.id())
   }
 }
