@@ -16,13 +16,13 @@
     top: vars.$size-12;
     left: 50%;
     transform: translateX(-50%);
-    
+
     .left {
         display: flex;
         align-items: center;
         gap: vars.$size-20;
         width: 100%;
-        
+
         .image {
             display: flex;
             align-items: center;
@@ -83,4 +83,10 @@
         transform: translateX(-50%) translateY(0) scale(1);
         opacity: 1;
     }
+}
+
+@media (max-width: 768px) {
+  .alert {
+    width: 100vw;
+  }
 }

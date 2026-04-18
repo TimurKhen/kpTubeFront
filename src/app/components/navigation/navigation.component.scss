@@ -30,7 +30,7 @@
         background: vars.$color-surface;
         border-radius: vars.$radius-full;
         border: vars.$border-basic;
-        
+
         input {
             width: 100%;
             padding: vars.$size-8 vars.$size-20;
@@ -60,7 +60,7 @@
         align-items: center;
         gap: vars.$size-12;
         margin-right: vars.$size-20;
-        
+
         .create {
             display: flex;
             align-items: center;
@@ -111,4 +111,12 @@
             }
         }
     }
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    .search-bar {
+      display: none;
+    }
+  }
 }

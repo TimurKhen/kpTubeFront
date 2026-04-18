@@ -58,7 +58,7 @@
         width: 100%;
         display: flex;
         justify-content: space-evenly;
-    
+
         button {
             width: 40%;
             padding: vars.$size-8 vars.$size-20;
@@ -91,4 +91,10 @@
         transform: translateX(-50%) translateY(0) scale(1);
         opacity: 1;
     }
+}
+
+@media (max-width: 768px) {
+  .alert {
+    width: 100vw;
+  }
 }
