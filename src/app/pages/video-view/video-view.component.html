@@ -51,7 +51,7 @@
                     <div class="information">
                       <p>{{ videoInformation()?.views | shortNumber }} просмотров</p>
                       <p>•</p>
-                      <p>{{ createDate(videoInformation()?.Video_ID) | timeAgoPipe }}</p>
+                      <p>{{ createDate(videoInformation()?.Video_ID || '') | timeAgoPipe }}</p>
                     </div>
                     <div class="description">
                         <p>{{ videoInformation()?.description }}</p>
