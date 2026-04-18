@@ -6,6 +6,7 @@ import { VideoInterface } from '../../interfaces/video/video';
 import { catchError, throwError } from 'rxjs';
 import { LoaderIconComponent } from "../../services/loader/loader/loader-icon/loader-icon.component";
 import { OnlineHandlerService } from '../../services/online-handler/online-handler.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-videos-grid',
@@ -23,7 +24,7 @@ export class VideosGridComponent implements OnInit, OnChanges {
   isError = signal<boolean>(false)
   hasVideos = signal<boolean>(false)
 
-  constructor() {
+  constructor(private title: Title) {
     effect(() => {
       if (this.isOnline()) {
         this.loadVideos()
@@ -42,6 +43,7 @@ export class VideosGridComponent implements OnInit, OnChanges {
     if (this.videosInput().length > 0) {
       this.videos.set(this.videosInput())
     } else {
+      this.title.setTitle('KPTube')
       this.loadVideos()
     }
   }

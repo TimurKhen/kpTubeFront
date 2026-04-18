@@ -13,6 +13,7 @@ import { UserService } from '../../services/user-service/user-service.service';
 import { ProfileInterface } from '../../interfaces/profile/profile-interface';
 import { VideoPlayerComponent } from '../../components/video-player/video-player.component';
 import {ShareService} from "../../services/share/share.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-video-view',
@@ -36,7 +37,7 @@ export class VideoViewComponent implements OnInit, OnDestroy {
     comment: new FormControl('', [Validators.required, Validators.minLength(1)])
   })
 
-  constructor(private routes: ActivatedRoute) {}
+  constructor(private routes: ActivatedRoute, private title: Title) {}
 
   ngOnInit(): void {
     this.routes.paramMap.subscribe((data: any) => {
@@ -55,6 +56,8 @@ export class VideoViewComponent implements OnInit, OnDestroy {
         this.videoInformation.set(
           data[0]
         )
+        console.log(this.videoInformation())
+        this.title.setTitle(this.videoInformation()?.name || 'KPTube')
         this.getAuthorInformation(data[0].owner)
         this.saveView()
       })
@@ -95,6 +98,6 @@ export class VideoViewComponent implements OnInit, OnDestroy {
   //   this.commentForm.reset()
   // }
   shareVideo() {
-    this.shareService.shareVideo(this.videoInformation(), this.id())
+    this.shareService.share()
   }
 }
