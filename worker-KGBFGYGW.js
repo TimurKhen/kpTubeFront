@@ -1,0 +1,1 @@
+addEventListener("message",a=>{let{file:e,action:r}=a.data;if(r==="processVideo"||r==="processFile"){let t=new FileReaderSync;try{let s=t.readAsArrayBuffer(e),o=new Blob([s],{type:e.type});self.postMessage({blob:o,fileName:e.name})}catch(s){self.postMessage({error:s})}}});
