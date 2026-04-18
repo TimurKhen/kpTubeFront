@@ -1,15 +1,16 @@
 @use '../../../assets/variables.scss' as vars;
 
 .grid {
-    padding: vars.$size-40;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(vars.$size-400, min(1fr)));
-    gap: vars.$size-40;
+  padding: vars.$size-40;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(vars.$size-400, 100%), vars.$size-520));
+  gap: vars.$size-40;
+  justify-content: start;
 
-    a {
-        color: white;
-        text-decoration: none;
-    }
+  a {
+      color: white;
+      text-decoration: none;
+  }
 }
 
 .error-container, .loader {

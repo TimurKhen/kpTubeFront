@@ -1,9 +1,10 @@
 @use '../../../assets/variables.scss' as vars;
 
 .content {
-    width: auto;
-    height: auto;
+  width: auto;
+  height: auto;
+  max-width: vars.$size-520;
 
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
 }
