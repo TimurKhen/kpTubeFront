@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "baseHref": "/kpTubeFront/",
             "outputPath": "dist/kptube",
             "index": "src/index.html",
             "browser": "src/main.ts",
