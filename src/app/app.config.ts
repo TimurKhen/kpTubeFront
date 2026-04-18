@@ -10,7 +10,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
-      withHashLocation(),
       withInMemoryScrolling({
         scrollPositionRestoration: 'top',
       }),
