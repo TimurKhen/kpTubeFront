@@ -59,7 +59,6 @@ export class VideosGridComponent implements OnInit, OnChanges {
           })
         )
         .subscribe(data => {
-          console.log(data)
           this.hasVideos.set(true)
           this.videos.set(data as VideoInterface[])
         })

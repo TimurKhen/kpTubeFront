@@ -5,7 +5,7 @@
     <div class="text">
         <div class="main-information">
             <h4>{{ content().author.username }}</h4>
-            <p>{{ content().publishDate | timeAgoPipe }} назад</p>
+            <p>{{ content().publishDate | timeAgoPipe }}</p>
         </div>
         @if (!isCommentOpen() && isLongComment()) {
             <p>{{ shortedComment() }}</p>

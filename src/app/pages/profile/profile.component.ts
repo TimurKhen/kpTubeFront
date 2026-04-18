@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserByID(id)
       .subscribe((val: ProfileInterface[]) => {
         this.userInformation.set(val[0])
-        console.log(val[0])
         this.getUserVideos(val[0].name)
       })
   }

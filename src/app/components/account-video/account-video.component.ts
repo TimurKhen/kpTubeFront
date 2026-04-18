@@ -26,7 +26,7 @@ export class AccountVideoComponent {
         видео на ${newType == 0 ? 'по ссылке' : 'глобальный'}`,
       newType == 0 ? './icons/link-icon.svg' : './icons/wide-icon.svg'
     ).subscribe((val) => {
-      console.log(val)
+      // console.log(val)
     })
   }
 

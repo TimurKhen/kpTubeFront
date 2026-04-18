@@ -145,8 +145,6 @@ export class VideoCreateComponent implements OnInit, OnDestroy {
       this.isLoading.set(true)
       await this.loaderService.show(signal<string>('Загрузка видео'))
 
-      console.log(this.userInformation())
-
       const userName = this.userInformation()?.username
 
       if (userName) {

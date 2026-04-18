@@ -44,7 +44,6 @@ export class UserService {
     const currentUser = localStorage.getItem('username') || ''
     if (currentUser !== '') {
       this.getUserByName(currentUser).subscribe(user => {
-        console.log(user[0])
         this.userData.set(user[0])
       })
     }

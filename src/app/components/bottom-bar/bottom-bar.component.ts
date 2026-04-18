@@ -9,14 +9,14 @@ import { delay, Subject } from 'rxjs';
 })
 export class BottomBarComponent {
   private timeout$ = new Subject<void>()
-  
+
   message = input<string | null>()
   mustHide = input<boolean>(false)
   isShow = signal<boolean>(!this.mustHide())
 
   constructor() {
     effect(() => {
-      console.log(this.message())
+      // console.log(this.message())
     })
 
     if (this.mustHide()) {

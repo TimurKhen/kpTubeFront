@@ -127,10 +127,10 @@ export class RegistrationComponent implements OnDestroy {
       formData.append('username', this.registerForm.get('username')?.value || '')
       formData.append('password', this.registerForm.get('password')?.value || '')
       formData.append('email', this.registerForm.get('email')?.value || '')
-      
+
       const avatar = this.registerForm.get('avatar')?.value
       const header = this.registerForm.get('header')?.value
-      
+
       if (avatar) {
         formData.append('avatar', avatar)
       }
@@ -140,8 +140,6 @@ export class RegistrationComponent implements OnDestroy {
 
       this.registerSubscription = this.userService.register(formData).subscribe({
         next: (response) => {
-          console.log(response)
-          
           this.userService.send_email(this.registerForm.get('email')?.value || '').subscribe()
           this.userService.enterUser(this.registerForm.get('username')?.value || '', this.registerForm.get('password')?.value || '').subscribe()
 
@@ -151,7 +149,7 @@ export class RegistrationComponent implements OnDestroy {
             this.registerForm.reset()
             this.clearAvatar()
             this.clearHeader()
-            
+
             this.router.navigate(['/'])
             this.userService.loadUserData()
             this.alertService.show(
