@@ -68,6 +68,10 @@ export class VideoViewComponent implements OnInit, OnDestroy {
     this.videoService.saveView(this.videoInformation()?.Video_ID || '').subscribe()
   }
 
+  createDate(date: string) {
+    return new Date(+date)
+  }
+
   clickLikeButton(newStatus: 'liked' | 'disliked') {
     if (this.likedStatus() == newStatus) {
       this.likedStatus.set(null)
