@@ -47,11 +47,11 @@
                     border-radius: vars.$radius-full;
                 }
             }
-            
+
             .subscribe-button {
                 button {
                     padding: vars.$size-12 vars.$size-24;
-                    border-radius: vars.$radius-full;   
+                    border-radius: vars.$radius-full;
                     border: none;
                     font-size: vars.$font-sm;
                     font-family: Roboto, sans-serif;
@@ -60,7 +60,7 @@
                     transition: all 0.3s !important;
                     cursor: pointer;
                 }
-                
+
                 .subscribe {
                     background: vars.$color-red;
                     font-weight: 800;
@@ -76,10 +76,25 @@
     }
 
     .videos {
-        width: 80%;
-        padding: vars.$size-40;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(vars.$size-400, min(1fr)));
-        gap: vars.$size-40;
+      width: 80%;
+      padding: vars.$size-40;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(vars.$size-400, 100%), vars.$size-520));
+      gap: vars.$size-40;
     }
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    .profile {
+      .information {
+        flex-direction: column;
+      }
+    }
+    .videos {
+      width: 100%;
+      padding: vars.$size-12;
+    }
+  }
 }

@@ -8,6 +8,7 @@ import { AccountVideoComponent } from "../../components/account-video/account-vi
 import { VideoInterface } from '../../interfaces/video/video';
 import {PathConverterPipe} from "../../pipes/path-converter/path-converter.pipe";
 import {VideosService} from "../../services/videos-service/videos-service.service";
+import {AcceptService} from "../../services/accept/accept.service";
 
 @Component({
   selector: 'app-account',
@@ -18,6 +19,7 @@ import {VideosService} from "../../services/videos-service/videos-service.servic
 export class AccountComponent implements OnInit {
   private userService = inject(UserService)
   private videosService = inject(VideosService)
+  private acceptService = inject(AcceptService)
 
   id = signal<string>('')
   userInformation = signal<ProfileInterface | null>(null)
@@ -32,6 +34,18 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.loadUserData()
+  }
+
+  exitAccount() {
+    this.acceptService.show(
+      'Выйти из аккаунта?',
+      'Вы уверены, что вы хотите выйти?',
+      '/icons/exit-icon.svg'
+    ).subscribe((val) => {
+      if (val === 0) {
+        this.userService.logout()
+      }
+    })
   }
 
   getUserVideos(username: string) {
