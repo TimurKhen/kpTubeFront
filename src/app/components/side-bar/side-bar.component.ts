@@ -19,11 +19,11 @@ export class SideBarComponent {
       title: 'Главная',
       router: '/',
     },
-    {
-      icon: './icons/playlist-icon.svg',
-      title: 'Плейлисты',
-      router: '/playlists',
-    },
+    // {
+    //   icon: './icons/playlist-icon.svg',
+    //   title: 'Плейлисты',
+    //   router: '/playlists',
+    // },
     {
       icon: './icons/plus-icon.svg',
       title: 'Создать',
