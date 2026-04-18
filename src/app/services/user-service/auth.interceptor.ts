@@ -13,12 +13,26 @@ const publicUrls = [
   '/refresh_token',
 ]
 
+// Регулярные выражения для публичных URL с параметрами
+const publicUrlPatterns = [
+  /^\/videos\/[^\/]+$/,      // /videos/any-id (GET)
+  /^\/profile\/[^\/]+$/,      // /profile/any-id (GET)
+  /^\/videos\/\?.*$/,         // /videos/?params (GET с параметрами)
+]
+
 function isPublicUrl(url: string, method: string): boolean {
-  if (method === 'GET' && url.includes('/videos/')) {
+  // GET запросы на /videos/ (список видео) - публичные
+  if (method === 'GET' && url.includes('/videos/') && !url.includes('/create')) {
     return true
   }
 
+  // Проверка по точному совпадению
   if (publicUrls.some(publicUrl => url.includes(publicUrl))) {
+    return true
+  }
+
+  // Проверка по регулярным выражениям
+  if (publicUrlPatterns.some(pattern => pattern.test(url))) {
     return true
   }
 

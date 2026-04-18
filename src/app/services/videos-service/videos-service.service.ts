@@ -44,6 +44,17 @@ export class VideosService {
     }
 
     saveView(videoId: string) {
+      this.userService.loadUserData()
+      const token = this.userService.token()
+
+      if (!token) {
+        return throwError('Cant saveView')
+      }
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+
       const current_date = new Date()
 
       const post_data = {
@@ -55,7 +66,7 @@ export class VideosService {
         'time_zone': current_date.getTimezoneOffset()
       }
 
-      return this.http.post(this.watchVideo, post_data)
+      return this.http.post(this.watchVideo, post_data, {headers: headers})
     }
 
     // searchVideos(keyword: string) {
