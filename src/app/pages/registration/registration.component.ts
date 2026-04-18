@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnDestroy {
   private router = inject(Router)
 
   registerForm = new FormGroup({
-    name: new FormControl<string>('', [Validators.required]),
     username: new FormControl<string>('', [Validators.required]),
     password: new FormControl<string>('', [Validators.required, Validators.minLength(8)]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
@@ -123,7 +122,6 @@ export class RegistrationComponent implements OnDestroy {
 
       const formData = new FormData()
       formData.append('User_ID', String(Number(new Date)))
-      formData.append('name', this.registerForm.get('name')?.value || '')
       formData.append('username', this.registerForm.get('username')?.value || '')
       formData.append('password', this.registerForm.get('password')?.value || '')
       formData.append('email', this.registerForm.get('email')?.value || '')
@@ -141,23 +139,24 @@ export class RegistrationComponent implements OnDestroy {
       this.registerSubscription = this.userService.register(formData).subscribe({
         next: (response) => {
           this.userService.send_email(this.registerForm.get('email')?.value || '').subscribe()
-          this.userService.enterUser(this.registerForm.get('username')?.value || '', this.registerForm.get('password')?.value || '').subscribe()
+          this.userService.enterUser(this.registerForm.get('username')?.value || '', this.registerForm.get('password')?.value || '').subscribe(
+            (val) => {
+              this.isRegistrationRequestNow.set(false)
+              this.loaderService.hide()
+              this.registerForm.reset()
+              this.clearAvatar()
+              this.clearHeader()
 
-          setTimeout(() => {
-            this.isRegistrationRequestNow.set(false)
-            this.loaderService.hide()
-            this.registerForm.reset()
-            this.clearAvatar()
-            this.clearHeader()
+              this.router.navigate(['/'])
+              this.userService.loadUserData()
+              this.alertService.show(
+                'Подтвердите ваш аккаунт через почту.',
+                '',
+                false
+              )
+            }
+          )
 
-            this.router.navigate(['/'])
-            this.userService.loadUserData()
-            this.alertService.show(
-              'Подтвердите ваш аккаунт через почту.',
-              '',
-              false
-            )
-          }, 500)
         },
         error: (error) => {
           this.loaderService.hide()

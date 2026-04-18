@@ -71,9 +71,9 @@ export class UserService {
 
   logout() {
     this.userName.set('')
-    this.cookieService.deleteAll()
     this.token.set(null)
     this.refreshToken.set(null)
+    this.cookieService.deleteAll()
     this.userData.set(null)
     this.clearCache()
 
