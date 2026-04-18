@@ -79,7 +79,7 @@
       width: 80%;
       padding: vars.$size-40;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(vars.$size-400, 100%), vars.$size-520));
+      grid-template-columns: repeat(auto-fill, minmax(min(vars.$size-520, 100%), 1fr));
       gap: vars.$size-40;
     }
 }
