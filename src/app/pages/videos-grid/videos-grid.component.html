@@ -1,15 +1,15 @@
-@if (hasVideos()) {
+@if (hasVideos() && videos().length > 0) {
     <div class="grid">
         @if (videos().length > 0) {
             @for (content of videos(); track content) {
-                @defer { 
-                    <app-content-box 
+                @defer {
+                    <app-content-box
                         [contentType]="0" [content]="content"></app-content-box>
                 }
             }
         }
     </div>
-} 
+}
 @else if (isError()) {
     <div class="error-container">
         <h1>Видео не смогли загрузиться</h1>
@@ -19,7 +19,12 @@
             <p>Вы офлайн</p>
         }
     </div>
-} 
+}
+@else if (videos().length == 0) {
+  <div class="loader">
+    <p>Сейчас нет видео</p>
+  </div>
+}
 @else {
     <div class="loader">
         <p>Загрузка видео</p>

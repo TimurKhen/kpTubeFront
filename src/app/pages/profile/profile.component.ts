@@ -20,7 +20,7 @@ import { VideosGridComponent } from "../videos-grid/videos-grid.component";
 export class ProfileComponent implements OnInit {
   private userService = inject(UserService)
   private videosService = inject(VideosService)
-  
+
   constructor(private routes: ActivatedRoute) {}
 
   id = signal<string>('')
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.routes.paramMap.subscribe((data: any) => {
       this.id.set(data.params.id)
-      this.getProfileInformation(data.params.id)  
+      this.getProfileInformation(data.params.id)
     })
   }
 
@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
   getUserVideos(username: string) {
     this.videosService.getVideosByUser(username).subscribe((videos: VideoInterface[]) => {
       this.userVideos.set(videos)
-      console.log(videos)
     })
   }
 

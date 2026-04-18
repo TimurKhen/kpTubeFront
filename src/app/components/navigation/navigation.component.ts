@@ -15,20 +15,19 @@ import { PathConverterPipe } from "../../pipes/path-converter/path-converter.pip
   styleUrl: './navigation.component.scss',
 })
 export class NavigationComponent implements OnInit {
-  private userService = inject(UserService) 
+  private userService = inject(UserService)
 
   userInformation = signal<ProfileInterface | null>(null)
 
   searchForm = new FormControl('', [Validators.required, Validators.minLength(1)])
   sideBarService = inject(SideBarHandlerService)
-  videoService = inject(VideosService)
 
   constructor() {
     effect(() => {
       this.userInformation.set(this.userService.userData())
     })
   }
- 
+
   ngOnInit(): void {
     this.userService.loadUserData()
   }

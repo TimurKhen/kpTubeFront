@@ -1,27 +1,27 @@
 <div class="container">
     <div class="profile">
         <div class="header">
-            <img [src]="userInformation()?.header">
+            <img [src]="userInformation()?.header | pathConverter">
         </div>
         <div class="information">
             <div class="avatar">
-                <img [src]="userInformation()?.avatar">
+                <img [src]="userInformation()?.avatar | pathConverter">
             </div>
             <div class="text">
                 <h3>{{ userInformation()?.username }}</h3>
                 <p>{{ userInformation()?.subscribers | shortNumber }} подписчиков</p>
             </div>
-            <div class="open-gzg-id-button">
-                <a>
-                    <p>Изменить публичную информацию</p>
-                    <img src="./icons/link-icon.svg">
-                </a>
-            </div>
+<!--            <div class="open-gzg-id-button">-->
+<!--                <a>-->
+<!--                    <p>Изменить публичную информацию</p>-->
+<!--                    <img src="./icons/link-icon.svg">-->
+<!--                </a>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="videos">
-        <!-- @for (content of convertedVideos(); track content) {
+        @for (content of userVideos(); track content) {
             <app-account-video [content]="content"></app-account-video>
-        } -->
+        }
     </div>
 </div>

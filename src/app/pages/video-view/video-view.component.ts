@@ -15,13 +15,13 @@ import { VideoPlayerComponent } from '../../components/video-player/video-player
 
 @Component({
   selector: 'app-video-view',
-  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent, 
+  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent,
     ReactiveFormsModule, VideoPlayerComponent, PathConverterPipe],
   templateUrl: './video-view.component.html',
   styleUrl: './video-view.component.scss',
 })
 export class VideoViewComponent implements OnInit, OnDestroy {
-  videoService = inject(VideosService) 
+  videoService = inject(VideosService)
   userService = inject(UserService)
 
   id = signal<string>('')
@@ -29,22 +29,17 @@ export class VideoViewComponent implements OnInit, OnDestroy {
   authorInformation = signal<ProfileInterface | undefined>(undefined)
   likedStatus = signal<'liked' | 'disliked' | null>(null)
   isShowComments = signal<boolean>(true)
-  currentUserData = signal<ProfilePreview>({
-    avatar: './templates/template_avatar.jpg',
-    username: 'TimurKhen',
-    subscribers: 13
-  })
   isSubscribed = signal<boolean>(false)
   commentForm = new FormGroup({
     comment: new FormControl('', [Validators.required, Validators.minLength(1)])
   })
-  
+
   constructor(private routes: ActivatedRoute) {}
-  
+
   ngOnInit(): void {
     this.routes.paramMap.subscribe((data: any) => {
       this.id.set(data.params.id)
-      this.getVideoInformation(data.params.id)  
+      this.getVideoInformation(data.params.id)
     })
   }
 
@@ -59,6 +54,7 @@ export class VideoViewComponent implements OnInit, OnDestroy {
           data[0]
         )
         this.getAuthorInformation(data[0].owner)
+        this.saveView()
       })
   }
 
@@ -66,6 +62,10 @@ export class VideoViewComponent implements OnInit, OnDestroy {
     this.userService.getUserByName(authorName).subscribe((user) => {
       this.authorInformation.set(user[0])
     })
+  }
+
+  saveView() {
+    this.videoService.saveView(this.videoInformation()?.Video_ID || '').subscribe()
   }
 
   clickLikeButton(newStatus: 'liked' | 'disliked') {

@@ -1,4 +1,14 @@
-import { Component, inject, OnDestroy, signal, ViewChild, ElementRef, ChangeDetectionStrategy, effect } from '@angular/core'
+import {
+  Component,
+  inject,
+  OnDestroy,
+  signal,
+  ViewChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+  effect,
+  OnInit
+} from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { NgClass } from '@angular/common'
 import { VideosService } from '../../services/videos-service/videos-service.service'
@@ -17,7 +27,7 @@ import { ProfileInterface } from '../../interfaces/profile/profile-interface'
   styleUrl: './video-create.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoCreateComponent implements OnDestroy {
+export class VideoCreateComponent implements OnInit, OnDestroy {
   private videoService = inject(VideosService)
   private userService = inject(UserService)
   private loaderService = inject(LoaderService)
@@ -29,15 +39,15 @@ export class VideoCreateComponent implements OnDestroy {
     description: new FormControl<string>(''),
     visibility: new FormControl<number>(0, Validators.required)
   })
-  
+
   videoURL = signal<string>('')
   previewURL = signal<string>('')
   isLoading = signal<boolean>(false)
-  userInformation = signal<ProfileInterface | null>(null) 
+  userInformation = signal<ProfileInterface | null>(null)
 
   videoFile: File | null = null
   previewFile: File | null = null
-  
+
   @ViewChild('videoInput') videoInput!: ElementRef<HTMLInputElement>
   @ViewChild('previewInput') previewInput!: ElementRef<HTMLInputElement>
 
@@ -46,7 +56,7 @@ export class VideoCreateComponent implements OnDestroy {
 
   constructor() {
     effect(() => {
-      this.userInformation.set(this.userService.userData()) 
+      this.userInformation.set(this.userService.userData())
     })
 
     this.worker = new Worker(new URL('../../services/workers/file-reader.worker.ts', import.meta.url))
@@ -69,6 +79,10 @@ export class VideoCreateComponent implements OnDestroy {
         this.previewURL.set(URL.createObjectURL(blob))
       }
     }
+  }
+
+  ngOnInit() {
+    this.userService.loadUserData()
   }
 
   onVideoChange(event: Event) {
@@ -125,17 +139,20 @@ export class VideoCreateComponent implements OnDestroy {
       'visibility': newVisibility
     })
   }
-  
+
   async publish() {
     if (this.videoForm.valid && this.videoFile && this.previewFile) {
       this.isLoading.set(true)
       await this.loaderService.show(signal<string>('Загрузка видео'))
-      
-      const userName = this.userInformation()?.name
+
+      console.log(this.userInformation())
+
+      const userName = this.userInformation()?.username
 
       if (userName) {
         this.videoService.createVideo({
-          file: this.videoFile!,
+          Video_ID: String(Number(new Date())),
+          video: this.videoFile!,
           name: this.videoForm.value.name!,
           description: this.videoForm.value.description || '',
           preview: this.previewFile!,
@@ -143,7 +160,7 @@ export class VideoCreateComponent implements OnDestroy {
           category: "По умолчанию",
           isGlobal: true
         }).subscribe({
-          next: (event) => {           
+          next: (event) => {
             setTimeout(() => {
               this.isLoading.set(false)
               this.loaderService.hide()
@@ -171,6 +188,7 @@ export class VideoCreateComponent implements OnDestroy {
       } else {
         this.loaderService.hide()
         this.isLoading.set(false)
+        this.userService.logout()
         this.alertService.show(
           'Ошибка при создании видео',
           'Вы не авторизованы',

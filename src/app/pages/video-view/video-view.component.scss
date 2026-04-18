@@ -1,8 +1,7 @@
 @use '../../../assets/variables.scss' as vars;
 
 .container {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
+    display: flex;
     gap: vars.$size-40;
     padding: 0 vars.$size-40 vars.$size-40 vars.$size-40;
 
@@ -24,7 +23,7 @@
                 width: 100%;
                 max-height: vars.$size-800;
             }
-        
+
             .moch-video {
                 width: 100%;
                 height: vars.$size-800;
@@ -76,12 +75,13 @@
                             }
                         }
                         .text {
-                            display: inline;
+                          display: inline;
+                          color: vars.$color-white;
                         }
                         .subscribe-button {
                             button {
                                 padding: vars.$size-12 vars.$size-24;
-                                border-radius: vars.$radius-full;   
+                                border-radius: vars.$radius-full;
                                 border: none;
                                 font-size: vars.$font-sm;
                                 font-family: Roboto, sans-serif;
@@ -90,7 +90,7 @@
                                 transition: all 0.3s !important;
                                 cursor: pointer;
                             }
-                            
+
                             .subscribe {
                                 background: vars.$color-red;
                                 font-weight: 800;
@@ -139,12 +139,12 @@
                                 border-radius: vars.$radius-full;
 
                                 transition: background-color 0.3s;
-                                
+
                                 img {
                                     height: 100%;
                                     min-height: vars.$size-20;
                                 }
-                                
+
                                 p {
                                     color: vars.$color-white;
                                 }
@@ -167,7 +167,7 @@
                     .information {
                         display: flex;
                         gap: vars.$size-20;
-                        
+
                         p {
                             color: vars.$color-white;
                             text-wrap: balance;
@@ -192,7 +192,7 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
-            
+
                 h3 {
                     font-size: vars.$font-little;
                 }
@@ -204,13 +204,13 @@
             .input {
                 width: 100%;
                 display: flex;
-                
+
                 .interactive {
                     width: 100%;
                     display: flex;
                     flex-direction: column;
                     gap: vars.$size-12;
-                    
+
                     .top-line {
                         width: 100%;
                         display: flex;
@@ -222,7 +222,7 @@
                             display: flex;
                             align-items: center;
                             max-width: vars.$size-40;
-        
+
                             img {
                                 object-fit: cover;
                                 width: 100%;
@@ -249,17 +249,17 @@
                             field-sizing: content;
                             word-break: break-all;
                             white-space: pre-wrap;
-                            
+
                             &::placeholder {
                                 font-family: 'Arial', sans-serif;
                                 font-size: vars.$font-little;
                                 color: vars.$color-white;
                             }
-    
+
                             &:focus {
-                                outline: none; 
+                                outline: none;
                             }
-    
+
                             &::-webkit-resizer {
                                 display: none;
                             }
@@ -352,9 +352,9 @@
     from {
         opacity: 0;
         transform: translateY(calc(vars.$size-12 * -1));
-    } 
+    }
     to {
         opacity: 1;
-        transform: translateY(0);    
+        transform: translateY(0);
     }
 }

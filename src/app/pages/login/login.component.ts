@@ -19,7 +19,7 @@ export class LoginComponent {
   isLoading = signal<boolean>(false)
 
   loginForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
 
@@ -30,7 +30,7 @@ export class LoginComponent {
     const formValues = this.loginForm.value
 
     if (formValues) {
-      this.userService.enterUser(formValues.name!, formValues.password!)
+      this.userService.enterUser(formValues.username!, formValues.password!)
         .pipe(
           catchError((err) => {
             this.isLoading.set(false)

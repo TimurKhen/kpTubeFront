@@ -13,26 +13,27 @@ import { OnlineHandlerService } from '../../services/online-handler/online-handl
   templateUrl: './videos-grid.component.html',
   styleUrl: './videos-grid.component.scss',
 })
-export class VideosGridComponent implements OnChanges {
+export class VideosGridComponent implements OnInit, OnChanges {
   videoService = inject(VideosService)
   videosInput = input<VideoInterface[]>([])
-  
+
   videos = signal<any[]>([])
 
   isOnline = inject(OnlineHandlerService).isOnline
   isError = signal<boolean>(false)
-  hasVideos = computed(() => (this.videos()?.length ?? 0) > 0);
+  hasVideos = signal<boolean>(false)
 
   constructor() {
     effect(() => {
       if (this.isOnline()) {
-        this.loadVideos() 
+        this.loadVideos()
       }
     })
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.videosInput().length > 0) {
+      this.hasVideos.set(true)
       this.videos.set(this.videosInput())
     }
   }
@@ -41,22 +42,25 @@ export class VideosGridComponent implements OnChanges {
     if (this.videosInput().length > 0) {
       this.videos.set(this.videosInput())
     } else {
-      this.loadVideos()    
+      this.loadVideos()
     }
   }
 
   loadVideos() {
     this.isError.set(false)
-    
+    this.hasVideos.set(false)
+
     this.videoService.getVideos()
         .pipe(
           catchError((err) => {
+            this.hasVideos.set(false)
             this.isError.set(true)
             return throwError(err)
           })
         )
         .subscribe(data => {
           console.log(data)
+          this.hasVideos.set(true)
           this.videos.set(data as VideoInterface[])
         })
   }

@@ -39,11 +39,21 @@
             </div>
 
             <div class="name-part">
-                <label for="name">Имя:</label>
+                <label for="name">Отображаемое имя:</label>
                 <input type="text" id="name" formControlName="name">
                 @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
-                        Имя обязательно для заполнения
+                        Обязательно для заполнения
+                    </div>
+                }
+            </div>
+
+            <div class="name-part">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" id="username" formControlName="username">
+                @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+                    <div class="error" animate.enter="enter" animate.leave="leave">
+                        Обязательно для заполнения
                     </div>
                 }
             </div>

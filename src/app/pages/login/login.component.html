@@ -3,11 +3,11 @@
         <h2>Войдите в аккаунт KPTube</h2>
         <form [formGroup]="loginForm">
             <div class="name-part">
-                <label for="name">Имя:</label>
-                <input type="text" id="name" formControlName="name">
-                @if (loginForm.get('name')?.invalid && loginForm.get('name')?.touched) {
+                <label for="username">Имя:</label>
+                <input type="text" id="username" formControlName="username">
+                @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
-                        Имя обязательно для заполнения
+                        Обязательно для заполнения
                     </div>
                 }
             </div>

@@ -12,7 +12,7 @@
 
     outline: none;
     border: none;
-    
+
     .preview {
         width: 100%;
         height: auto;
@@ -20,15 +20,15 @@
         border-radius: vars.$radius-lg;
         aspect-ratio: 16/9;
         max-height: vars.$size-240;
-        
+
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
         img {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: cover;
             object-position: center;
             border-radius: vars.$radius-lg;
         }
@@ -80,7 +80,7 @@
                     font-size: small;
                     line-height: 0;
                 }
-                
+
                 .video-information {
                     height: auto;
                     display: flex;

@@ -1,8 +1,10 @@
+<script src="video-view.component.ts"></script>
+<link rel="stylesheet" href="video-view.component.scss">
 <div class="container">
     <div class="video-container">
         <div class="video">
             @defer {
-                <video-player 
+                <video-player
                     [video]="videoInformation()?.video | pathConverter"
                     [videoPoster]="videoInformation()?.preview"
                     ></video-player>
@@ -22,27 +24,27 @@
                             <img [src]="authorInformation()?.avatar | pathConverter">
                         </a>
                         <div class="text">
-                            <h3>{{ authorInformation()?.name }}</h3>
-                            <p>{{ authorInformation()?.subscribers | shortNumber }} подписчиков</p>
+                            <h3>{{ authorInformation()?.username }}</h3>
+<!--                            <p>{{ authorInformation()?.subscribers | shortNumber }} подписчиков</p>-->
                         </div>
-                        <div class="subscribe-button">
-                            <button 
-                                [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"   
-                                (click)="changeSubscribeStatus()">
-                                {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}
-                            </button>
-                        </div>
+<!--                        <div class="subscribe-button">-->
+<!--                            <button -->
+<!--                                [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"   -->
+<!--                                (click)="changeSubscribeStatus()">-->
+<!--                                {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}-->
+<!--                            </button>-->
+<!--                        </div>-->
                     </div>
                     <div class="buttons">
-                        <div class="likes">
-                            <button 
-                                    [ngClass]="{'active': likedStatus() === 'liked'}"
-                                    (click)="clickLikeButton('liked')"
-                                >
-                                <img src="./icons/like-icon.svg" height="30">
-                                <p>{{ videoInformation()?.total_likes | shortNumber }} лайка</p>
-                            </button>
-                        </div>
+<!--                        <div class="likes">-->
+<!--                            <button -->
+<!--                                    [ngClass]="{'active': likedStatus() === 'liked'}"-->
+<!--                                    (click)="clickLikeButton('liked')"-->
+<!--                                >-->
+<!--                                <img src="./icons/like-icon.svg" height="30">-->
+<!--                                <p>{{ videoInformation()?.total_likes | shortNumber }} лайка</p>-->
+<!--                            </button>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="description-container">
@@ -56,58 +58,58 @@
             </div>
         </div>
     </div>
-    <div class="comments-container">
-        <div class="controls">
-            <div class="main">
-                <h3 class="show-hide-button" (click)="changeCurrentCommentsStatus()">
-                    {{ isShowComments() ? 'Скрыть' : 'Показать'}}    
-                </h3>
-            </div>
-            @if (isShowComments()) {
-                <div class="input">
-                    <form [formGroup]="commentForm" class="interactive">
-                        <div class="top-line">
-                            <div class="avatar">
-                                <img [src]="currentUserData().avatar">
-                            </div>
-                            <p>{{ currentUserData().username }}</p>
-                        </div>
-                        <div class="textarea">
-                            <textarea 
-                                cols="10"
-                                maxlength="1000"
-                                placeholder="Введите комментарий"
-                                formControlName="comment"
-                            ></textarea>
-                            <p 
-                                class="text-count"
-                                [ngClass]="{'active': commentForm.get('comment')?.value?.length}"
-                                >
-                                {{ commentForm.get('comment')?.value?.length }} / 1000
-                            </p>    
-                        </div>
-                        <div class="buttons">
-                            @if (commentForm.valid) {
-                                <button 
-                                    (click)="commentForm.reset()"
-                                    class="clear" [animate.enter]="'enter'" [animate.leave]="'leave'">
-                                    Очистить
-                                </button>
-                                <button 
-                                    (click)="publishCommentary()"
-                                    class="submit" [animate.enter]="'enter'" [animate.leave]="'leave'">
-                                    Опубликовать
-                                </button>
-                            }
-                        </div>
-                    </form>
-                </div>
-            }
-        </div>
+<!--    <div class="comments-container">-->
+<!--        <div class="controls">-->
+<!--            <div class="main">-->
+<!--                <h3 class="show-hide-button" (click)="changeCurrentCommentsStatus()">-->
+<!--                    {{ isShowComments() ? 'Скрыть' : 'Показать'}}    -->
+<!--                </h3>-->
+<!--            </div>-->
+<!--            @if (isShowComments()) {-->
+<!--                <div class="input">-->
+<!--                    <form [formGroup]="commentForm" class="interactive">-->
+<!--                        <div class="top-line">-->
+<!--                            <div class="avatar">-->
+<!--                                <img [src]="currentUserData().avatar">-->
+<!--                            </div>-->
+<!--                            <p>{{ currentUserData().username }}</p>-->
+<!--                        </div>-->
+<!--                        <div class="textarea">-->
+<!--                            <textarea -->
+<!--                                cols="10"-->
+<!--                                maxlength="1000"-->
+<!--                                placeholder="Введите комментарий"-->
+<!--                                formControlName="comment"-->
+<!--                            ></textarea>-->
+<!--                            <p -->
+<!--                                class="text-count"-->
+<!--                                [ngClass]="{'active': commentForm.get('comment')?.value?.length}"-->
+<!--                                >-->
+<!--                                {{ commentForm.get('comment')?.value?.length }} / 1000-->
+<!--                            </p>    -->
+<!--                        </div>-->
+<!--                        <div class="buttons">-->
+<!--                            @if (commentForm.valid) {-->
+<!--                                <button -->
+<!--                                    (click)="commentForm.reset()"-->
+<!--                                    class="clear" [animate.enter]="'enter'" [animate.leave]="'leave'">-->
+<!--                                    Очистить-->
+<!--                                </button>-->
+<!--                                <button -->
+<!--                                    (click)="publishCommentary()"-->
+<!--                                    class="submit" [animate.enter]="'enter'" [animate.leave]="'leave'">-->
+<!--                                    Опубликовать-->
+<!--                                </button>-->
+<!--                            }-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            }-->
+<!--        </div>-->
 
-        @if (isShowComments()) {
-            <div class="comments">
-            </div>
-        }
-    </div>
+<!--        @if (isShowComments()) {-->
+<!--            <div class="comments">-->
+<!--            </div>-->
+<!--        }-->
+<!--    </div>-->
 </div>

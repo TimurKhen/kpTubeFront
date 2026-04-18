@@ -1,6 +1,6 @@
 <div class="video">
     <div class="preview">
-        <img [src]="content().preview">
+        <img [src]="content().preview | pathConverter">
     </div>
     <div class="information">
         <div class="main-information">
@@ -8,15 +8,15 @@
             <div class="more-information">
                 <div class="video-information">
                     <p>{{ content().views | shortNumber }} просмотров</p>
-                    <p>{{ content().likes | shortNumber }} лайков</p>
+<!--                    <p>{{ content().total_likes | shortNumber }} лайков</p>-->
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
-    <div class="controls">
-        <button class="delete" (click)="deleteBlock()">
-            <img src="icons/red-trash-icon.svg">
-            <p>Удалить видео</p>
-        </button>
-    </div>
+<!--    <div class="controls">-->
+<!--        <button class="delete" (click)="deleteBlock()">-->
+<!--            <img src="icons/red-trash-icon.svg">-->
+<!--            <p>Удалить видео</p>-->
+<!--        </button>-->
+<!--    </div>-->
 </div>

@@ -1,32 +1,33 @@
 @use '../../../assets/variables.scss' as vars;
 
 .video {
-    width: 100%; 
+    width: 100%;
     height: auto;
 
     display: flex;
     border-radius: vars.$radius-lg;
     gap: vars.$size-20;
-    
+
     .preview {
-        width: 100%;
-        height: auto;
-        background: vars.$color-surface;
-        border-radius: vars.$radius-lg;
-        aspect-ratio: 16/9;
-        max-height: vars.$size-240;
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center;
-            border-radius: vars.$radius-lg;
-        }
+      max-width: vars.$size-400;
+      width: 100%;
+      height: auto;
+      background: vars.$color-surface;
+      border-radius: vars.$radius-lg;
+      aspect-ratio: 16/9;
+      max-height: vars.$size-240;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-radius: vars.$radius-lg;
+      }
     }
 
     .information {
@@ -87,7 +88,7 @@
         align-items: flex-end;
         justify-content: space-between;
         width: 100%;
-    
+
         button {
             display: flex;
             gap: vars.$size-12;
@@ -97,7 +98,7 @@
             color: vars.$color-white;
             padding: 0 vars.$size-20;
             border-radius: vars.$radius-full;
-        
+
             img {
                 width: vars.$size-20;
             }
@@ -109,7 +110,7 @@
 
         .delete {
             color: vars.$color-red;
-            
+
             img {
                 fill: vars.$color-red;
                 stroke: vars.$color-red;

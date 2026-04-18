@@ -8,16 +8,16 @@
                 <img [src]="userInformation()?.avatar | pathConverter">
             </div>
             <div class="text">
-                <h3>{{ userInformation()?.name }}</h3>
+                <h3>{{ userInformation()?.username }}</h3>
                 <p>{{ userInformation()?.subscribers | shortNumber }} подписчиков</p>
             </div>
-            <div class="subscribe-button">
-                <button 
-                    [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"   
-                    (click)="changeSubscribeStatus()">
-                    {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}
-                </button>
-            </div>
+<!--            <div class="subscribe-button">-->
+<!--                <button-->
+<!--                    [ngClass]="{'dissubscribe': isSubscribed(), 'subscribe': !isSubscribed()}"-->
+<!--                    (click)="changeSubscribeStatus()">-->
+<!--                    {{ isSubscribed() ? 'Отписаться' : 'Подписаться' }}-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="videos">

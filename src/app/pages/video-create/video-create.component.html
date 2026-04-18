@@ -1,7 +1,7 @@
 <div class="container">
     <form [formGroup]="videoForm">
         <div class="video-zone">
-            @if (videoURL()) {            
+            @if (videoURL()) {
                 <div class="video">
                     @defer {
                         <video-player [video]="videoURL()" [alwaysShowUI]="true"></video-player>
@@ -9,17 +9,17 @@
                         <div class="placeholder">Видео загружается...</div>
                     }
                 </div>
-                <button class="delete-button" 
+                <button class="delete-button"
                     (click)="clearVideo()">Удалить видео</button>
             } @else {
                 <label class="video" for="video-input">
                     <div class="message">
                         <button>Загрузить видео</button>
                     </div>
-                    <input 
+                    <input
                         #videoInput
                         id="video-input"
-                        type="file" accept="video/mp4, .mp4" 
+                        type="file" accept="video/mp4, .mp4"
                         (input)="onVideoChange($event)">
                 </label>
             }
@@ -31,7 +31,7 @@
                         <div class="preview">
                             <img [src]="previewURL()">
                         </div>
-                        <button class="delete-button" 
+                        <button class="delete-button"
                             (click)="clearPreview()">Удалить превью</button>
                     </div>
                 } @else {
@@ -39,24 +39,24 @@
                         <div class="message">
                             <button>Загрузить превью</button>
                         </div>
-                        <input 
+                        <input
                             #previewInput
-                            id="preview-input" 
-                            type="file" 
-                            (input)="onPreviewChange($event)" accept=".jpg">
+                            id="preview-input"
+                            type="file"
+                            (input)="onPreviewChange($event)" accept=".jpg, .png">
                     </label>
                 }
 
                 <div class="visibility">
                     <h4>Доступность видео</h4>
-                    <button class="select public" 
+                    <button class="select public"
                         [ngClass]="{'active': videoForm.get('visibility')?.value == 0}"
                         (click)="changeCurrentVisibility(0)"
-                    >    
+                    >
                         <img src="icons/wide-icon.svg">
                         <p>Доступно всем</p>
                     </button>
-                    <button class="select link" 
+                    <button class="select link"
                         [ngClass]="{'active': videoForm.get('visibility')?.value == 1}"
                         (click)="changeCurrentVisibility(1)"
                     >
@@ -69,27 +69,27 @@
                 <label>
                     <p>Название:</p>
                     <input maxlength="70" formControlName="name">
-                    <p 
+                    <p
                         class="text-count"
                         [ngClass]="{'active': videoForm.get('name')?.value?.length}"
                         >
                         {{ videoForm.get('name')?.value?.length }} / 70
-                    </p> 
+                    </p>
                 </label>
                 <label>
                     <p>Описание:</p>
                     <textarea maxlength="2500" cols="40" formControlName="description"></textarea>
-                    <p 
+                    <p
                         class="text-count"
                         [ngClass]="{'active': videoForm.get('description')?.value?.length}"
                         >
                         {{ videoForm.get('description')?.value?.length }} / 2500
-                    </p>  
+                    </p>
                 </label>
             </div>
         </div>
     </form>
-    <button 
+    <button
         class="publish-button"
         [disabled]="!videoForm.valid || isLoading()"
         (click)="publish()"

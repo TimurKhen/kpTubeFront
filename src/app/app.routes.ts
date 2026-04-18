@@ -16,7 +16,7 @@ export const routes: Routes = [
     path: 'video/:id', component: VideoViewComponent,
   }, 
   {
-    path: 'create', component: VideoCreateComponent
+    path: 'create', component: VideoCreateComponent, canActivate: [accountGuard]
   },
   {
     path: 'profile/:id', component: ProfileComponent

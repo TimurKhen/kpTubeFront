@@ -1,14 +1,14 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { catchError, Observable, of, shareReplay, tap, throwError } from 'rxjs';
 import { ProfileInterface } from '../../interfaces/profile/profile-interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { masterURL } from '../masterURL';
 import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
 
 interface tokensResponse {
-  acces_token: string, 
-  refresh_token: string
+  access_token: string,
+  refresh_token: string | undefined | null
 }
 
 @Injectable({
@@ -20,7 +20,9 @@ export class UserService {
   private cookieService = inject(CookieService)
 
   private account = masterURL + '/users/'
+  private tokenUrl = masterURL + '/token/'
   private createUser = masterURL + '/create_user/'
+  private sendMail = masterURL + '/send_mail/'
   private userCache = new Map<string, Observable<ProfileInterface[]>>()
 
   public userName = signal<string>('')
@@ -39,23 +41,26 @@ export class UserService {
     this.token.set(this.cookieService.get('token'))
     this.refreshToken.set(this.cookieService.get('refreshToken'))
 
-    if (!this.token()) {
-      // !!!!!!!!!!!!!!!!!!!!!!!!!
-      // !     ВХОД В АККАУНТ    !
-      // !!!!!!!!!!!!!!!!!!!!!!!!!
-      // this.getUserByName(this.userName()).subscribe((data) => {
-      //   if (data.length !== 1) return
-      //   this.userData.set(data[0])
-      // })
+    const currentUser = localStorage.getItem('username') || ''
+    if (currentUser !== '') {
+      this.getUserByName(currentUser).subscribe(user => {
+        console.log(user[0])
+        this.userData.set(user[0])
+      })
     }
   }
 
   refreshAuthToken() {
     return this.http.post<tokensResponse>(
-      masterURL + '/refresh',
+      this.tokenUrl + 'refresh/',
       JSON.stringify({
-        'refresh_token': this.refreshToken
-      })
+        'refresh_token': this.refreshToken()
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
     ).pipe(
       tap(val => this.saveTokens(val)),
       catchError(err => {
@@ -71,18 +76,23 @@ export class UserService {
     this.token.set(null)
     this.refreshToken.set(null)
     this.userData.set(null)
+    this.clearCache()
 
-    this.router.navigate(['/reg'])
+    localStorage.removeItem('username')
+
+    this.router.navigate(['/registration'])
   }
 
   saveTokens(tokens: tokensResponse) {
-    this.token.set(tokens.acces_token)
-    this.refreshToken.set(tokens.refresh_token)
+    if (tokens.access_token) {
+      this.token.set(tokens.access_token)
+      this.cookieService.set('token', String(this.token()))
+    }
 
-    if (!this.token() || !this.refreshToken()) this.logout()
-
-    this.cookieService.set('token', String(this.token()))
-    this.cookieService.set('refreshToken', String(this.refreshToken()))
+    if (tokens.refresh_token) {
+      this.refreshToken.set(tokens.refresh_token)
+      this.cookieService.set('refreshToken', String(this.refreshToken()))
+    }
   }
 
   getUserByID(UserID: string) {
@@ -90,12 +100,26 @@ export class UserService {
   }
 
   register(formData: FormData) {
-    return this.http.post(this.createUser, formData)
+    return this.http.post<tokensResponse>(this.createUser, formData)
+      .pipe(
+        tap((val: tokensResponse) => this.saveTokens(val))
+      )
   }
 
   enterUser(name: string, password: string) {
-    return this.http.get<tokensResponse>(
-      this.account + '?name=' + name, 
+    localStorage.setItem('username', name)
+
+    return this.http.post<tokensResponse>(
+      this.tokenUrl,
+      JSON.stringify({
+        "username": name,
+        "password": password
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
     ).pipe(
       tap((val: tokensResponse) => this.saveTokens(val))
     )
@@ -107,7 +131,7 @@ export class UserService {
     }
 
     const request$ = this.http.get<ProfileInterface[]>(
-      this.account + '?name=' + name
+      this.account + '?username=' + name
     ).pipe(
       shareReplay(1)
     )
@@ -118,5 +142,9 @@ export class UserService {
 
   clearCache(): void {
     this.userCache.clear()
+  }
+
+  send_email(mail: string): Observable<any> {
+    return this.http.get((this.sendMail + '?email=' + mail))
   }
 }

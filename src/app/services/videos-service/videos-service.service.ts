@@ -1,7 +1,7 @@
 import { UserService } from './../user-service/user-service.service';
 import { inject, Injectable } from '@angular/core';
 import { VideoInterface } from '../../interfaces/video/video';
-import { Observable } from 'rxjs';
+import {catchError, Observable, switchMap, throwError} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { masterURL } from '../masterURL';
 import { ConverterObjToFormdataService } from '../converter/converter-obj-to-formdata.service';
@@ -12,14 +12,14 @@ import { ConverterObjToFormdataService } from '../converter/converter-obj-to-for
 export class VideosService {
     private converterObjToFD = inject(ConverterObjToFormdataService)
     private http = inject(HttpClient)
-    private userService = inject(UserService) 
-
+    private userService = inject(UserService)
     private allVideos = masterURL + '/videos/'
+    private watchVideo = masterURL + '/watch_video/'
 
     getVideos(): Observable<VideoInterface[]> {
         return this.http.get<VideoInterface[]>(this.allVideos)
     }
-    
+
     getVideoByID(id: string): Observable<VideoInterface[]> {
         return this.http.get<VideoInterface[]>(this.allVideos + '?Video_ID=' + id)
     }
@@ -29,18 +29,33 @@ export class VideosService {
     }
 
     createVideo(videoForm: {
-        file: File | null | undefined,
-        name: string,
-        description: string,
-        preview: File | null | undefined,
-        owner: string,
-        category: "По умолчанию",
-        isGlobal: boolean
+      Video_ID: string,
+      video: File | null | undefined,
+      name: string,
+      description: string,
+      preview: File | null | undefined,
+      owner: string,
+      category: "По умолчанию",
+      isGlobal: boolean
     }) {
-        this.userService.loadUserData()
+      const formData = this.converterObjToFD.objectToFormData(videoForm);
 
-        const formData = this.converterObjToFD.objectToFormData(videoForm)
-        return this.http.post(this.allVideos, formData)
+      return this.http.post(this.allVideos, formData)
+    }
+
+    saveView(videoId: string) {
+      const current_date = new Date()
+
+      const post_data = {
+        'User_ID': this.userService.userData()?.User_ID,
+        'Video_ID': videoId,
+        'length': 0,
+        'date': current_date.getDate(),
+        'time': current_date.getTime(),
+        'time_zone': current_date.getTimezoneOffset()
+      }
+
+      return this.http.post(this.watchVideo, post_data)
     }
 
     // searchVideos(keyword: string) {
@@ -54,7 +69,7 @@ export class VideosService {
     //                 true
     //             )
     //             return throwError(err)
-    //         })   
+    //         })
     //     )
     // }
 }
