@@ -51,7 +51,7 @@
     max-height: none;
     border-radius: 0;
     background-color: vars.$color-black;
-    
+
     video {
       max-height: none;
       border-radius: 0;
@@ -69,7 +69,7 @@
       z-index: 9999;
     }
   }
-  
+
   .controls {
     width: 100%;
     display: flex;
@@ -78,12 +78,17 @@
 
     padding: vars.$size-12 0;
     padding-top: vars.$size-20;
-    
+
     position: absolute;
     bottom: 0;
     opacity: 0;
     transition: opacity 0.5s;
     border-radius: 0 0 vars.$radius-lg vars.$radius-lg;
+
+    @media (max-width: 768px) {
+      padding: 0;
+      height: vars.$size-20;
+    }
 
     .left {
       height: vars.$size-40;
@@ -91,18 +96,27 @@
       align-items: center;
       gap: vars.$size-20;
       margin-left: vars.$size-20;
+      position: relative;
+
+      @media (max-width: 768px) {
+        margin-left: vars.$size-4;
+      }
 
       .play-button {
         background-color: vars.$color-navigation-background;
         backdrop-filter: blur(10px);
         border-radius: vars.$radius-full;
-        
+
         padding: 0 vars.$size-24;
         width: vars.$size-40;
         height: vars.$size-40;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
 
         img {
           width: vars.$size-20;
@@ -115,10 +129,18 @@
         backdrop-filter: blur(10px);
         border-radius: vars.$radius-full;
         padding: 0 vars.$size-24;
-        
+
         display: flex;
         height: 100%;
         align-items: center;
+
+        @media (max-width: 768px) {
+          width: max-content;
+          position: absolute;
+          left: 0;
+          bottom: vars.$size-32;
+          padding: vars.$size-12;
+        }
 
         p {
           line-height: 1em;
@@ -135,12 +157,16 @@
       align-items: center;
       gap: vars.$size-20;
       margin-right: vars.$size-20;
-    
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+
       button {
         background-color: vars.$color-navigation-background;
         backdrop-filter: blur(10px);
         border-radius: vars.$radius-full;
-        
+
         padding: 0 vars.$size-24;
         width: vars.$size-40;
         height: vars.$size-40;
@@ -173,6 +199,10 @@
       align-items: center;
       gap: vars.$size-12;
 
+      @media (max-width: 768px) {
+        display: none;
+      }
+
       button {
         display: flex;
         justify-content: center;
@@ -192,8 +222,8 @@
         height: vars.$size-4;
         -webkit-appearance: none;
         appearance: none;
-        background: linear-gradient(to right, 
-          vars.$color-white var(--volume), 
+        background: linear-gradient(to right,
+          vars.$color-white var(--volume),
           vars.$color-black var(--volume));
         border-radius: 999px;
         outline: none;
@@ -271,7 +301,7 @@
       height: vars.$size-4;
       -webkit-appearance: none;
       appearance: none;
-      background: linear-gradient(to right, vars.$color-red var(--progress), 
+      background: linear-gradient(to right, vars.$color-red var(--progress),
         vars.$color-navigation-background var(--progress));
       border-radius: 999px;
       outline: none;
@@ -336,6 +366,6 @@
     .progress::-ms-fill-upper {
       background: var(--progress-track, vars.$color-gray);
       border-radius: vars.$radius-full;
-    }  
+    }
   }
 }

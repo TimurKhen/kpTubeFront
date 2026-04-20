@@ -13,7 +13,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   @ViewChild('volumeBar') volumeBarRef!: ElementRef<HTMLInputElement>
   @ViewChild('progressBar') progressBarRef!: ElementRef<HTMLInputElement>
   @ViewChild('controls') controlsRef!: ElementRef<HTMLDivElement>
-  @ViewChild('playerContainer') playerContainerRef!: ElementRef<HTMLDivElement> 
+  @ViewChild('playerContainer') playerContainerRef!: ElementRef<HTMLDivElement>
 
   video = input<string | undefined>()
   videoPoster = input<string | undefined>()
@@ -35,12 +35,12 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
     }
     else if (this.currentVolume() > 0) {
       return "volume/volume-min-icon.svg"
-    } 
+    }
     else {
       return "volume/volume-zero-icon.svg"
     }
   })
-  
+
   currentEffectTimeout: any
   controlsTimeout: any
   private videoPlayer!: HTMLVideoElement
@@ -48,7 +48,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   @HostListener('document:keydown', ['$event'])
   handleDeleteKeyboardEvent(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
-    const isInputFocused = 
+    const isInputFocused =
       target.tagName === 'INPUT' ||
       target.tagName === 'TEXTAREA' ||
       target.isContentEditable
@@ -65,12 +65,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
 
     switch (event.key) {
       case ' ':
-        const isPlay = this.playPauseVideo()
-        if (isPlay) {
-          this.animateEffect('play-icon.svg')
-        } else {
-          this.animateEffect('stop-icon.svg')
-        }
+        this.playPauseVideo()
         break
       case 'ArrowLeft':
         this.videoPlayer.currentTime = this.videoPlayer.currentTime - 5
@@ -127,7 +122,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
     })
 
     const container = this.playerContainerRef.nativeElement;
-    
+
     container.addEventListener('mousemove', () => this.showControls());
     container.addEventListener('mouseleave', () => this.hideControls());
 
@@ -152,10 +147,12 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
       if (this.videoPlayer.paused || this.videoPlayer.ended) {
         this.videoPlayer.play()
         this.isPlaying.set(true)
+        this.animateEffect('play-icon.svg')
         return true
       } else {
         this.videoPlayer.pause()
         this.isPlaying.set(false)
+        this.animateEffect('stop-icon.svg')
         return false
       }
     }
@@ -194,7 +191,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
     this.videoPlayer.volume = parseFloat(value)
     this.lastVolumeValue.set(this.currentVolume())
     this.currentVolume.set(parseFloat(value))
-    
+
     if (parseFloat(value) > 0) {
       this.videoPlayer.muted = false
     }
@@ -255,7 +252,7 @@ export class VideoPlayerComponent implements OnChanges, AfterViewInit {
   }
 
   async toggleSize() {
-    const container = document.querySelector('.player-container')    
+    const container = document.querySelector('.player-container')
     try {
       if (!document.fullscreenElement) {
         await container?.requestFullscreen()
