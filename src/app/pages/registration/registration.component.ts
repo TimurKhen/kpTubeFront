@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
-export class RegistrationComponent implements OnDestroy {
+export class RegistrationComponent implements OnInit, OnDestroy {
   private userService = inject(UserService)
   private loaderService = inject(LoaderService)
   private alertService = inject(AlertService)
@@ -35,6 +35,10 @@ export class RegistrationComponent implements OnDestroy {
 
   private registerSubscription?: Subscription
   private worker: Worker
+
+  ngOnInit() {
+    this.userService.logout(false)
+  }
 
   constructor() {
     this.worker = new Worker(new URL('../../services/workers/file-reader.worker.ts', import.meta.url))

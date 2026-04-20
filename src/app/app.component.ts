@@ -17,10 +17,10 @@ import { OnlineHandlerService } from './services/online-handler/online-handler.s
 
 export class AppComponent {
   constructor(
-    private alertService: AlertService, 
+    private alertService: AlertService,
     private loaderService: LoaderService,
     private acceptService: AcceptService,
-    private vcr: ViewContainerRef 
+    private vcr: ViewContainerRef
   ) {
     this.alertService.setContainer(this.vcr)
     this.loaderService.setContainer(this.vcr)

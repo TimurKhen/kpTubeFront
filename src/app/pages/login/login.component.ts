@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, inject, signal } from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service/user-service.service';
 import { AlertService } from '../../services/alert/alert.service';
@@ -11,7 +11,7 @@ import { catchError, throwError } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private userService = inject(UserService)
   private router = inject(Router)
   private alertService = inject(AlertService)
@@ -22,6 +22,10 @@ export class LoginComponent {
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   })
+
+  ngOnInit() {
+    this.userService.logout(false)
+  }
 
   enter($event: Event) {
     $event.preventDefault()
@@ -42,7 +46,7 @@ export class LoginComponent {
 
             return throwError(err)
           })
-        )  
+        )
         .subscribe((data) => {
           this.isLoading.set(false)
           this.alertService.show(

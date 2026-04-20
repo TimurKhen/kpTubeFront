@@ -69,7 +69,7 @@ export class UserService {
     )
   }
 
-  logout() {
+  logout(changePath: boolean=true) {
     this.userName.set('')
     this.token.set(null)
     this.refreshToken.set(null)
@@ -79,7 +79,9 @@ export class UserService {
 
     localStorage.removeItem('username')
 
-    this.router.navigate(['/registration'])
+    if (changePath) {
+      this.router.navigate(['/registration'])
+    }
   }
 
   saveTokens(tokens: tokensResponse) {
