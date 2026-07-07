@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
             '',
             false
           )
-          this.userService.loadUserData()
+          this.userService.loadUserData(true)
           this.router.navigate(['/'])
         })
     }

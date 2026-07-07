@@ -29,6 +29,7 @@ export class UserService {
   public userData = signal<ProfileInterface | null>(null)
   token = signal<string | null>(null)
   refreshToken = signal<string | null>(null)
+  isLoaded = signal<boolean>(false)
 
   get isAuth() {
     if (!this.token()) {
@@ -37,7 +38,11 @@ export class UserService {
     return !!this.token()
   }
 
-  loadUserData() {
+  loadUserData(forceReload: boolean = false) {
+    if (this.isLoaded() && !forceReload) {
+      return
+    }
+
     this.token.set(this.cookieService.get('token'))
     this.refreshToken.set(this.cookieService.get('refreshToken'))
 
@@ -45,7 +50,10 @@ export class UserService {
     if (currentUser !== '') {
       this.getUserByName(currentUser).subscribe(user => {
         this.userData.set(user[0])
+        this.isLoaded.set(true)
       })
+    } else {
+      this.isLoaded.set(true)
     }
   }
 
@@ -73,8 +81,11 @@ export class UserService {
     this.userName.set('')
     this.token.set(null)
     this.refreshToken.set(null)
+    this.cookieService.delete('token', '/')
+    this.cookieService.delete('refreshToken', '/')
     this.cookieService.deleteAll()
     this.userData.set(null)
+    this.isLoaded.set(false)
     this.clearCache()
 
     localStorage.removeItem('username')
@@ -87,12 +98,12 @@ export class UserService {
   saveTokens(tokens: tokensResponse) {
     if (tokens.access_token) {
       this.token.set(tokens.access_token)
-      this.cookieService.set('token', String(this.token()))
+      this.cookieService.set('token', String(this.token()), { secure: true, sameSite: 'Strict' })
     }
 
     if (tokens.refresh_token) {
       this.refreshToken.set(tokens.refresh_token)
-      this.cookieService.set('refreshToken', String(this.refreshToken()))
+      this.cookieService.set('refreshToken', String(this.refreshToken()), { secure: true, sameSite: 'Strict' })
     }
   }
 
