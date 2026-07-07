@@ -14,6 +14,18 @@ describe('AccountVideoComponent', () => {
 
     fixture = TestBed.createComponent(AccountVideoComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('content', {
+      id: 1,
+      name: 'test',
+      owner: 'test',
+      preview: 'test',
+      Video_ID: 'test',
+      views: 0,
+      creation_date: 'test',
+      accessType: 1
+    });
+
     fixture.detectChanges();
   });
 

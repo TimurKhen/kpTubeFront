@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 import { VideoViewComponent } from './video-view.component';
 
@@ -8,7 +10,8 @@ describe('VideoViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VideoViewComponent]
+      imports: [VideoViewComponent],
+      providers: [provideHttpClient(), provideRouter([])]
     })
     .compileComponents();
 
