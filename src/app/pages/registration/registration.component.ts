@@ -152,7 +152,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
               this.clearHeader()
 
               this.router.navigate(['/'])
-              this.userService.loadUserData()
+              this.userService.loadUserData(true)
               this.alertService.show(
                 'Подтвердите ваш аккаунт через почту.',
                 '',
