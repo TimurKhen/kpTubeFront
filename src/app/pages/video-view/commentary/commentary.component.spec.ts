@@ -14,6 +14,15 @@ describe('CommentaryComponent', () => {
 
     fixture = TestBed.createComponent(CommentaryComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('content', {
+      id: 1,
+      video: 'test',
+      author: 'test',
+      content: 'test content',
+      creation_date: '123'
+    });
+
     fixture.detectChanges();
   });
 
