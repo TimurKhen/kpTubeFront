@@ -48,27 +48,29 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   constructor() {
     this.worker = new Worker(new URL('../../services/workers/file-reader.worker.ts', import.meta.url))
-    this.worker.onmessage = (event) => {
-      const {blob, fileName, error} = event.data
-      if (error) {
-        console.error('Worker error:', error)
-        return
-      }
+    this.worker.onmessage = (event) => this.onWorkerMessage(event)
+  }
 
-      const currentAvatar = this.registerForm.avatar().value()
-      const currentHeader = this.registerForm.avatar().value()
+  onWorkerMessage(event: MessageEvent<any>) {
+    const {blob, fileName, target, error} = event.data
+    if (error) {
+      console.error('Worker error:', error)
+      return
+    }
 
-      if (currentAvatar && fileName === currentAvatar.name) {
-        if (this.avatarUrl()) {
-          URL.revokeObjectURL(this.avatarUrl())
-        }
-        this.avatarUrl.set(URL.createObjectURL(blob))
-      } else if (currentHeader && fileName === currentHeader.name) {
-        if (this.headerUrl()) {
-          URL.revokeObjectURL(this.headerUrl())
-        }
-        this.headerUrl.set(URL.createObjectURL(blob))
+    const currentAvatar = this.registerForm.avatar().value()
+    const currentHeader = this.registerForm.header().value()
+
+    if (currentAvatar && target === 'avatar') {
+      if (this.avatarUrl()) {
+        URL.revokeObjectURL(this.avatarUrl())
       }
+      this.avatarUrl.set(URL.createObjectURL(blob))
+    } else if (currentHeader && target === 'header') {
+      if (this.headerUrl()) {
+        URL.revokeObjectURL(this.headerUrl())
+      }
+      this.headerUrl.set(URL.createObjectURL(blob))
     }
   }
 
@@ -80,8 +82,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
       const file = input.files[0]
+      this.worker.postMessage({file: file, action: 'processFile', target: 'avatar'})
       this.registerForm.avatar().value.set(file)
-      this.worker.postMessage({file: file, action: 'processFile'})
     }
   }
 
@@ -89,8 +91,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
       const file = input.files[0]
+      this.worker.postMessage({file: file, action: 'processFile', target: 'header'})
       this.registerForm.header().value.set(file)
-      this.worker.postMessage({file: file, action: 'processFile'})
     }
   }
 
