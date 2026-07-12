@@ -1,77 +1,89 @@
-import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { LoaderService } from '../../services/loader/loader.service';
-import { UserService } from '../../services/user-service/user-service.service';
-import { AlertService } from '../../services/alert/alert.service';
-import { Router } from '@angular/router';
+import {Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {LoaderService} from '../../services/loader/loader.service';
+import {UserService} from '../../services/user-service/user-service.service';
+import {AlertService} from '../../services/alert/alert.service';
+import {Router} from '@angular/router';
+import {email, form, FormField, minLength, required} from "@angular/forms/signals";
+
+interface Register {
+  username: string;
+  password: string;
+  email: string;
+  avatar: File | null;
+  header: File | null;
+}
 
 @Component({
   selector: 'app-registration',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormField],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
+  avatarUrl = signal<string>('')
+  headerUrl = signal<string>('')
+  isRegistrationRequestNow = signal<boolean>(false)
+  @ViewChild('avatarInput') avatarInput!: ElementRef<HTMLInputElement>
+  @ViewChild('headerInput') headerInput!: ElementRef<HTMLInputElement>
   private userService = inject(UserService)
   private loaderService = inject(LoaderService)
   private alertService = inject(AlertService)
   private router = inject(Router)
-
-  registerForm = new FormGroup({
-    username: new FormControl<string>('', [Validators.required]),
-    password: new FormControl<string>('', [Validators.required, Validators.minLength(8)]),
-    email: new FormControl<string>('', [Validators.required, Validators.email]),
-    avatar: new FormControl<File | null>(null, Validators.required),
-    header: new FormControl<File | null>(null, Validators.required)
+  private registerData = signal<Register>({
+    username: '', password: '', email: '', avatar: null, header: null,
   })
-
-  avatarUrl = signal<string>('')
-  headerUrl = signal<string>('')
-  isRegistrationRequestNow = signal<boolean>(false)
-
-  @ViewChild('avatarInput') avatarInput!: ElementRef<HTMLInputElement>
-  @ViewChild('headerInput') headerInput!: ElementRef<HTMLInputElement>
-
+  registerForm = form(this.registerData, (schema) => {
+    required(schema.username)
+    required(schema.password, {message: 'Пароль обязателен'})
+    minLength(schema.password, 8, {message: 'Минимальная длина 8'})
+    required(schema.email, {message: 'Email обязателен'})
+    email(schema.email, {message: 'Введите корректный Email'})
+    required(schema.avatar)
+    required(schema.header)
+  })
   private registerSubscription?: Subscription
   private worker: Worker
 
-  ngOnInit() {
-    this.userService.logout(false)
-  }
-
   constructor() {
     this.worker = new Worker(new URL('../../services/workers/file-reader.worker.ts', import.meta.url))
-    this.worker.onmessage = (event) => {
-      const { blob, fileName, error } = event.data
-      if (error) {
-        console.error('Worker error:', error)
-        return
-      }
+    this.worker.onmessage = (event) => this.onWorkerMessage(event)
+  }
 
-      const currentAvatar = this.registerForm.get('avatar')?.value
-      const currentHeader = this.registerForm.get('header')?.value
-
-      if (currentAvatar && fileName === currentAvatar.name) {
-        if (this.avatarUrl()) {
-          URL.revokeObjectURL(this.avatarUrl())
-        }
-        this.avatarUrl.set(URL.createObjectURL(blob))
-      } else if (currentHeader && fileName === currentHeader.name) {
-        if (this.headerUrl()) {
-          URL.revokeObjectURL(this.headerUrl())
-        }
-        this.headerUrl.set(URL.createObjectURL(blob))
-      }
+  onWorkerMessage(event: MessageEvent<any>) {
+    const {blob, fileName, target, error} = event.data
+    if (error) {
+      console.error('Worker error:', error)
+      return
     }
+
+    const currentAvatar = this.registerForm.avatar().value()
+    const currentHeader = this.registerForm.header().value()
+
+    if (currentAvatar && target === 'avatar') {
+      if (this.avatarUrl()) {
+        URL.revokeObjectURL(this.avatarUrl())
+      }
+      this.avatarUrl.set(URL.createObjectURL(blob))
+    } else if (currentHeader && target === 'header') {
+      if (this.headerUrl()) {
+        URL.revokeObjectURL(this.headerUrl())
+      }
+      this.headerUrl.set(URL.createObjectURL(blob))
+    }
+  }
+
+  ngOnInit() {
+    this.userService.logout(false)
   }
 
   avatarCreate(event: Event) {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
       const file = input.files[0]
-      this.registerForm.patchValue({ avatar: file })
-      this.worker.postMessage({ file: file, action: 'processFile' })
+      this.worker.postMessage({file: file, action: 'processFile', target: 'avatar'})
+      this.registerForm.avatar().value.set(file)
     }
   }
 
@@ -79,8 +91,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     const input = event.target as HTMLInputElement
     if (input.files && input.files.length > 0) {
       const file = input.files[0]
-      this.registerForm.patchValue({ header: file })
-      this.worker.postMessage({ file: file, action: 'processFile' })
+      this.worker.postMessage({file: file, action: 'processFile', target: 'header'})
+      this.registerForm.header().value.set(file)
     }
   }
 
@@ -100,7 +112,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       URL.revokeObjectURL(this.avatarUrl())
     }
     this.avatarUrl.set('')
-    this.registerForm.patchValue({ avatar: null })
+    this.registerForm.avatar().value.set(null)
     if (this.avatarInput) {
       this.avatarInput.nativeElement.value = ''
     }
@@ -111,7 +123,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       URL.revokeObjectURL(this.headerUrl())
     }
     this.headerUrl.set('')
-    this.registerForm.patchValue({ header: null })
+    this.registerForm.header().value.set(null)
     if (this.headerInput) {
       this.headerInput.nativeElement.value = ''
     }
@@ -120,18 +132,18 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   async onRegister($event: Event) {
     $event.preventDefault()
 
-    if (this.registerForm.valid) {
+    if (this.registerForm) {
       this.isRegistrationRequestNow.set(true)
       await this.loaderService.show(signal<string>('Регистрация пользователя...'))
 
       const formData = new FormData()
       formData.append('User_ID', String(Number(new Date)))
-      formData.append('username', this.registerForm.get('username')?.value || '')
-      formData.append('password', this.registerForm.get('password')?.value || '')
-      formData.append('email', this.registerForm.get('email')?.value || '')
+      formData.append('username', this.registerData().username)
+      formData.append('password', this.registerData().password)
+      formData.append('email', this.registerData().email)
 
-      const avatar = this.registerForm.get('avatar')?.value
-      const header = this.registerForm.get('header')?.value
+      const avatar = this.registerData().avatar
+      const header = this.registerData().header
 
       if (avatar) {
         formData.append('avatar', avatar)
@@ -142,34 +154,23 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
       this.registerSubscription = this.userService.register(formData).subscribe({
         next: (response) => {
-          this.userService.send_email(this.registerForm.get('email')?.value || '').subscribe()
-          this.userService.enterUser(this.registerForm.get('username')?.value || '', this.registerForm.get('password')?.value || '').subscribe(
-            (val) => {
+          this.userService.send_email(this.registerData().email).subscribe()
+          this.userService.enterUser(this.registerData().username, this.registerData().password)
+            .subscribe((val) => {
               this.isRegistrationRequestNow.set(false)
               this.loaderService.hide()
-              this.registerForm.reset()
+              this.registerForm().reset()
               this.clearAvatar()
               this.clearHeader()
 
               this.router.navigate(['/'])
               this.userService.loadUserData(true)
-              this.alertService.show(
-                'Подтвердите ваш аккаунт через почту.',
-                '',
-                false
-              )
-            }
-          )
-
-        },
-        error: (error) => {
+              this.alertService.show('Подтвердите ваш аккаунт через почту.', '', false)
+            })
+        }, error: (error) => {
           this.loaderService.hide()
           this.isRegistrationRequestNow.set(false)
-          this.alertService.show(
-            'Ошибка при регстрации',
-            error.status,
-            true
-          )
+          this.alertService.show('Ошибка при регстрации', error.status, true)
         }
       })
     }

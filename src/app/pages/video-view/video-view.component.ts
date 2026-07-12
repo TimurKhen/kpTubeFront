@@ -1,12 +1,9 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {Component, computed, effect, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideoInterface } from '../../interfaces/video/video';
 import { VideosService } from '../../services/videos-service/videos-service.service';
 import { ShortNumberPipe } from "../../pipes/short-number/short-number.pipe";
 import { TimeAgoPipe } from "../../pipes/time-ago/time-ago-pipe.pipe";
-import { NgClass } from '@angular/common';
-import { CommentaryComponent } from "./commentary/commentary.component";
-import { ProfilePreview } from '../../interfaces/profile/preview';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PathConverterPipe } from "../../pipes/path-converter/path-converter.pipe";
 import { UserService } from '../../services/user-service/user-service.service';
@@ -17,7 +14,7 @@ import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-video-view',
-  imports: [ShortNumberPipe, TimeAgoPipe, NgClass, CommentaryComponent,
+  imports: [ShortNumberPipe, TimeAgoPipe,
     ReactiveFormsModule, VideoPlayerComponent, PathConverterPipe],
   templateUrl: './video-view.component.html',
   styleUrl: './video-view.component.scss',
@@ -31,13 +28,14 @@ export class VideoViewComponent implements OnInit, OnDestroy {
   videoInformation = signal<VideoInterface | undefined>(undefined)
   authorInformation = signal<ProfileInterface | undefined>(undefined)
   likedStatus = signal<'liked' | 'disliked' | null>(null)
-  isShowComments = signal<boolean>(true)
+  totalLikes = signal<number>(0)
   isSubscribed = signal<boolean>(false)
-  commentForm = new FormGroup({
-    comment: new FormControl('', [Validators.required, Validators.minLength(1)])
-  })
 
-  constructor(private routes: ActivatedRoute, private title: Title) {}
+  constructor(private routes: ActivatedRoute, private title: Title) {
+    effect(() => {
+      this.totalLikes.set(this.videoInformation()?.total_likes || 0)
+    });
+  }
 
   ngOnInit(): void {
     this.routes.paramMap.subscribe((data: any) => {
@@ -77,26 +75,16 @@ export class VideoViewComponent implements OnInit, OnDestroy {
     return new Date(+date)
   }
 
-  // clickLikeButton(newStatus: 'liked' | 'disliked') {
-  //   if (this.likedStatus() == newStatus) {
-  //     this.likedStatus.set(null)
-  //   } else {
-  //     this.likedStatus.set(newStatus)
-  //   }
-  // }
-  //
-  // changeCurrentCommentsStatus() {
-  //   this.isShowComments.update((val) => !val)
-  // }
-  //
-  // changeSubscribeStatus() {
-  //   this.isSubscribed.update((val) => !val)
-  // }
-  //
-  // publishCommentary() {
-  //   const values = this.commentForm.value
-  //   this.commentForm.reset()
-  // }
+  clickLikeButton(newStatus: 'liked' | 'disliked') {
+    if (this.likedStatus() == newStatus) {
+      this.likedStatus.set(null)
+      this.totalLikes.update((v) => v - 1)
+    } else {
+      this.likedStatus.set(newStatus)
+      this.totalLikes.update((v) => v + 1)
+    }
+  }
+
   shareVideo() {
     this.shareService.share()
   }

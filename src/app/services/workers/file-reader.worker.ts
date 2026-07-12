@@ -1,14 +1,14 @@
 /// <reference lib="webworker" />
 
 addEventListener('message', ( event ) => {
-  const { file, action } = event.data
-  
+  const { file, action, target } = event.data
+
   if (action === 'processVideo' || action === 'processFile') {
     const reader = new FileReaderSync()
     try {
       const arrayBuffer = reader.readAsArrayBuffer(file)
       const blob = new Blob([arrayBuffer], { type: file.type })
-      self.postMessage({ blob, fileName: file.name })
+      self.postMessage({ blob, fileName: file.name, target })
     } catch (error) {
       self.postMessage({ error })
     }

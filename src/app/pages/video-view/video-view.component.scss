@@ -115,7 +115,7 @@
                       align-items: center;
                       gap: vars.$size-20;
 
-                      .likes {
+                      .likes, .share {
                           display: flex;
                           align-items: center;
                           border-radius: vars.$radius-full;
