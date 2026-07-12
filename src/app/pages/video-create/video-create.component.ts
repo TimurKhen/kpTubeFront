@@ -35,8 +35,8 @@ export class VideoCreateComponent implements OnInit, OnDestroy {
   private router = inject(Router)
 
   videoForm = new FormGroup({
-    name: new FormControl<string>('', [Validators.required]),
-    description: new FormControl<string>(''),
+    name: new FormControl<string>('', Validators.required),
+    description: new FormControl<string>('', Validators.required),
     visibility: new FormControl<number>(0, Validators.required)
   })
 
