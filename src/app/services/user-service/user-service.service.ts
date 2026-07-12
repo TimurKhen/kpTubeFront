@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { masterURL } from '../masterURL';
 import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router';
+import {environment} from "../../../../environments/environment";
 
 interface tokensResponse {
   access_token: string,
@@ -96,14 +97,19 @@ export class UserService {
   }
 
   saveTokens(tokens: tokensResponse) {
+    const cookieOptions = {
+      secure: environment.secureCookies,
+      sameSite: 'Strict' as const
+    }
+
     if (tokens.access_token) {
       this.token.set(tokens.access_token)
-      this.cookieService.set('token', String(this.token()), { secure: true, sameSite: 'Strict' })
+      this.cookieService.set('token', String(this.token()), cookieOptions)
     }
 
     if (tokens.refresh_token) {
       this.refreshToken.set(tokens.refresh_token)
-      this.cookieService.set('refreshToken', String(this.refreshToken()), { secure: true, sameSite: 'Strict' })
+      this.cookieService.set('refreshToken', String(this.refreshToken()), cookieOptions)
     }
   }
 
