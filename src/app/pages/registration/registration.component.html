@@ -2,7 +2,7 @@
     <div class="main">
         <h2>Создайте аккаунт KPTube</h2>
 
-        <form [formGroup]="registerForm" autocomplete="off">
+        <form novalidate autocomplete="off">
             <div class="avatar-part">
                 @if (avatarUrl()) {
                     <div class="have-avatar">
@@ -40,8 +40,8 @@
 
             <div class="name-part">
                 <label for="username">Имя пользователя:</label>
-                <input type="text" id="username" formControlName="username">
-                @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+                <input type="text" id="username" [formField]="registerForm.username">
+                @if (registerForm.username()?.invalid && registerForm.username()?.touched) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
                         Обязательно для заполнения
                     </div>
@@ -50,32 +50,26 @@
 
             <div class="pass-part">
                 <label for="password">Пароль:</label>
-                <input id="password" formControlName="password">
+                <input id="password" [formField]="registerForm.password">
 
-                @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                @if (registerForm.password()?.invalid() && registerForm.password()?.touched()) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
-                        @if (registerForm.get('password')?.errors?.['required']) {
-                            <div>Пароль обязателен</div>
-                        }
-                        @if (registerForm.get('password')?.errors?.['minlength']) {
-                            <div>Пароль должен быть минимум 8 символов</div>
-                        }
+                      @for (error of registerForm.password().errors(); track error.kind) {
+                        <span class="error-message">{{ error.message }}</span>
+                      }
                     </div>
                 }
             </div>
 
             <div class="email-part">
                 <label for="email">Почта:</label>
-                <input type="email" id="email" formControlName="email">
+                <input type="email" id="email" [formField]="registerForm.email">
 
-                @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                @if (registerForm.email()?.invalid() && registerForm.email()?.touched()) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
-                        @if (registerForm.get('email')?.errors?.['required']) {
-                            <div>Email обязателен</div>
-                        }
-                        @if (registerForm.get('email')?.errors?.['email']) {
-                            <div>Введите корректный email</div>
-                        }
+                      @for (error of registerForm.email().errors(); track error.kind) {
+                        <span class="error-message">{{ error.message }}</span>
+                      }
                     </div>
                 }
             </div>
@@ -83,7 +77,7 @@
 
         <div class="buttons">
             <button (click)="onRegister($event)"
-                [disabled]="isRegistrationRequestNow() || !registerForm.valid"
+                [disabled]="isRegistrationRequestNow() || registerForm().invalid()"
                 class="submit-button"
             >
                 <h3>{{ isRegistrationRequestNow() ? 'Регистрация...' : 'Отправить' }}</h3>

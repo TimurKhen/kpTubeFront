@@ -11,7 +11,7 @@ import { SideBarHandlerService } from '../../services/side-bar-handler/side-bar-
   styleUrl: './side-bar.component.scss',
 })
 export class SideBarComponent {
-  sideBarService = inject(SideBarHandlerService)
+  private sideBarService = inject(SideBarHandlerService)
   isOpen = this.sideBarService.isSideBarOpen
   buttons = [
     {

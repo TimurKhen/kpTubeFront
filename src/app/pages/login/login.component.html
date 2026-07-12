@@ -1,11 +1,11 @@
 <div class="container">
     <div class="main">
         <h2>Войдите в аккаунт KPTube</h2>
-        <form [formGroup]="loginForm">
+        <form novalidate>
             <div class="name-part">
                 <label for="username">Имя:</label>
-                <input type="text" id="username" formControlName="username">
-                @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+                <input type="text" id="username" [formField]="loginForm.username">
+                @if (loginForm.username()?.invalid() && loginForm.username()?.touched()) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
                         Обязательно для заполнения
                     </div>
@@ -13,13 +13,11 @@
             </div>
             <div class="pass-part">
                 <label for="password">Пароль:</label>
-                <input id="password" formControlName="password" type="password">
+                <input id="password" [formField]="loginForm.password" type="password">
 
-                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                @if (loginForm.password()?.invalid() && loginForm.password()?.touched()) {
                     <div class="error" animate.enter="enter" animate.leave="leave">
-                        @if (loginForm.get('password')?.errors?.['required']) {
-                            <div>Пароль обязателен</div>
-                        }
+                      Пароль обязателен
                     </div>
                 }
             </div>
@@ -28,7 +26,7 @@
             <button
                 (click)="enter($event)"
                 class="login-button"
-                [disabled]="isLoading() || !loginForm.valid"
+                [disabled]="isLoading() || loginForm().invalid()"
             >
                 <h3>{{ isLoading() ? 'Загрузка' : 'Войти' }}</h3>
             </button>
