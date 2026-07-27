@@ -8,7 +8,7 @@
   <div display="inline-flex" align-items="center">
     
   <img src="https://houseofangular.io/wp-content/uploads/2023/11/AngularLogoGradient.png" width=40 height=40>
-  <p>KPTube was generated with Angular version 22</p>
+  <p>KPTube was created with Angular version 22</p>
   
   </div>
 
