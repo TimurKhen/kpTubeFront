@@ -24,16 +24,16 @@ Client-side video hosting platform built with **Angular**, **SCSS**, and **RxJS*
 
 1. Clone the repository:
 
-git clone https://github.com/TimurKhen/kpTubeFront.git
+`git clone https://github.com/TimurKhen/kpTubeFront.git`
 
 cd kpTubeFront
 
 2. Install dependencies:
 
-npm install
+`npm install`
 
 3. Run the development server:
 
-ng serve
+`ng serve`
 
 Navigate to `http://localhost:4200/`.
